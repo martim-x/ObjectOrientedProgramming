@@ -1,14 +1,50 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\Tim\\Documents\\ObjectOrientedProgramming\\term2\\Lab2\\",
+  "WorkspaceRootPath": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|C:\\Users\\Tim\\Documents\\ObjectOrientedProgramming\\term2\\Lab2\\lab2\\ui\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab2\\lab2\\tests\\lab_orders.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|solutionrelative:lab2\\tests\\lab_orders.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab2\\lab2\\services\\jsonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|solutionrelative:lab2\\services\\jsonservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab2\\lab2\\ui\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|solutionrelative:lab2\\ui\\mainform.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab2\\lab2\\ui\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|solutionrelative:lab2\\ui\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\lab2\\ui\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|solutionrelative:lab2\\ui\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|c:\\users\\tim\\documents\\objectorientedprogramming\\term2\\lab2\\lab2\\ui\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|solutionrelative:lab2\\ui\\mainform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab2\\lab2\\models\\computer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|solutionrelative:lab2\\models\\computer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab2\\lab2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|solutionrelative:lab2\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab2\\lab2\\models\\processor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|solutionrelative:lab2\\models\\processor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab2\\lab2\\services\\pricecalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|solutionrelative:lab2\\services\\pricecalculator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab2\\lab2\\services\\filemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|solutionrelative:lab2\\services\\filemanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab2\\lab2\\models\\gpu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F319D487-73D8-7112-8F5F-41EC036A539B}|Lab2\\Lab2.csproj|solutionrelative:lab2\\models\\gpu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -21,33 +57,143 @@
           "SelectedChildIndex": 2,
           "Children": [
             {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{aa2115a1-9712-457b-9047-dbb71ca2cdd2}"
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Computer.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Models\\Computer.cs",
+              "RelativeDocumentMoniker": "Lab2\\Models\\Computer.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Models\\Computer.cs",
+              "RelativeToolTip": "Lab2\\Models\\Computer.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADQAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-22T14:26:32.285Z",
+              "IsPinned": true,
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "MainForm.cs",
-              "DocumentMoniker": "C:\\Users\\Tim\\Documents\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\UI\\MainForm.cs",
-              "RelativeDocumentMoniker": "Lab2\\UI\\MainForm.cs",
-              "ToolTip": "C:\\Users\\Tim\\Documents\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\UI\\MainForm.cs",
-              "RelativeToolTip": "Lab2\\UI\\MainForm.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAAAAAAAAAAAA==",
+              "Title": "JsonService.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Services\\JsonService.cs",
+              "RelativeDocumentMoniker": "Lab2\\Services\\JsonService.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Services\\JsonService.cs",
+              "RelativeToolTip": "Lab2\\Services\\JsonService.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAwCAAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T14:38:10.27Z",
+              "WhenOpened": "2026-02-22T14:29:45.212Z",
+              "IsPinned": true,
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "lab_orders.json",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\tests\\lab_orders.json",
+              "RelativeDocumentMoniker": "Lab2\\tests\\lab_orders.json",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\tests\\lab_orders.json",
+              "RelativeToolTip": "Lab2\\tests\\lab_orders.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-02-25T07:43:49.736Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Processor.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Models\\Processor.cs",
+              "RelativeDocumentMoniker": "Lab2\\Models\\Processor.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Models\\Processor.cs",
+              "RelativeToolTip": "Lab2\\Models\\Processor.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBYAAAAgAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-22T14:25:57.379Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "PriceCalculator.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Services\\PriceCalculator.cs",
+              "RelativeDocumentMoniker": "Lab2\\Services\\PriceCalculator.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Services\\PriceCalculator.cs",
+              "RelativeToolTip": "Lab2\\Services\\PriceCalculator.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwAsAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-22T14:26:50.372Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FileManager.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Services\\FileManager.cs",
+              "RelativeDocumentMoniker": "Lab2\\Services\\FileManager.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Services\\FileManager.cs",
+              "RelativeToolTip": "Lab2\\Services\\FileManager.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAjAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-22T14:27:05.043Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "MainForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
-              "DocumentMoniker": "C:\\Users\\Tim\\Documents\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\UI\\MainForm.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\UI\\MainForm.cs",
               "RelativeDocumentMoniker": "Lab2\\UI\\MainForm.cs",
-              "ToolTip": "C:\\Users\\Tim\\Documents\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\UI\\MainForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\UI\\MainForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "RelativeToolTip": "Lab2\\UI\\MainForm.cs [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-18T14:24:57.786Z",
+              "WhenOpened": "2026-02-22T14:38:12.047Z",
               "EditorCaption": " [\u041A\u043E\u043D\u0441\u0442\u0440\u0443\u043A\u0442\u043E\u0440]"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Program.cs",
+              "RelativeDocumentMoniker": "Lab2\\Program.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Program.cs",
+              "RelativeToolTip": "Lab2\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAqwBAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-22T13:54:28.551Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "MainForm.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\UI\\MainForm.cs",
+              "RelativeDocumentMoniker": "Lab2\\UI\\MainForm.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\UI\\MainForm.cs",
+              "RelativeToolTip": "Lab2\\UI\\MainForm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-22T16:53:59.055Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "MainForm.Designer.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\UI\\MainForm.Designer.cs",
+              "RelativeDocumentMoniker": "Lab2\\UI\\MainForm.Designer.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\UI\\MainForm.Designer.cs",
+              "RelativeToolTip": "Lab2\\UI\\MainForm.Designer.cs",
+              "ViewState": "AgIAANEBAAAAAAAAAAAowOcBAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-22T14:10:19.203Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "GPU.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Models\\GPU.cs",
+              "RelativeDocumentMoniker": "Lab2\\Models\\GPU.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab2\\Lab2\\Models\\GPU.cs",
+              "RelativeToolTip": "Lab2\\Models\\GPU.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-22T14:25:35.266Z"
             }
           ]
         }
