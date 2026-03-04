@@ -1,156 +1,152 @@
-﻿using System;
+using System;
 using System.Drawing;
 using System.Windows.Forms;
 
 namespace Lab2
 {
-    /// <summary>
-    /// Окно с подробной разбивкой формирования цены.
-    /// Получает готовый частичный объект Computer и разбивает его цену по компонентам.
-    /// </summary>
     public class PriceDetailsForm : Form
     {
         public PriceDetailsForm(Computer c)
         {
-            Text = "Из чего складывается цена";
-            ClientSize = new Size(480, 420);
+            Text            = "Разбивка стоимости";
+            ClientSize      = new Size(520, 380);
             FormBorderStyle = FormBorderStyle.FixedDialog;
-            MaximizeBox = false;
-            StartPosition = FormStartPosition.CenterParent;
-            BackColor = Color.FromArgb(245, 248, 255);
+            MaximizeBox     = false;
+            MinimizeBox     = false;
+            StartPosition   = FormStartPosition.CenterParent;
+            BackColor       = Color.FromArgb(245, 248, 255);
+            Font            = new Font("Segoe UI", 10F);
 
-            // ── Вычисляем вклад каждого компонента ────────────────
-            // Все расчёты идут до финального ÷3, чтобы показать "сырые" части
-            decimal cpuRaw = c.CPU != null ? c.CPU.Price() / 10m : 0m;
-            decimal gpuRaw = c.VideoCard != null ? c.VideoCard.Price() : 0m;
-
-            decimal ramTypeMult = c.RAMtype switch
+            // ── Заголовок ──────────────────────────────────────
+            var lblTitle = new Label
             {
-                "DDR3" => 1.1m,
-                "DDR4" => 1.7m,
-                "DDR5" => 2.8m,
-                _ => 1m
+                Text      = $"Конфигурация: {(string.IsNullOrEmpty(c.Type) ? "не указан тип" : c.Type)}",
+                Font      = new Font("Segoe UI Semibold", 12F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(30, 80, 180),
+                Location  = new Point(16, 14),
+                Size      = new Size(488, 26),
+                AutoSize  = false
             };
-            decimal ramRaw = c.RAMsizeGB * ramTypeMult * 10m;
-            decimal hddRaw = c.HDDtype == "SSD" ? c.HDDsizeGB * 6m : c.HDDsizeGB * 1m;
-            decimal periphRaw = (c.HasMonitor ? 9_000m : 0m)
-                              + (c.HasKeyboard ? 1_500m : 0m)
-                              + (c.HasMouse ? 1_000m : 0m);
 
-            decimal subtotal = cpuRaw + gpuRaw + ramRaw + hddRaw + periphRaw;
+            // ── Таблица компонентов ────────────────────────────
+            var lv = new ListView
+            {
+                Location              = new Point(16, 48),
+                Size                  = new Size(488, 228),
+                View                  = View.Details,
+                FullRowSelect         = true,
+                GridLines             = true,
+                HeaderStyle           = ColumnHeaderStyle.Nonclickable,
+                UseCompatibleStateImageBehavior = false,
+                Font                  = new Font("Segoe UI", 10F),
+                BorderStyle           = BorderStyle.FixedSingle
+            };
+            lv.Columns.Add("Компонент", 160);
+            lv.Columns.Add("Описание",  200);
+            lv.Columns.Add("Стоимость", 118);
 
             decimal typeMult = c.Type switch
             {
                 "Рабочая станция" => 1.3m,
-                "Сервер" => 1.6m,
-                "Ноутбук" => 1.4m,
-                "Моноблок" => 1.2m,
-                "Мини-ПК" => 1.1m,
-                _ => 1.0m
+                "Сервер"          => 1.6m,
+                "Ноутбук"         => 1.4m,
+                "Моноблок"        => 1.2m,
+                "Мини-ПК"         => 1.1m,
+                _                 => 1.0m
             };
 
-            decimal afterMult = subtotal * typeMult;
-            decimal total = Math.Round(afterMult / 3m, 2);
+            decimal cpuRaw  = c.CPU?.MaxFrequency > 0 ? c.CPU.Price() : 0m;
+            decimal gpuRaw  = c.VideoCard?.BasePrice > 0 ? c.VideoCard.Price() : 0m;
+            decimal ramPerGB = (c.RAMtype ?? "") switch { "DDR3" => 50m, "DDR4" => 80m, "DDR5" => 140m, _ => 60m };
+            decimal ramRaw  = c.RAMsizeGB > 0 ? c.RAMsizeGB * ramPerGB : 0m;
+            decimal hddRaw  = c.HDDsizeGB > 0
+                              ? (c.HDDtype == "SSD" ? c.HDDsizeGB * 8m : c.HDDsizeGB * 2m)
+                              : 0m;
+            decimal mon     = c.HasMonitor  ?  9_000m : 0m;
+            decimal kb      = c.HasKeyboard ?  1_500m : 0m;
+            decimal mouse   = c.HasMouse    ?  1_000m : 0m;
 
-            // ── UI ────────────────────────────────────────────────
-            var titleLabel = new Label
+            void AddRow(string component, string desc, decimal raw, Color? bg = null)
             {
-                Text = "Разбивка цены компьютера",
-                Font = new Font("Segoe UI Semibold", 13F),
-                Location = new Point(16, 12),
-                AutoSize = true
-            };
-
-            // ListView с тремя колонками: компонент / базовая стоимость / после коэфф.
-            var lv = new ListView
-            {
-                Location = new Point(16, 44),
-                Size = new Size(448, 280),
-                View = View.Details,
-                FullRowSelect = true,
-                GridLines = true,
-                HeaderStyle = ColumnHeaderStyle.Nonclickable,
-                Font = new Font("Segoe UI", 10F)
-            };
-            lv.Columns.Add("Компонент", 180);
-            lv.Columns.Add("До коэф.", 110);
-            lv.Columns.Add($"×{typeMult:F1} ÷ 3", 120);
-
-            void AddRow(string name, decimal raw, Color? color = null)
-            {
-                decimal final = Math.Round(raw * typeMult / 3m, 2);
-                var item = new ListViewItem(name);
-                item.SubItems.Add(raw > 0 ? $"{raw:N0} ₽" : "—");
-                item.SubItems.Add(raw > 0 ? $"{final:N0} ₽" : "—");
-                if (color.HasValue) item.ForeColor = color.Value;
+                if (raw <= 0) return;
+                var item = new ListViewItem(component);
+                item.SubItems.Add(desc);
+                item.SubItems.Add($"{raw * typeMult:N0} ₽");
+                if (bg.HasValue) item.BackColor = bg.Value;
                 lv.Items.Add(item);
             }
 
-            string cpuName = c.CPU?.Model is { Length: > 0 } m ? $"CPU  {m}" : "CPU  (не выбран)";
-            string gpuName = c.VideoCard?.Model is { Length: > 0 } gm ? $"GPU  {gm}" : "GPU  (не выбрана)";
-            string ramName = c.RAMsizeGB > 0 ? $"ОЗУ  {c.RAMsizeGB} ГБ {c.RAMtype}" : "ОЗУ  (не выбрана)";
-            string hddName = c.HDDsizeGB > 0 ? $"Диск  {c.HDDsizeGB} ГБ {c.HDDtype}" : "Диск  (не задан)";
+            Color rowA = Color.White;
+            Color rowB = Color.FromArgb(235, 242, 255);
 
-            AddRow(cpuName, cpuRaw, cpuRaw > 0 ? Color.FromArgb(0, 100, 180) : Color.Gray);
-            AddRow(gpuName, gpuRaw, gpuRaw > 0 ? Color.FromArgb(0, 130, 80) : Color.Gray);
-            AddRow(ramName, ramRaw, ramRaw > 0 ? Color.FromArgb(150, 60, 180) : Color.Gray);
-            AddRow(hddName, hddRaw, hddRaw > 0 ? Color.FromArgb(180, 100, 0) : Color.Gray);
+            if (cpuRaw > 0) AddRow("🖥  Процессор",
+                $"{c.CPU.Manufacturer} {c.CPU.Model}", cpuRaw,
+                lv.Items.Count % 2 == 0 ? rowA : rowB);
 
-            // Периферия — только если есть хоть что-то
-            if (periphRaw > 0)
+            if (gpuRaw > 0) AddRow("🎮  Видеокарта",
+                $"{c.VideoCard.Model} {c.VideoCard.MemoryGB}GB", gpuRaw,
+                lv.Items.Count % 2 == 0 ? rowA : rowB);
+
+            if (ramRaw > 0) AddRow("💾  Оперативная память",
+                $"{c.RAMsizeGB} ГБ {c.RAMtype}", ramRaw,
+                lv.Items.Count % 2 == 0 ? rowA : rowB);
+
+            if (hddRaw > 0) AddRow("💿  Накопитель",
+                $"{c.HDDsizeGB} ГБ {c.HDDtype}", hddRaw,
+                lv.Items.Count % 2 == 0 ? rowA : rowB);
+
+            if (mon > 0)   AddRow("🖥  Монитор",    "+9 000₽", mon,   lv.Items.Count % 2 == 0 ? rowA : rowB);
+            if (kb > 0)    AddRow("⌨  Клавиатура", "+1 500₽", kb,    lv.Items.Count % 2 == 0 ? rowA : rowB);
+            if (mouse > 0) AddRow("🖱  Мышь",       "+1 000₽", mouse, lv.Items.Count % 2 == 0 ? rowA : rowB);
+
+            // ── Разделитель ────────────────────────────────────
+            var sep = new Label
             {
-                string periphDesc = string.Join(" + ",
-                    c.HasMonitor ? new[] { "Монитор" } : Array.Empty<string>());
-                // строим список включённой периферии
-                var parts = new System.Collections.Generic.List<string>();
-                if (c.HasMonitor) parts.Add("Монитор");
-                if (c.HasKeyboard) parts.Add("Клавиатура");
-                if (c.HasMouse) parts.Add("Мышь");
-                AddRow($"Периферия  ({string.Join(", ", parts)})", periphRaw, Color.FromArgb(160, 40, 40));
-            }
-
-            // Разделитель
-            var sepItem = new ListViewItem("─────────────────");
-            sepItem.SubItems.Add(""); sepItem.SubItems.Add("");
-            sepItem.ForeColor = Color.LightGray;
-            lv.Items.Add(sepItem);
-
-            // Итоговая строка
-            var totalItem = new ListViewItem("Итого");
-            totalItem.SubItems.Add($"{subtotal:N0} ₽");
-            totalItem.SubItems.Add($"{total:N0} ₽");
-            totalItem.Font = new Font("Segoe UI Semibold", 10F);
-            totalItem.ForeColor = Color.DarkGreen;
-            lv.Items.Add(totalItem);
-
-            // ── Пояснение формулы ─────────────────────────────────
-            string typeNote = typeMult != 1.0m
-                ? $"Тип «{c.Type}» даёт коэффициент ×{typeMult:F1}. "
-                : "";
-
-            var lblFormula = new Label
-            {
-                Text = $"{typeNote}Финальная цена = (сумма компонентов × {typeMult:F1}) ÷ 3",
-                Font = new Font("Segoe UI", 9F),
-                ForeColor = Color.FromArgb(80, 80, 80),
-                Location = new Point(16, 332),
-                Size = new Size(448, 36),
-                AutoEllipsis = false
+                Location  = new Point(16, 284),
+                Size      = new Size(488, 1),
+                BackColor = Color.FromArgb(180, 180, 200),
+                BorderStyle = BorderStyle.None
             };
 
+            // ── Строка коэффициента ────────────────────────────
+            var lblMult = new Label
+            {
+                Text      = typeMult != 1.0m
+                            ? $"Коэффициент «{c.Type}»: × {typeMult:F1}"
+                            : "",
+                Font      = new Font("Segoe UI", 9.5F),
+                ForeColor = Color.FromArgb(80, 80, 120),
+                Location  = new Point(16, 292),
+                Size      = new Size(300, 20)
+            };
+
+            // ── Итого ──────────────────────────────────────────
+            var lblTotal = new Label
+            {
+                Text      = $"ИТОГО:  {c.Price():N0} ₽",
+                Font      = new Font("Segoe UI Semibold", 13F, FontStyle.Bold),
+                ForeColor = Color.FromArgb(20, 140, 60),
+                Location  = new Point(16, 316),
+                Size      = new Size(488, 26),
+                TextAlign = ContentAlignment.MiddleRight
+            };
+
+            // ── Кнопка закрыть ─────────────────────────────────
             var btnClose = new Button
             {
-                Text = "Закрыть",
-                Font = new Font("Segoe UI", 10F),
-                Location = new Point(360, 376),
-                Size = new Size(104, 30),
-                FlatStyle = FlatStyle.Flat,
-                BackColor = Color.FromArgb(0, 120, 215),
-                ForeColor = Color.White,
-                DialogResult = DialogResult.OK
+                Text        = "Закрыть",
+                DialogResult = DialogResult.OK,
+                Location    = new Point(406, 346),
+                Size        = new Size(98, 28),
+                FlatStyle   = FlatStyle.Flat,
+                BackColor   = Color.FromArgb(0, 120, 215),
+                ForeColor   = Color.White,
+                Font        = new Font("Segoe UI", 10F)
             };
 
-            Controls.AddRange(new Control[] { titleLabel, lv, lblFormula, btnClose });
+            Controls.AddRange(new System.Windows.Forms.Control[]
+                { lblTitle, lv, sep, lblMult, lblTotal, btnClose });
+
             AcceptButton = btnClose;
         }
     }

@@ -20,12 +20,6 @@ namespace Lab2
         {
             components = new System.ComponentModel.Container();
             menuStrip1 = new MenuStrip();
-            miFile = new ToolStripMenuItem();
-            miSearch = new ToolStripMenuItem();
-            miSort = new ToolStripMenuItem();
-            miEdit = new ToolStripMenuItem();
-            miView = new ToolStripMenuItem();
-            miHelp = new ToolStripMenuItem();
             toolStrip1 = new ToolStrip();
             statusStrip1 = new StatusStrip();
             tsslCount = new ToolStripStatusLabel();
@@ -61,19 +55,18 @@ namespace Lab2
             gbCost = new GroupBox();
             pbCost = new ProgressBar();
             lblCostValue = new Label();
-            btnAddOrder = new Button();
-            btnLoad = new Button();
-            btnSave = new Button();
             lblBreakdown = new Label();
             btnPriceDetails = new Button();
             TabCtrl = new TabControl();
             CatalogTab = new TabPage();
+            btnLoad = new Button();
+            btnAddOrder = new Button();
+            btnSave = new Button();
             OrderTab = new TabPage();
             lblOrders = new Label();
             lvOrders = new ListView();
             btnDelete = new Button();
             errorProvider = new ErrorProvider(components);
-            menuStrip1.SuspendLayout();
             statusStrip1.SuspendLayout();
             gbMain.SuspendLayout();
             gbGPU.SuspendLayout();
@@ -87,61 +80,24 @@ namespace Lab2
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { miFile, miSearch, miSort, miEdit, miView, miHelp });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(907, 24);
+            menuStrip1.Size = new Size(933, 24);
             menuStrip1.TabIndex = 3;
-            // 
-            // miFile
-            // 
-            miFile.Name = "miFile";
-            miFile.Size = new Size(63, 20);
-            miFile.Text = "📁 Файл";
-            // 
-            // miSearch
-            // 
-            miSearch.Name = "miSearch";
-            miSearch.Size = new Size(69, 20);
-            miSearch.Text = "🔍 Поиск";
-            // 
-            // miSort
-            // 
-            miSort.Name = "miSort";
-            miSort.Size = new Size(100, 20);
-            miSort.Text = "📊 Сортировка";
-            // 
-            // miEdit
-            // 
-            miEdit.Name = "miEdit";
-            miEdit.Size = new Size(74, 20);
-            miEdit.Text = "✏️ Правка";
-            // 
-            // miView
-            // 
-            miView.Name = "miView";
-            miView.Size = new Size(54, 20);
-            miView.Text = "👁 Вид";
-            // 
-            // miHelp
-            // 
-            miHelp.Name = "miHelp";
-            miHelp.Size = new Size(80, 20);
-            miHelp.Text = "❓ Справка";
             // 
             // toolStrip1
             // 
             toolStrip1.Location = new Point(0, 24);
             toolStrip1.Name = "toolStrip1";
-            toolStrip1.Size = new Size(907, 25);
+            toolStrip1.Size = new Size(933, 25);
             toolStrip1.TabIndex = 2;
             // 
             // statusStrip1
             // 
             statusStrip1.Items.AddRange(new ToolStripItem[] { tsslCount, tsslAction, tsslDateTime });
-            statusStrip1.Location = new Point(0, 915);
+            statusStrip1.Location = new Point(0, 874);
             statusStrip1.Name = "statusStrip1";
-            statusStrip1.Size = new Size(907, 22);
+            statusStrip1.Size = new Size(933, 22);
             statusStrip1.TabIndex = 1;
             // 
             // tsslCount
@@ -491,7 +447,7 @@ namespace Lab2
             gbCost.Font = new Font("Segoe UI Semibold", 14.25F, FontStyle.Bold);
             gbCost.Location = new Point(5, 645);
             gbCost.Name = "gbCost";
-            gbCost.Size = new Size(885, 175);
+            gbCost.Size = new Size(885, 135);
             gbCost.TabIndex = 1;
             gbCost.TabStop = false;
             gbCost.Text = "Расчёт стоимости";
@@ -510,59 +466,17 @@ namespace Lab2
             lblCostValue.ForeColor = Color.DarkGreen;
             lblCostValue.Location = new Point(492, 28);
             lblCostValue.Name = "lblCostValue";
-            lblCostValue.Size = new Size(200, 22);
+            lblCostValue.Size = new Size(162, 22);
             lblCostValue.TabIndex = 1;
             lblCostValue.Text = "0 ₽";
-            // 
-            // btnAddOrder
-            // 
-            btnAddOrder.BackColor = Color.FromArgb(0, 120, 215);
-            btnAddOrder.FlatStyle = FlatStyle.Flat;
-            btnAddOrder.Font = new Font("Segoe UI Semibold", 14F);
-            btnAddOrder.ForeColor = Color.White;
-            btnAddOrder.Location = new Point(365, 112);
-            btnAddOrder.Name = "btnAddOrder";
-            btnAddOrder.Size = new Size(192, 36);
-            btnAddOrder.TabIndex = 3;
-            btnAddOrder.Text = "✅ Добавить заказ";
-            btnAddOrder.UseVisualStyleBackColor = false;
-            btnAddOrder.Click += BtnAddOrder_Click;
-            // 
-            // btnLoad
-            // 
-            btnLoad.BackColor = Color.FromArgb(150, 80, 200);
-            btnLoad.FlatStyle = FlatStyle.Flat;
-            btnLoad.Font = new Font("Segoe UI Semibold", 14F);
-            btnLoad.ForeColor = Color.White;
-            btnLoad.Location = new Point(707, 112);
-            btnLoad.Name = "btnLoad";
-            btnLoad.Size = new Size(140, 36);
-            btnLoad.TabIndex = 2;
-            btnLoad.Text = "📂 Загрузить";
-            btnLoad.UseVisualStyleBackColor = false;
-            btnLoad.Click += BtnLoad_Click;
-            // 
-            // btnSave
-            // 
-            btnSave.BackColor = Color.FromArgb(30, 160, 100);
-            btnSave.FlatStyle = FlatStyle.Flat;
-            btnSave.Font = new Font("Segoe UI Semibold", 14F);
-            btnSave.ForeColor = Color.White;
-            btnSave.Location = new Point(10, 112);
-            btnSave.Name = "btnSave";
-            btnSave.Size = new Size(167, 36);
-            btnSave.TabIndex = 6;
-            btnSave.Text = "💾 Сохранить";
-            btnSave.UseVisualStyleBackColor = false;
-            btnSave.Click += BtnSave_Click;
             // 
             // lblBreakdown
             // 
             lblBreakdown.Font = new Font("Segoe UI", 9F);
             lblBreakdown.ForeColor = Color.FromArgb(60, 60, 60);
-            lblBreakdown.Location = new Point(10, 65);
+            lblBreakdown.Location = new Point(10, 58);
             lblBreakdown.Name = "lblBreakdown";
-            lblBreakdown.Size = new Size(468, 44);
+            lblBreakdown.Size = new Size(468, 26);
             lblBreakdown.TabIndex = 2;
             lblBreakdown.Text = "Выберите компоненты для расчёта цены...";
             // 
@@ -572,9 +486,9 @@ namespace Lab2
             btnPriceDetails.FlatStyle = FlatStyle.Flat;
             btnPriceDetails.Font = new Font("Segoe UI Semibold", 14F);
             btnPriceDetails.ForeColor = Color.White;
-            btnPriceDetails.Location = new Point(707, 28);
+            btnPriceDetails.Location = new Point(716, 28);
             btnPriceDetails.Name = "btnPriceDetails";
-            btnPriceDetails.Size = new Size(140, 36);
+            btnPriceDetails.Size = new Size(152, 32);
             btnPriceDetails.TabIndex = 3;
             btnPriceDetails.Text = "📊 Подробнее";
             btnPriceDetails.UseVisualStyleBackColor = false;
@@ -589,7 +503,7 @@ namespace Lab2
             TabCtrl.Location = new Point(0, 49);
             TabCtrl.Name = "TabCtrl";
             TabCtrl.SelectedIndex = 0;
-            TabCtrl.Size = new Size(907, 866);
+            TabCtrl.Size = new Size(933, 825);
             TabCtrl.TabIndex = 0;
             // 
             // CatalogTab
@@ -601,9 +515,51 @@ namespace Lab2
             CatalogTab.Controls.Add(gbRAM);
             CatalogTab.Location = new Point(4, 34);
             CatalogTab.Name = "CatalogTab";
-            CatalogTab.Size = new Size(899, 828);
+            CatalogTab.Size = new Size(925, 787);
             CatalogTab.TabIndex = 0;
             CatalogTab.Text = "📋 Каталог";
+            // 
+            // btnLoad
+            // 
+            btnLoad.BackColor = Color.FromArgb(150, 80, 200);
+            btnLoad.FlatStyle = FlatStyle.Flat;
+            btnLoad.Font = new Font("Segoe UI Semibold", 14F);
+            btnLoad.ForeColor = Color.White;
+            btnLoad.Location = new Point(716, 87);
+            btnLoad.Name = "btnLoad";
+            btnLoad.Size = new Size(152, 36);
+            btnLoad.TabIndex = 2;
+            btnLoad.Text = "📂 Загрузить";
+            btnLoad.UseVisualStyleBackColor = false;
+            btnLoad.Click += BtnLoad_Click;
+            // 
+            // btnAddOrder
+            // 
+            btnAddOrder.BackColor = Color.FromArgb(0, 120, 215);
+            btnAddOrder.FlatStyle = FlatStyle.Flat;
+            btnAddOrder.Font = new Font("Segoe UI Semibold", 14F);
+            btnAddOrder.ForeColor = Color.White;
+            btnAddOrder.Location = new Point(365, 87);
+            btnAddOrder.Name = "btnAddOrder";
+            btnAddOrder.Size = new Size(192, 36);
+            btnAddOrder.TabIndex = 3;
+            btnAddOrder.Text = "✅ Добавить заказ";
+            btnAddOrder.UseVisualStyleBackColor = false;
+            btnAddOrder.Click += BtnAddOrder_Click;
+            // 
+            // btnSave
+            // 
+            btnSave.BackColor = Color.FromArgb(30, 160, 100);
+            btnSave.FlatStyle = FlatStyle.Flat;
+            btnSave.Font = new Font("Segoe UI Semibold", 14F);
+            btnSave.ForeColor = Color.White;
+            btnSave.Location = new Point(6, 87);
+            btnSave.Name = "btnSave";
+            btnSave.Size = new Size(167, 36);
+            btnSave.TabIndex = 6;
+            btnSave.Text = "💾 Сохранить";
+            btnSave.UseVisualStyleBackColor = false;
+            btnSave.Click += BtnSave_Click;
             // 
             // OrderTab
             // 
@@ -612,7 +568,7 @@ namespace Lab2
             OrderTab.Controls.Add(btnDelete);
             OrderTab.Location = new Point(4, 34);
             OrderTab.Name = "OrderTab";
-            OrderTab.Size = new Size(899, 828);
+            OrderTab.Size = new Size(192, 62);
             OrderTab.TabIndex = 1;
             OrderTab.Text = "📦 Мои заказы";
             // 
@@ -661,7 +617,7 @@ namespace Lab2
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(240, 245, 255);
-            ClientSize = new Size(907, 937);
+            ClientSize = new Size(933, 896);
             Controls.Add(TabCtrl);
             Controls.Add(statusStrip1);
             Controls.Add(toolStrip1);
@@ -669,8 +625,6 @@ namespace Lab2
             MainMenuStrip = menuStrip1;
             Name = "MainForm";
             Text = "IT Лаборатория";
-            menuStrip1.ResumeLayout(false);
-            menuStrip1.PerformLayout();
             statusStrip1.ResumeLayout(false);
             statusStrip1.PerformLayout();
             gbMain.ResumeLayout(false);
@@ -691,6 +645,7 @@ namespace Lab2
 
         #endregion
 
+        // ── Поля — Designer может добавлять/менять их ─────────────
         private MenuStrip menuStrip1 = null!;
         private ToolStrip toolStrip1 = null!;
         private StatusStrip statusStrip1 = null!;
@@ -713,11 +668,5 @@ namespace Lab2
         private Button btnAddOrder, btnSave, btnLoad, btnDelete, btnPriceDetails;
         private MonthCalendar calPurchase;
         private ListView lvOrders;
-        private ToolStripMenuItem miFile;
-        private ToolStripMenuItem miSearch;
-        private ToolStripMenuItem miSort;
-        private ToolStripMenuItem miEdit;
-        private ToolStripMenuItem miView;
-        private ToolStripMenuItem miHelp;
     }
 }

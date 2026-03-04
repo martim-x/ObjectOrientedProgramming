@@ -13,7 +13,6 @@ namespace Lab2
     {
         private readonly List<Computer> _orders = new();
         private List<Computer> _currentDisplay = new();
-
         private int _navIndex = -1;
         private readonly List<int> _navHistory = new();
         private string _lastAction = "—";
@@ -31,18 +30,25 @@ namespace Lab2
         {
             InitializeComponent();
 
-            lvOrders.Columns.Add("№",      42);
-            lvOrders.Columns.Add("Тип",   115);
-            lvOrders.Columns.Add("CPU",   175);
-            lvOrders.Columns.Add("GPU",   135);
-            lvOrders.Columns.Add("ОЗУ",    85);
-            lvOrders.Columns.Add("Диск",   65);
-            lvOrders.Columns.Add("Дата",   92);
-            lvOrders.Columns.Add("Цена ₽",115);
+            // ═══════════════════════════════════════════════════════
+            // МЕНЮ И ТУЛБАР строятся ЗДЕСЬ, а не в Designer.cs
+            // Это гарантирует что VS Designer не сотрёт их при
+            // редактировании формы (изменении размеров, позиций и т.д.)
+            // ═══════════════════════════════════════════════════════
+            BuildMenuStrip();
+            BuildToolStrip();
+
+            lvOrders.Columns.Add("№",       42);
+            lvOrders.Columns.Add("Тип",    115);
+            lvOrders.Columns.Add("CPU",    175);
+            lvOrders.Columns.Add("GPU",    135);
+            lvOrders.Columns.Add("ОЗУ",     85);
+            lvOrders.Columns.Add("Диск",    65);
+            lvOrders.Columns.Add("Дата",    92);
+            lvOrders.Columns.Add("Цена ₽", 115);
 
             var clockTimer = new System.Windows.Forms.Timer { Interval = 1000 };
-            clockTimer.Tick += (s, e) =>
-                tsslDateTime.Text = DateTime.Now.ToString("dd.MM.yyyy  HH:mm:ss");
+            clockTimer.Tick += (s, e) => tsslDateTime.Text = DateTime.Now.ToString("dd.MM.yyyy  HH:mm:ss");
             clockTimer.Start();
             tsslDateTime.Text = DateTime.Now.ToString("dd.MM.yyyy  HH:mm:ss");
 
@@ -50,6 +56,87 @@ namespace Lab2
             lblCostValue.Text = "0 ₽";
             pbCost.Value      = 0;
             lblBreakdown.Text = "Выберите компоненты для расчёта цены...";
+        }
+
+        // ── МЕНЮ — строится в коде, не в Designer ─────────────────
+        // VS Designer не тронет этот метод при редактировании формы.
+        private void BuildMenuStrip()
+        {
+            menuStrip1.Items.Clear();
+
+            var miFile    = new ToolStripMenuItem("📁 Файл");
+            var miSave    = new ToolStripMenuItem("💾 Сохранить",               null, BtnSave_Click)       { ShortcutKeys = Keys.Control | Keys.S };
+            var miLoad    = new ToolStripMenuItem("📂 Загрузить",               null, BtnLoad_Click)       { ShortcutKeys = Keys.Control | Keys.O };
+            var miSaveRes = new ToolStripMenuItem("📤 Сохранить результаты...", null, MenuSaveResults_Click);
+            var miExit    = new ToolStripMenuItem("🚪 Выход",                   null, MenuExit_Click)      { ShortcutKeys = Keys.Alt | Keys.F4 };
+            miFile.DropDownItems.AddRange(new ToolStripItem[]
+                { miSave, miLoad, new ToolStripSeparator(), miSaveRes, new ToolStripSeparator(), miExit });
+
+            var miSearch     = new ToolStripMenuItem("🔍 Поиск");
+            var miOpenSearch = new ToolStripMenuItem("🔎 Конструктор поиска...", null, MenuSearch_Click)  { ShortcutKeys = Keys.Control | Keys.F };
+            var miShowAll    = new ToolStripMenuItem("📋 Показать все",          null, MenuShowAll_Click) { ShortcutKeys = Keys.Control | Keys.D0 };
+            miSearch.DropDownItems.AddRange(new ToolStripItem[] { miOpenSearch, new ToolStripSeparator(), miShowAll });
+
+            var miSort          = new ToolStripMenuItem("📊 Сортировка");
+            var miSortPriceAsc  = new ToolStripMenuItem("По цене ↑",                   null, MenuSortByPriceAsc_Click);
+            var miSortPriceDesc = new ToolStripMenuItem("По цене ↓",                   null, MenuSortByPriceDesc_Click);
+            var miSortDateAsc   = new ToolStripMenuItem("По дате ↑ (старые)",          null, MenuSortByDateAsc_Click);
+            var miSortDateDesc  = new ToolStripMenuItem("По дате ↓ (новые)",           null, MenuSortByDateDesc_Click);
+            var miSortRAM       = new ToolStripMenuItem("По объёму ОЗУ ↓",             null, MenuSortByRAM_Click);
+            var miSortCPU       = new ToolStripMenuItem("По производителю CPU + ядра", null, MenuSortByCPU_Click);
+            miSort.DropDownItems.AddRange(new ToolStripItem[]
+                { miSortPriceAsc, miSortPriceDesc, new ToolStripSeparator(),
+                  miSortDateAsc,  miSortDateDesc,  new ToolStripSeparator(),
+                  miSortRAM, miSortCPU });
+
+            var miEdit   = new ToolStripMenuItem("✏️ Правка");
+            var miClear  = new ToolStripMenuItem("🗑 Очистить все заказы", null, MenuClearAll_Click) { ShortcutKeys = Keys.Control | Keys.Delete };
+            var miDelete = new ToolStripMenuItem("❌ Удалить выбранный",   null, MenuDelete_Click)   { ShortcutKeys = Keys.Delete };
+            miEdit.DropDownItems.AddRange(new ToolStripItem[] { miClear, new ToolStripSeparator(), miDelete });
+
+            var miView = new ToolStripMenuItem("👁 Вид");
+            miToggleToolbar = new ToolStripMenuItem("Панель инструментов", null, MenuToggleToolbar_Click)
+                { CheckOnClick = true, Checked = true };
+            miView.DropDownItems.Add(miToggleToolbar);
+
+            var miHelp  = new ToolStripMenuItem("❓ Справка");
+            var miAbout = new ToolStripMenuItem("О программе...", null, MenuAbout_Click) { ShortcutKeys = Keys.F1 };
+            miHelp.DropDownItems.Add(miAbout);
+
+            menuStrip1.Items.AddRange(new ToolStripItem[]
+                { miFile, miSearch, miSort, miEdit, miView, miHelp });
+        }
+
+        // ── ТУЛБАР — строится в коде, не в Designer ───────────────
+        // VS Designer не тронет этот метод при редактировании формы.
+        private void BuildToolStrip()
+        {
+            toolStrip1.Items.Clear();
+
+            var tsBtnSearch  = MakeToolBtn("🔍", "Поиск (Ctrl+F)");
+            var tsBtnSort    = MakeToolBtn("📊", "Сортировка по цене ↑");
+            var tsBtnShowAll = MakeToolBtn("📋", "Показать все (Ctrl+0)");
+            var tsBtnDelete  = MakeToolBtn("❌", "Удалить выбранный");
+            var tsBtnClear   = MakeToolBtn("🗑", "Очистить все");
+            var tsBtnBack    = MakeToolBtn("◀",  "Назад");
+            var tsBtnForward = MakeToolBtn("▶",  "Вперёд");
+
+            tsBtnSearch.Click  += TsBtnSearch_Click;
+            tsBtnSort.Click    += TsBtnSort_Click;
+            tsBtnShowAll.Click += TsBtnShowAll_Click;
+            tsBtnDelete.Click  += TsBtnDelete_Click;
+            tsBtnClear.Click   += TsBtnClear_Click;
+            tsBtnBack.Click    += TsBtnBack_Click;
+            tsBtnForward.Click += TsBtnForward_Click;
+
+            toolStrip1.Items.AddRange(new ToolStripItem[]
+            {
+                tsBtnSearch, tsBtnSort, tsBtnShowAll,
+                new ToolStripSeparator(),
+                tsBtnDelete, tsBtnClear,
+                new ToolStripSeparator(),
+                tsBtnBack, tsBtnForward
+            });
         }
 
         // ── StatusStrip ───────────────────────────────────────────
@@ -97,9 +184,9 @@ namespace Lab2
                 Type         = cbComputerType.SelectedIndex >= 0 ? cbComputerType.Text : "",
                 CPU          = cpu,
                 VideoCard    = gpu,
-                RAMsizeGB    = cbRamSize.SelectedIndex  >= 0 ? int.Parse(cbRamSize.Text)  : 0,
-                RAMtype      = cbRamType.SelectedIndex  >= 0 ? cbRamType.Text             : "DDR4",
-                HDDsizeGB    = cbHDDSize.SelectedIndex  >= 0 ? int.Parse(cbHDDSize.Text)  : 0,
+                RAMsizeGB    = cbRamSize.SelectedIndex >= 0 ? int.Parse(cbRamSize.Text) : 0,
+                RAMtype      = cbRamType.SelectedIndex >= 0 ? cbRamType.Text            : "DDR4",
+                HDDsizeGB    = cbHDDSize.SelectedIndex >= 0 ? int.Parse(cbHDDSize.Text) : 0,
                 HDDtype      = rbSSD.Checked ? "SSD" : "HDD",
                 PurchaseDate = calPurchase.SelectionStart,
                 HasMonitor   = chkMonitor.Checked,
@@ -108,7 +195,7 @@ namespace Lab2
             };
         }
 
-        // ── Пересчёт цены — единственный источник правды: Computer.Price() ──
+        // ── Пересчёт цены ─────────────────────────────────────────
         private void RecalcCost()
         {
             bool anySelected = cbCPUMaker.SelectedIndex    >= 0
@@ -130,7 +217,7 @@ namespace Lab2
             lblBreakdown.Text = "Нажмите «📊 Подробнее» чтобы увидеть из чего сложилась цена";
         }
 
-        // ── Полный объект с валидацией — только при сохранении ───
+        // ── Полный объект с валидацией ────────────────────────────
         private Computer CollectComputer()
         {
             errorProvider.Clear();
@@ -172,12 +259,12 @@ namespace Lab2
         private void cbRamType_SelectedIndexChanged(object sender, EventArgs e)    => RecalcCost();
         private void cbGPU_SelectedIndexChanged(object sender, EventArgs e)        => RecalcCost();
 
-        private void gbMain_Enter(object sender, EventArgs e)         { }
-        private void gbGPU_Enter(object sender, EventArgs e)          { }
-        private void lblComputerType_Click(object sender, EventArgs e){ }
-        private void lblCPUMaker_Click(object sender, EventArgs e)    { }
-        private void lblCPUCores_Click(object sender, EventArgs e)    { }
-        private void lblGPUMaker_Click(object sender, EventArgs e)    { }
+        private void gbMain_Enter(object sender, EventArgs e)          { }
+        private void gbGPU_Enter(object sender, EventArgs e)           { }
+        private void lblComputerType_Click(object sender, EventArgs e) { }
+        private void lblCPUMaker_Click(object sender, EventArgs e)     { }
+        private void lblCPUCores_Click(object sender, EventArgs e)     { }
+        private void lblGPUMaker_Click(object sender, EventArgs e)     { }
 
         // ── Добавить заказ ────────────────────────────────────────
         private void BtnAddOrder_Click(object sender, EventArgs e)
@@ -211,7 +298,7 @@ namespace Lab2
 
             for (int i = 0; i < _currentDisplay.Count; i++)
             {
-                var c = _currentDisplay[i];
+                var c    = _currentDisplay[i];
                 var item = new ListViewItem((i + 1).ToString());
                 item.SubItems.Add(c.Type);
                 item.SubItems.Add($"{c.CPU.Manufacturer} {c.CPU.Model}");
@@ -257,11 +344,8 @@ namespace Lab2
             if (visualIdx >= _currentDisplay.Count) return;
             Computer target = _currentDisplay[visualIdx];
 
-            var confirm = MessageBox.Show(
-                $"Удалить заказ #{visualIdx + 1}?\n{target}",
-                "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-
-            if (confirm == DialogResult.Yes)
+            if (MessageBox.Show($"Удалить заказ #{visualIdx + 1}?\n{target}",
+                    "Подтверждение", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
             {
                 _orders.Remove(target);
                 RefreshOrdersList(_orders);
@@ -282,9 +366,7 @@ namespace Lab2
                 return;
             }
             using var dlg = new SaveFileDialog
-            {
-                Title = "Сохранить заказы", Filter = "JSON файл (*.json)|*.json", FileName = "lab_orders"
-            };
+                { Title = "Сохранить заказы", Filter = "JSON файл (*.json)|*.json", FileName = "lab_orders" };
             if (dlg.ShowDialog() != DialogResult.OK) return;
             try
             {
@@ -302,7 +384,8 @@ namespace Lab2
 
         private void LoadOrders()
         {
-            using var dlg = new OpenFileDialog { Title = "Загрузить заказы", Filter = "JSON файл (*.json)|*.json" };
+            using var dlg = new OpenFileDialog
+                { Title = "Загрузить заказы", Filter = "JSON файл (*.json)|*.json" };
             if (dlg.ShowDialog() != DialogResult.OK) return;
             try
             {
@@ -316,7 +399,7 @@ namespace Lab2
                 if (_orders.Count > 0)
                 {
                     var ans = MessageBox.Show(
-                        $"Добавить {loaded.Count} загруженных заказов к существующим {_orders.Count}?\n«Нет» — заменить текущий список.",
+                        $"Добавить {loaded.Count} загруженных заказов к существующим {_orders.Count}?\n«Нет» — заменить.",
                         "Способ загрузки", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question);
                     if (ans == DialogResult.Cancel) return;
                     if (ans == DialogResult.No) _orders.Clear();
@@ -340,7 +423,8 @@ namespace Lab2
         {
             if (_orders.Count == 0)
             {
-                MessageBox.Show("Список заказов пуст.", "Поиск", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Список заказов пуст.", "Поиск",
+                    MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
             using var sf = new SearchForm(_orders);
@@ -359,7 +443,7 @@ namespace Lab2
             UpdateStatus("Показаны все заказы");
         }
 
-        // ── Меню: Сортировка (LINQ) ───────────────────────────────
+        // ── Меню: Сортировка ──────────────────────────────────────
         private void MenuSortByPriceAsc_Click(object sender, EventArgs e)
         {
             RefreshOrdersList(_orders.OrderBy(c => c.Price()).ToList());
@@ -438,7 +522,8 @@ namespace Lab2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Ошибка:\n" + ex.Message, "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Ошибка:\n" + ex.Message, "Ошибка",
+                    MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -508,7 +593,7 @@ namespace Lab2
             }
         }
 
-        // ── Кнопка «Подробнее» — разбивка цены по компонентам ────
+        // ── Кнопка «Подробнее» — окно разбивки цены ──────────────
         private void BtnPriceDetails_Click(object sender, EventArgs e)
         {
             bool anySelected = cbCPUMaker.SelectedIndex    >= 0
@@ -521,44 +606,15 @@ namespace Lab2
                     "Нет данных", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 return;
             }
-
-            var c = BuildPartialComputer();
-
-            decimal cpuPart = cbCPUMaker.SelectedIndex >= 0 && cbCPUCore.SelectedIndex >= 0 && cbModelCPU.SelectedIndex >= 0
-                              ? c.CPU.Price() : 0m;
-            decimal gpuPart = cbGPU.SelectedIndex >= 0 ? c.VideoCard.Price() : 0m;
-            decimal ramPerGB = c.RAMtype switch { "DDR3" => 50m, "DDR4" => 80m, "DDR5" => 140m, _ => 60m };
-            decimal ramPart = cbRamSize.SelectedIndex >= 0 ? c.RAMsizeGB * ramPerGB : 0m;
-            decimal hddPart = cbHDDSize.SelectedIndex >= 0
-                              ? (c.HDDtype == "SSD" ? c.HDDsizeGB * 8m : c.HDDsizeGB * 2m) : 0m;
-            decimal periph  = (c.HasMonitor ? 9_000m : 0) + (c.HasKeyboard ? 1_500m : 0) + (c.HasMouse ? 1_000m : 0);
-            decimal typeMult = c.Type switch
-            {
-                "Рабочая станция" => 1.3m, "Сервер" => 1.6m, "Ноутбук" => 1.4m,
-                "Моноблок" => 1.2m, "Мини-ПК" => 1.1m, _ => 1.0m
-            };
-            decimal total = c.Price();
-
-            var sb = new System.Text.StringBuilder();
-            sb.AppendLine("── Разбивка стоимости ──────────────────");
-            if (cpuPart > 0) sb.AppendLine($"  CPU  {c.CPU.Model,-22}  {cpuPart * typeMult,10:N0} ₽");
-            if (gpuPart > 0) sb.AppendLine($"  GPU  {c.VideoCard.Model,-22}  {gpuPart * typeMult,10:N0} ₽");
-            if (ramPart > 0) sb.AppendLine($"  ОЗУ  {c.RAMsizeGB} ГБ {c.RAMtype,-16}  {ramPart * typeMult,10:N0} ₽");
-            if (hddPart > 0) sb.AppendLine($"  Диск {c.HDDsizeGB} ГБ {c.HDDtype,-17}  {hddPart * typeMult,10:N0} ₽");
-            if (periph  > 0) sb.AppendLine($"  Периферия{new string(' ', 22)}  {periph * typeMult,10:N0} ₽");
-            sb.AppendLine("────────────────────────────────────────");
-            if (typeMult != 1.0m)
-                sb.AppendLine($"  Коэффициент «{c.Type}» × {typeMult:F1}");
-            sb.AppendLine($"  ИТОГО:{new string(' ', 30)}  {total,10:N0} ₽");
-
-            MessageBox.Show(sb.ToString(), "Разбивка цены", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            using var dlg = new PriceDetailsForm(BuildPartialComputer());
+            dlg.ShowDialog(this);
         }
 
         // ── Меню: Выход и Удалить ─────────────────────────────────
         private void MenuExit_Click(object sender, EventArgs e)   => Application.Exit();
         private void MenuDelete_Click(object sender, EventArgs e) => DeleteSelected();
 
-        // Вспомогательный метод для кнопок ToolStrip (вынесен из Designer)
+        // ── Вспомогательный метод для кнопок ToolStrip ───────────
         private static ToolStripButton MakeToolBtn(string text, string tooltip) =>
             new ToolStripButton
             {

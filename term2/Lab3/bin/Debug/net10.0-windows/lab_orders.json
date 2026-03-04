@@ -1,0 +1,95 @@
+[
+  {
+    "Type": "\u0421\u0435\u0440\u0432\u0435\u0440",
+    "CPU": {
+      "Manufacturer": "Intel",
+      "Series": "",
+      "Model": "Core i6 (10C)",
+      "Cores": 10,
+      "Frequency": 0,
+      "MaxFrequency": 18.800000429153442,
+      "ArchBits": 64,
+      "CacheL1KB": 0,
+      "CacheL2KB": 0,
+      "CacheL3MB": 20
+    },
+    "VideoCard": {
+      "Manufacturer": "NVIDIA",
+      "Series": "",
+      "Model": "RTX 4080",
+      "Frequency": 1800,
+      "MemoryGB": 16,
+      "BasePrice": 90000
+    },
+    "RAMsizeGB": 32,
+    "RAMtype": "DDR3",
+    "HDDsizeGB": 1000,
+    "HDDtype": "SSD",
+    "PurchaseDate": "2026-03-04T00:00:00+03:00",
+    "HasMonitor": true,
+    "HasKeyboard": false,
+    "HasMouse": false
+  },
+  {
+    "Type": "\u0421\u0435\u0440\u0432\u0435\u0440",
+    "CPU": {
+      "Manufacturer": "Intel",
+      "Series": "",
+      "Model": "Core i6 (10C)",
+      "Cores": 10,
+      "Frequency": 0,
+      "MaxFrequency": 18.800000429153442,
+      "ArchBits": 64,
+      "CacheL1KB": 0,
+      "CacheL2KB": 0,
+      "CacheL3MB": 20
+    },
+    "VideoCard": {
+      "Manufacturer": "NVIDIA",
+      "Series": "",
+      "Model": "RTX 5080",
+      "Frequency": 1800,
+      "MemoryGB": 16,
+      "BasePrice": 110000
+    },
+    "RAMsizeGB": 32,
+    "RAMtype": "DDR3",
+    "HDDsizeGB": 1000,
+    "HDDtype": "SSD",
+    "PurchaseDate": "2026-03-04T00:00:00+03:00",
+    "HasMonitor": true,
+    "HasKeyboard": false,
+    "HasMouse": false
+  },
+  {
+    "Type": "\u0420\u0430\u0431\u043E\u0447\u0430\u044F \u0441\u0442\u0430\u043D\u0446\u0438\u044F",
+    "CPU": {
+      "Manufacturer": "Intel",
+      "Series": "",
+      "Model": "Core i6 (10C)",
+      "Cores": 10,
+      "Frequency": 0,
+      "MaxFrequency": 18.800000429153442,
+      "ArchBits": 64,
+      "CacheL1KB": 0,
+      "CacheL2KB": 0,
+      "CacheL3MB": 20
+    },
+    "VideoCard": {
+      "Manufacturer": "NVIDIA",
+      "Series": "",
+      "Model": "RTX 5090",
+      "Frequency": 1800,
+      "MemoryGB": 24,
+      "BasePrice": 160000
+    },
+    "RAMsizeGB": 32,
+    "RAMtype": "DDR5",
+    "HDDsizeGB": 1000,
+    "HDDtype": "SSD",
+    "PurchaseDate": "2026-03-04T00:00:00+03:00",
+    "HasMonitor": true,
+    "HasKeyboard": true,
+    "HasMouse": true
+  }
+]
