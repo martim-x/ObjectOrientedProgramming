@@ -1,0 +1,20 @@
+﻿AppStore
+
+
+winexe
+C#
+.cs
+C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\
+AppStore
+none
+false
+TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
+C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\App.xaml
+8-1451035824
+
+221935272194
+199203758498
+Views\AddEditWindow.xaml;Views\AppCardView.xaml;Views\AppDetailView.xaml;Views\AppRowView.xaml;Views\ConfirmDialog.xaml;Views\EditDeleteDialog.xaml;Views\FeaturedBannerView.xaml;Views\MainWindow.xaml;
+
+False
+

@@ -1,0 +1,365 @@
+<Window x:Class="AppStore.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:AppStore.Views"
+        Title="{DynamicResource AppTitle}"
+        Width="1200" Height="780" MinWidth="900" MinHeight="600"
+        Style="{StaticResource AppWindowStyle}"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220" MinWidth="180" MaxWidth="280"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <!-- SIDEBAR -->
+        <Border Grid.Column="0" Background="{StaticResource SidebarBgBrush}"
+                BorderThickness="0,0,1,0" BorderBrush="{StaticResource SeparatorBrush}">
+            <DockPanel LastChildFill="True">
+
+                <!-- Logo + lang switcher -->
+                <StackPanel DockPanel.Dock="Top" Margin="16,20,16,16">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
+                        <Border Width="28" Height="28" CornerRadius="7" Margin="0,0,10,0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#0072F7" Offset="0"/>
+                                    <GradientStop Color="#34AADC" Offset="1"/>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <TextBlock Text="A" FontSize="15" FontWeight="Bold" Foreground="White"
+                                       HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <TextBlock Text="{DynamicResource AppTitle}" FontSize="15" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TitleTextBrush}" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Content="EN" Style="{StaticResource GetButtonStyle}" Padding="10,4"
+                                FontSize="12" Margin="0,0,6,0"
+                                Command="{Binding SwitchLanguageCommand}" CommandParameter="en"/>
+                        <Button Content="RU" Style="{StaticResource GetButtonStyle}" Padding="10,4"
+                                FontSize="12"
+                                Command="{Binding SwitchLanguageCommand}" CommandParameter="ru"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <!-- Search -->
+                <Border DockPanel.Dock="Top" Margin="12,0,12,12">
+                    <Border x:Name="SearchBorder" Background="{StaticResource SearchBubbleBgBrush}"
+                            CornerRadius="10" Padding="8,7">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Path Grid.Column="0"
+                                  Data="M10,10 L14,14 M7,3.5 A3.5,3.5,0,1,0,7,10.5 A3.5,3.5,0,1,0,7,3.5"
+                                  Stroke="{StaticResource SearchTextBrush}" StrokeThickness="1.5"
+                                  StrokeStartLineCap="Round" StrokeEndLineCap="Round"
+                                  Width="16" Height="16" Stretch="Uniform"
+                                  Margin="0,0,6,0" VerticalAlignment="Center"/>
+                            <TextBox Grid.Column="1" Style="{StaticResource SearchBoxStyle}"
+                                     Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
+                                     GotFocus="OnSearchGotFocus" LostFocus="OnSearchLostFocus"/>
+                            <!-- Clear: solid circle, X cut out -->
+                            <Viewbox Grid.Column="2" Width="16" Height="16" Margin="5,0,0,0"
+                                     Cursor="Hand"
+                                     Visibility="{Binding SearchQuery, Converter={StaticResource StrNotEmptyToVis}}">
+                                <Canvas Width="16" Height="16" MouseLeftButtonDown="OnClearSearch">
+                                    <Ellipse Width="16" Height="16" Fill="#717171"/>
+                                    <Line X1="5" Y1="5" X2="11" Y2="11"
+                                          Stroke="#E0E0E1" StrokeThickness="1.6"
+                                          StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                                    <Line X1="11" Y1="5" X2="5" Y2="11"
+                                          Stroke="#E0E0E1" StrokeThickness="1.6"
+                                          StrokeStartLineCap="Round" StrokeEndLineCap="Round"/>
+                                </Canvas>
+                            </Viewbox>
+                        </Grid>
+                    </Border>
+                </Border>
+
+                <!-- Scrollable nav area -->
+                <ScrollViewer DockPanel.Dock="Top" VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Margin="8,0,8,0">
+
+                        <!-- Main sections -->
+                        <RadioButton GroupName="Cat" Style="{StaticResource NavCategoryStyle}"
+                                     IsChecked="True"
+                                     Command="{Binding SelectCategoryCommand}" CommandParameter="Discover"
+                                     Content="{DynamicResource CatDiscover}"/>
+                        <RadioButton GroupName="Cat" Style="{StaticResource NavCategoryStyle}"
+                                     Command="{Binding SelectCategoryCommand}" CommandParameter="Create"
+                                     Content="{DynamicResource CatCreate}"/>
+                        <RadioButton GroupName="Cat" Style="{StaticResource NavCategoryStyle}"
+                                     Command="{Binding SelectCategoryCommand}" CommandParameter="Work"
+                                     Content="{DynamicResource CatWork}"/>
+                        <RadioButton GroupName="Cat" Style="{StaticResource NavCategoryStyle}"
+                                     Command="{Binding SelectCategoryCommand}" CommandParameter="Play"
+                                     Content="{DynamicResource CatPlay}"/>
+                        <RadioButton GroupName="Cat" Style="{StaticResource NavCategoryStyle}"
+                                     Command="{Binding SelectCategoryCommand}" CommandParameter="Develop"
+                                     Content="{DynamicResource CatDevelop}"/>
+
+                        <!-- Separator + Categories nav button -->
+                        <Border Height="1" Background="{StaticResource SeparatorBrush}" Margin="4,10,4,10"/>
+                        <RadioButton GroupName="Cat" Style="{StaticResource NavCategoryStyle}"
+                                     Command="{Binding SelectCategoryCommand}" CommandParameter="Categories"
+                                     Content="{DynamicResource CatCategories}"/>
+
+                        <!-- Tags shown only when Categories is open, indented -->
+                        <ItemsControl ItemsSource="{Binding AllTags}"
+                                      Visibility="{Binding IsCategoryGridOpen, Converter={StaticResource BoolToVis}}"
+                                      Margin="8,0,0,0">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <RadioButton GroupName="CatTag" Style="{StaticResource NavCategoryStyle}"
+                                                 Padding="10,7" FontSize="13"
+                                                 Command="{Binding DataContext.SelectTagCommand,
+                                                     RelativeSource={RelativeSource AncestorType=Window}}"
+                                                 CommandParameter="{Binding}"
+                                                 Content="{Binding}"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <!-- Separator + Installed -->
+                        <Border Height="1" Background="{StaticResource SeparatorBrush}" Margin="4,10,4,10"/>
+                        <RadioButton GroupName="Cat" Style="{StaticResource NavCategoryStyle}"
+                                     Command="{Binding SelectCategoryCommand}" CommandParameter="Installed"
+                                     Content="{DynamicResource CatInstalled}"/>
+
+                        <Border Height="16"/>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- Stats bottom -->
+                <Border DockPanel.Dock="Bottom" Margin="12,0,12,14" Padding="12,10"
+                        Background="{StaticResource CategorySelectedBgBrush}" CornerRadius="10">
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
+                            <TextBlock Text="{Binding TotalCount}" FontSize="13" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TitleTextBrush}" Margin="0,0,4,0"/>
+                            <TextBlock Text="{DynamicResource AppsInStore}" FontSize="12"
+                                       Foreground="{StaticResource SecondaryTextBrush}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding DownloadedCount}" FontSize="13" FontWeight="SemiBold"
+                                       Foreground="{StaticResource AccentBlueBrush}" Margin="0,0,4,0"/>
+                            <TextBlock Text="{DynamicResource AppsInstalled}" FontSize="12"
+                                       Foreground="{StaticResource SecondaryTextBrush}" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Grid/>
+            </DockPanel>
+        </Border>
+
+        <!-- MAIN CONTENT -->
+        <Grid Grid.Column="1" Background="{StaticResource WindowBgBrush}">
+            <Grid.RowDefinitions>
+                <!-- Featured banner (only on Discover) -->
+                <RowDefinition Height="Auto"/>
+                <!-- Section header bar: title + sort + create -->
+                <RowDefinition Height="Auto"/>
+                <!-- List / grid -->
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <!-- Featured banner (Discover only) -->
+            <views:FeaturedBannerView Grid.Row="0" DataContext="{Binding}"
+                Visibility="{Binding IsFeaturedVisible, Converter={StaticResource BoolToVis}}"
+                Margin="20,20,20,0"/>
+
+            <!-- Section header box -->
+            <Border Grid.Row="1" Background="{StaticResource WindowBgBrush}"
+                    BorderThickness="0,0,0,1" BorderBrush="{StaticResource SeparatorBrush}"
+                    Padding="20,12">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Grid.Column="0" VerticalAlignment="Center"
+                               Text="{Binding SelectedCategoryLabel}" FontSize="20" FontWeight="Bold"
+                               Foreground="{StaticResource TitleTextBrush}"/>
+                    <Button Grid.Column="1" Style="{StaticResource GetButtonStyle}"
+                            Margin="0,0,10,0" Padding="14,6" Click="OnFilterClick">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#8645;" FontSize="14" Margin="0,0,5,0"
+                                       Foreground="{StaticResource GetBtnTextBrush}"/>
+                            <TextBlock Text="{DynamicResource Filters}"
+                                       Foreground="{StaticResource GetBtnTextBrush}"
+                                       FontSize="13" FontWeight="SemiBold"/>
+                        </StackPanel>
+                    </Button>
+                    <Button Grid.Column="2" Style="{StaticResource PrimaryButtonStyle}"
+                            Padding="14,6" Click="OnAddAppClick">
+                        <TextBlock Text="{DynamicResource AddApp}" FontSize="13"/>
+                    </Button>
+                </Grid>
+            </Border>
+
+            <!-- App list -->
+            <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled"
+                          Visibility="{Binding IsCategoryGridOpen, Converter={StaticResource InverseBoolToVis}}">
+                <StackPanel>
+                    <Grid Margin="20,14,20,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Text="{DynamicResource TopApps}"
+                                   FontSize="17" FontWeight="Bold"
+                                   Foreground="{StaticResource TitleTextBrush}"/>
+                        <Button Grid.Column="1" Style="{StaticResource IconButtonStyle}"
+                                Padding="0" Background="Transparent"
+                                Command="{Binding ToggleSeeAllCommand}">
+                            <TextBlock Text="{DynamicResource SeeAll}" FontSize="13"
+                                       Foreground="{StaticResource SeeAllBrush}"/>
+                        </Button>
+                    </Grid>
+
+                    <ItemsControl ItemsSource="{Binding Apps}" Margin="0,0,0,20">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <views:AppRowView
+                                    DownloadCommand="{Binding DataContext.DownloadCommand,
+                                        RelativeSource={RelativeSource AncestorType=Window}}"
+                                    OpenDetailCommand="{Binding DataContext.OpenDetailCommand,
+                                        RelativeSource={RelativeSource AncestorType=Window}}"/>
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+
+                    <StackPanel Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVis}}"
+                                HorizontalAlignment="Center" Margin="0,60">
+                        <TextBlock Text="{DynamicResource NoAppsFound}" FontSize="16" FontWeight="SemiBold"
+                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                   HorizontalAlignment="Center" Margin="0,0,0,6"/>
+                        <TextBlock Text="{DynamicResource NoAppsHint}"
+                                   Foreground="{StaticResource DescriptionTextBrush}"
+                                   HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+
+            <!-- Category grid view (2 columns) -->
+            <ScrollViewer Grid.Row="2" Padding="20,14,20,20"
+                          VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled"
+                          Visibility="{Binding IsCategoryGridOpen, Converter={StaticResource BoolToVis}}">
+                <ItemsControl ItemsSource="{Binding Apps}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal"/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="{StaticResource InfoCardBgBrush}" CornerRadius="12"
+                                    Margin="0,0,12,12" Padding="14,12" Width="260" Cursor="Hand"
+                                    MouseLeftButtonUp="OnGridAppClick">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="44"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Border Grid.Column="0" Width="40" Height="40" CornerRadius="9"
+                                            Background="{Binding Color, Converter={StaticResource ColorBrush}}">
+                                        <TextBlock Text="{Binding ShortName}" FontSize="10" FontWeight="Bold"
+                                                   Foreground="White" HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" TextTrimming="CharacterEllipsis"/>
+                                    </Border>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,0,8,0">
+                                        <TextBlock Text="{Binding ShortName}" FontSize="13" FontWeight="SemiBold"
+                                                   Foreground="{StaticResource TitleTextBrush}"
+                                                   TextTrimming="CharacterEllipsis"/>
+                                        <TextBlock Text="{Binding Category}" FontSize="11"
+                                                   Foreground="{StaticResource SecondaryTextBrush}"
+                                                   Margin="0,1,0,0"/>
+                                    </StackPanel>
+                                    <Button Grid.Column="2" Style="{StaticResource GetButtonStyle}"
+                                            Padding="12,4" VerticalAlignment="Center"
+                                            Content="{Binding IsDownloaded, Converter={StaticResource DlBtnText}}"
+                                            Command="{Binding DataContext.DownloadCommand,
+                                                RelativeSource={RelativeSource AncestorType=Window}}"
+                                            CommandParameter="{Binding}"/>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- DETAIL PANEL -->
+        <Grid Grid.Column="1" Background="{StaticResource WindowBgBrush}"
+              Visibility="{Binding IsDetailOpen, Converter={StaticResource BoolToVis}}">
+            <views:AppDetailView DataContext="{Binding}"/>
+        </Grid>
+
+        <!-- FILTER POPUP -->
+        <Popup x:Name="FilterPopup" Grid.Column="1" StaysOpen="False" AllowsTransparency="True">
+            <Border Background="White" CornerRadius="12" Padding="18,14" MinWidth="260" BorderThickness="0">
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="20" Opacity="0.15" Color="#000000"/>
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource Filters}" FontSize="15" FontWeight="SemiBold"
+                               Foreground="{StaticResource TitleTextBrush}" Margin="0,0,0,14"/>
+                    <TextBlock Text="{DynamicResource SortBy}" FontSize="12" FontWeight="SemiBold"
+                               Foreground="{StaticResource SecondaryTextBrush}" Margin="0,0,0,6"/>
+                    <ComboBox Margin="0,0,0,14" FontSize="13" Padding="8,6"
+                              BorderThickness="1" BorderBrush="{StaticResource DividerBrush}"
+                              Background="{StaticResource InfoCardBgBrush}"
+                              Foreground="{StaticResource TitleTextBrush}"
+                              SelectedValue="{Binding SortBy}" SelectedValuePath="Tag">
+                        <ComboBoxItem Content="{DynamicResource SortFeatured}" Tag="featured"/>
+                        <ComboBoxItem Content="{DynamicResource SortRating}"   Tag="rating"/>
+                        <ComboBoxItem Content="{DynamicResource SortPriceAsc}" Tag="price_asc"/>
+                        <ComboBoxItem Content="{DynamicResource SortPriceDesc}" Tag="price_desc"/>
+                        <ComboBoxItem Content="{DynamicResource SortDownloads}" Tag="downloads"/>
+                        <ComboBoxItem Content="{DynamicResource SortNewest}"   Tag="newest"/>
+                        <ComboBoxItem Content="{DynamicResource SortName}"     Tag="name"/>
+                    </ComboBox>
+                    <TextBlock Text="{DynamicResource MinRating}" FontSize="12" FontWeight="SemiBold"
+                               Foreground="{StaticResource SecondaryTextBrush}" Margin="0,0,0,4"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                        <TextBlock Text="&#9733;" Foreground="{StaticResource RatingStarBrush}" FontSize="13"/>
+                        <TextBlock Text="{Binding MinRating, StringFormat={}{0:F1}}"
+                                   Foreground="{StaticResource TitleTextBrush}" FontSize="13" Margin="4,0"/>
+                    </StackPanel>
+                    <Slider Style="{StaticResource DarkSliderStyle}" Minimum="0" Maximum="5"
+                            TickFrequency="0.5" Value="{Binding MinRating}" Margin="0,0,0,14"/>
+                    <TextBlock Text="{DynamicResource PriceRange}" FontSize="12" FontWeight="SemiBold"
+                               Foreground="{StaticResource SecondaryTextBrush}" Margin="0,0,0,4"/>
+                    <TextBlock Text="{Binding MaxPrice, StringFormat=Max: ${0:F0}}"
+                               Foreground="{StaticResource TitleTextBrush}" FontSize="13" Margin="0,0,0,4"/>
+                    <Slider Style="{StaticResource DarkSliderStyle}" Minimum="0" Maximum="100"
+                            Value="{Binding MaxPrice}" Margin="0,0,0,14"/>
+                    <CheckBox Content="{DynamicResource DownloadedOnly}"
+                              Style="{StaticResource DarkCheckBoxStyle}"
+                              IsChecked="{Binding DownloadedOnly}" Margin="0,0,0,14"/>
+
+                    <!-- Reset + Restore -->
+                    <Border Height="1" Background="{StaticResource SeparatorBrush}" Margin="0,0,0,10"/>
+                    <Button Style="{StaticResource GetButtonStyle}" HorizontalAlignment="Stretch"
+                            Margin="0,0,0,8" Click="OnResetFilters">
+                        <TextBlock Text="{DynamicResource ResetFilters}"
+                                   Foreground="{StaticResource GetBtnTextBrush}"
+                                   FontSize="13" FontWeight="SemiBold"/>
+                    </Button>
+                    <Button Style="{StaticResource DangerButtonStyle}" HorizontalAlignment="Stretch"
+                            Click="OnRestoreData">
+                        <TextBlock Text="{DynamicResource RestoreData}" FontSize="13"/>
+                    </Button>
+                </StackPanel>
+            </Border>
+        </Popup>
+    </Grid>
+</Window>

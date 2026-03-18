@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>AppStore</AssemblyName>
+    <RootNamespace>AppStore</RootNamespace>
+    <ApplicationIcon>Resources\Icons\app.ico</ApplicationIcon>
+    <Platforms>AnyCPU</Platforms>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Cursors\arrow.cur"/>
+    <Resource Include="Resources\Icons\app.ico"/>
+    <Resource Include="Resources\Styles\AppStyles.xaml"/>
+    <Resource Include="Resources\Localization\en.xaml"/>
+    <Resource Include="Resources\Localization\ru.xaml"/>
+    <Resource Include="Assets\AppIcons\*.png"/>
+  </ItemGroup>
+</Project>

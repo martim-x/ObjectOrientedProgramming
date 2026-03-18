@@ -1,0 +1,29 @@
+<Application x:Class="AppStore.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:AppStore.Converters">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Resources/Styles/AppStyles.xaml"/>
+                <ResourceDictionary Source="Resources/Localization/en.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <converters:BoolToVisibilityConverter                   x:Key="BoolToVis"/>
+            <converters:InverseBoolToVisibilityConverter            x:Key="InverseBoolToVis"/>
+            <converters:NullToVisibilityConverter                   x:Key="NullToVis"/>
+            <converters:StringNotEmptyToVisibilityConverter         x:Key="StrNotEmptyToVis"/>
+            <converters:PriceConverter                              x:Key="PriceConv"/>
+            <converters:AppGetLabelConverter                        x:Key="AppGetLabelConv"/>
+            <converters:DownloadButtonTextConverter                 x:Key="DlBtnText"/>
+            <converters:DownloadCountConverter                      x:Key="DlCountConv"/>
+            <converters:RatingToStarsConverter                      x:Key="RatingStars"/>
+            <converters:SizeConverter                               x:Key="SizeConv"/>
+            <converters:SizeNumberConverter                         x:Key="SizeNumberConv"/>
+            <converters:SizeUnitConverter                           x:Key="SizeUnitConv"/>
+            <converters:StringToColorBrushConverter                 x:Key="ColorBrush"/>
+            <converters:DiscountVisibilityConverter                 x:Key="DiscountVis"/>
+            <converters:DiscountWithPriceVisibilityConverter        x:Key="DiscountWithPriceVis"/>
+            <converters:StockToColorConverter                       x:Key="StockColor"/>
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
