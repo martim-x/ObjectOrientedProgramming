@@ -125,7 +125,15 @@
             Command="{Binding DownloadCommand}"
             CommandParameter="{Binding SelectedApp}"
           >
-            <TextBlock FontSize="14" Text="{Binding SelectedApp.ButtonLabel}" />
+            <TextBlock FontSize="14">
+              <TextBlock.Text>
+                <MultiBinding Converter="{StaticResource ButtonLabelConv}">
+                  <Binding Path="SelectedApp.IsDownloaded" />
+                  <Binding Path="SelectedApp.Price" />
+                  <Binding Path="CurrentLanguage" />
+                </MultiBinding>
+              </TextBlock.Text>
+            </TextBlock>
           </Button>
         </Grid>
         <!-- Divider -->

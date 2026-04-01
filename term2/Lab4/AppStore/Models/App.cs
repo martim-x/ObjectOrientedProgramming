@@ -32,11 +32,5 @@ namespace Project.Models
         // Computed: apply discount if set
         public double FinalPrice =>
             DiscountPercent.HasValue ? Price * (1.0 - DiscountPercent.Value / 100.0) : Price;
-
-        // Computed: button label for Get/Open/Price
-        public string ButtonLabel =>
-            IsDownloaded ? "Open"
-            : FinalPrice <= 0 ? "Get"
-            : $"${FinalPrice:F2}";
     }
 }

@@ -31,6 +31,8 @@
   <sys:String x:Key="TileDevLabel">Разработчик</sys:String>
   <sys:String x:Key="TileLang">Язык</sys:String>
   <sys:String x:Key="TileSize">Размер</sys:String>
+  <sys:String x:Key="BtnGet">Загрузить</sys:String>
+  <sys:String x:Key="BtnOpen">Открыть</sys:String>
   <!-- Detail view -->
   <sys:String x:Key="Back">Назад</sys:String>
   <sys:String x:Key="EditBtn">Изменить</sys:String>
@@ -69,10 +71,8 @@
   <sys:String x:Key="DeleteAppTitle">Удалить</sys:String>
   <sys:String x:Key="DeleteConfirmTitle">Удалить приложение?</sys:String>
   <sys:String x:Key="DeleteConfirmMsg"
-    >Это действие нельзя отменить. Приложение будет удалено
-
-        навсегда.</sys:String
-  >
+  >Это действие нельзя отменить. Приложение будет удалено
+    навсегда.</sys:String>
   <sys:String x:Key="DeleteBtn">Удалить</sys:String>
   <sys:String x:Key="RestoreConfirmTitle">Восстановить?</sys:String>
   <sys:String x:Key="RestoreConfirmMsg">Все приложения будут заменены на 12 исходных.</sys:String>

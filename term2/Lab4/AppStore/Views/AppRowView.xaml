@@ -55,9 +55,16 @@
           <TextBlock
             Foreground="{DynamicResource GetBtnTextBrush}"
             FontSize="13"
-            FontWeight="SemiBold"
-            Text="{Binding ButtonLabel}"
-          />
+            FontWeight="SemiBold">
+            <TextBlock.Text>
+              <MultiBinding Converter="{StaticResource ButtonLabelConv}">
+                <Binding Path="IsDownloaded" />
+                <Binding Path="Price" />
+                <Binding Path="DataContext.CurrentLanguage"
+                  RelativeSource="{RelativeSource AncestorType=Window}" />
+              </MultiBinding>
+            </TextBlock.Text>
+          </TextBlock>
         </Button>
       </Grid>
     </Border>

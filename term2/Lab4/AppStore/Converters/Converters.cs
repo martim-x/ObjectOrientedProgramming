@@ -277,4 +277,47 @@ namespace Project.Converters
             CultureInfo culture
         ) => DependencyProperty.UnsetValue;
     }
+
+    public class ButtonLabelConverter : IMultiValueConverter
+    {
+        // values[0] = IsDownloaded (bool)
+        // values[1] = Price        (double / decimal)
+        // values[2] = CurrentLanguage — re-evaluation trigger ("en" | "ru")
+        public object Convert(
+            object[] values,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        )
+        {
+            if (values.Length < 3)
+                return "Get";
+
+            bool isDownloaded = values[0] is bool b && b;
+            double price = values[1] switch
+            {
+                double d => d,
+                decimal dc => (double)dc,
+                float f => f,
+                _ => 0d,
+            };
+            string lang = values[2] as string ?? "en";
+
+            if (isDownloaded)
+                return Application.Current.TryFindResource("BtnOpen") as string ?? "Open";
+
+            if (price <= 0)
+                return Application.Current.TryFindResource("BtnGet") as string ?? "Get";
+
+            // Paid app — format price per locale
+            return lang == "ru" ? $"{price * 2.97:F0} BYN" : $"${price:F2}";
+        }
+
+        public object[] ConvertBack(
+            object value,
+            Type[] targetTypes,
+            object parameter,
+            CultureInfo culture
+        ) => throw new NotSupportedException();
+    }
 }

@@ -24,6 +24,7 @@
       <converters:StringToColorBrushConverter x:Key="ColorBrush" />
       <converters:DiscountVisibilityConverter x:Key="DiscountVis" />
       <converters:RoleNameConverter x:Key="RoleNameConv" />
+      <converters:ButtonLabelConverter x:Key="ButtonLabelConv" />
     </ResourceDictionary>
   </Application.Resources>
 </Application>

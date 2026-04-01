@@ -527,11 +527,24 @@
                     Style="{DynamicResource GetButtonStyle}"
                     Padding="12,4"
                     VerticalAlignment="Center"
-                    Content="{Binding ButtonLabel}"
                     Command="{Binding DataContext.DownloadCommand,
-                                                RelativeSource={RelativeSource AncestorType=Window}}"
+                    RelativeSource={RelativeSource AncestorType=Window}}"
                     CommandParameter="{Binding}"
-                  />
+                    Content="{Binding ButtonLabel}"
+                  >
+                    <Button.Content>
+                      <TextBlock>
+                        <TextBlock.Text>
+                          <MultiBinding Converter="{StaticResource ButtonLabelConv}">
+                            <Binding Path="IsDownloaded" />
+                            <Binding Path="Price" />
+                            <Binding Path="DataContext.CurrentLanguage"
+                              RelativeSource="{RelativeSource AncestorType=Window}" />
+                          </MultiBinding>
+                        </TextBlock.Text>
+                      </TextBlock>
+                    </Button.Content>
+                  </Button>
                 </Grid>
               </Border>
             </DataTemplate>

@@ -31,6 +31,8 @@
   <sys:String x:Key="TileDevLabel">Developer</sys:String>
   <sys:String x:Key="TileLang">Language</sys:String>
   <sys:String x:Key="TileSize">Size</sys:String>
+  <sys:String x:Key="BtnGet">Get</sys:String>
+  <sys:String x:Key="BtnOpen">Open</sys:String>
   <!-- Detail view -->
   <sys:String x:Key="Back">Back</sys:String>
   <sys:String x:Key="EditBtn">Edit</sys:String>
@@ -69,17 +71,12 @@
   <sys:String x:Key="DeleteAppTitle">Delete App</sys:String>
   <sys:String x:Key="DeleteConfirmTitle">Delete App?</sys:String>
   <sys:String x:Key="DeleteConfirmMsg"
-    >This action cannot be undone. The app will be permanently
-
-
-
-		removed.</sys:String
-  >
+  >This action cannot be undone. The app will be permanently
+    removed.</sys:String>
   <sys:String x:Key="DeleteBtn">Delete</sys:String>
   <sys:String x:Key="RestoreConfirmTitle">Restore Defaults?</sys:String>
   <sys:String x:Key="RestoreConfirmMsg"
-    >This will replace all apps with the original 12 seed apps.</sys:String
-  >
+  >This will replace all apps with the original 12 seed apps.</sys:String>
   <sys:String x:Key="RestoreBtn">Restore</sys:String>
   <!-- Empty state -->
   <sys:String x:Key="NoAppsFound">No Apps Found</sys:String>
