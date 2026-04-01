@@ -1,74 +1,109 @@
-<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <sys:String x:Key="AppTitle">App Store</sys:String>
-    <sys:String x:Key="Categories">&#1050;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1080;</sys:String>
-    <sys:String x:Key="CatDiscover">&#1054;&#1073;&#1079;&#1086;&#1088;</sys:String>
-    <sys:String x:Key="CatCreate">&#1058;&#1074;&#1086;&#1088;&#1095;&#1077;&#1089;&#1090;&#1074;&#1086;</sys:String>
-    <sys:String x:Key="CatWork">&#1056;&#1072;&#1073;&#1086;&#1090;&#1072;</sys:String>
-    <sys:String x:Key="CatPlay">&#1048;&#1075;&#1088;&#1099;</sys:String>
-    <sys:String x:Key="CatDevelop">&#1056;&#1072;&#1079;&#1088;&#1072;&#1073;&#1086;&#1090;&#1082;&#1072;</sys:String>
-    <sys:String x:Key="CatInstalled">&#1059;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1083;&#1077;&#1085;&#1085;&#1099;&#1077;</sys:String>
-    <sys:String x:Key="TopApps">&#1058;&#1086;&#1087; &#1087;&#1088;&#1080;&#1083;&#1086;&#1078;&#1077;&#1085;&#1080;&#1081;</sys:String>
-    <sys:String x:Key="SeeAll">&#1042;&#1089;&#1077;</sys:String>
-    <sys:String x:Key="FeaturedToday">&#1055;&#1088;&#1080;&#1083;&#1086;&#1078;&#1077;&#1085;&#1080;&#1077; &#1076;&#1085;&#1103;</sys:String>
-    <sys:String x:Key="Download">&#1047;&#1072;&#1075;&#1088;&#1091;&#1079;&#1080;&#1090;&#1100;</sys:String>
-    <sys:String x:Key="Back">&#1053;&#1072;&#1079;&#1072;&#1076;</sys:String>
-    <sys:String x:Key="AddApp">+ &#1044;&#1086;&#1073;&#1072;&#1074;&#1080;&#1090;&#1100;</sys:String>
-    <sys:String x:Key="EditBtn">&#1048;&#1079;&#1084;&#1077;&#1085;&#1080;&#1090;&#1100;</sys:String>
-    <sys:String x:Key="EditApp">&#1048;&#1079;&#1084;&#1077;&#1085;&#1077;&#1085;&#1080;&#1077; &#1087;&#1072;&#1088;&#1072;&#1084;&#1077;&#1090;&#1088;&#1086;&#1074;</sys:String>
-    <sys:String x:Key="DeleteApp">&#1059;&#1076;&#1072;&#1083;&#1077;&#1085;&#1080;&#1077; &#1087;&#1088;&#1080;&#1083;&#1086;&#1078;&#1077;&#1085;&#1080;&#1103;</sys:String>
-    <sys:String x:Key="DeleteBtn">&#1059;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100;</sys:String>
-    <sys:String x:Key="Save">&#1048;&#1079;&#1084;&#1077;&#1085;&#1080;&#1090;&#1100;</sys:String>
-    <sys:String x:Key="Cancel">&#1054;&#1090;&#1084;&#1077;&#1085;&#1072;</sys:String>
-    <sys:String x:Key="Filters">&#1060;&#1080;&#1083;&#1100;&#1090;&#1088;</sys:String>
-    <sys:String x:Key="SortBy">&#1057;&#1086;&#1088;&#1090;&#1080;&#1088;&#1086;&#1074;&#1082;&#1072;</sys:String>
-    <sys:String x:Key="MinRating">&#1052;&#1080;&#1085;. &#1088;&#1077;&#1081;&#1090;&#1080;&#1085;&#1075;</sys:String>
-    <sys:String x:Key="PriceRange">&#1052;&#1072;&#1082;&#1089;. &#1094;&#1077;&#1085;&#1072;</sys:String>
-    <sys:String x:Key="DownloadedOnly">&#1058;&#1086;&#1083;&#1100;&#1082;&#1086; &#1079;&#1072;&#1075;&#1088;&#1091;&#1078;&#1077;&#1085;&#1085;&#1099;&#1077;</sys:String>
-    <sys:String x:Key="SortFeatured">&#1055;&#1086;&#1076;&#1073;&#1086;&#1088;&#1082;&#1072;</sys:String>
-    <sys:String x:Key="SortRating">&#1056;&#1077;&#1081;&#1090;&#1080;&#1085;&#1075; &#8595;</sys:String>
-    <sys:String x:Key="SortPriceAsc">&#1062;&#1077;&#1085;&#1072; &#8593;</sys:String>
-    <sys:String x:Key="SortPriceDesc">&#1062;&#1077;&#1085;&#1072; &#8595;</sys:String>
-    <sys:String x:Key="SortDownloads">&#1047;&#1072;&#1075;&#1088;&#1091;&#1079;&#1082;&#1080; &#8595;</sys:String>
-    <sys:String x:Key="SortNewest">&#1053;&#1086;&#1074;&#1080;&#1085;&#1082;&#1080;</sys:String>
-    <sys:String x:Key="SortName">&#1053;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077; &#1040;&#8211;&#1071;</sys:String>
-    <sys:String x:Key="ResetFilters">&#8635;  &#1057;&#1073;&#1088;&#1086;&#1089;&#1080;&#1090;&#1100;</sys:String>
-    <sys:String x:Key="RestoreData">&#1042;&#1086;&#1089;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1080;&#1090;&#1100; &#1076;&#1072;&#1085;&#1085;&#1099;&#1077;</sys:String>
-    <sys:String x:Key="RestoreConfirmTitle">&#1042;&#1086;&#1089;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1080;&#1090;&#1100; &#1082;&#1072;&#1090;&#1072;&#1083;&#1086;&#1075;?</sys:String>
-    <sys:String x:Key="RestoreConfirmMsg">&#1042;&#1089;&#1077; &#1090;&#1077;&#1082;&#1091;&#1097;&#1080;&#1077; &#1087;&#1088;&#1080;&#1083;&#1086;&#1078;&#1077;&#1085;&#1080;&#1103; &#1073;&#1091;&#1076;&#1091;&#1090; &#1079;&#1072;&#1084;&#1077;&#1085;&#1077;&#1085;&#1099; &#1089;&#1090;&#1072;&#1085;&#1076;&#1072;&#1088;&#1090;&#1085;&#1099;&#1084;&#1080;.</sys:String>
-    <sys:String x:Key="RestoreBtn">&#1042;&#1086;&#1089;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1080;&#1090;&#1100;</sys:String>
-    <sys:String x:Key="DeleteConfirmTitle">&#1059;&#1076;&#1072;&#1083;&#1080;&#1090;&#1100; &#1087;&#1088;&#1080;&#1083;&#1086;&#1078;&#1077;&#1085;&#1080;&#1077;?</sys:String>
-    <sys:String x:Key="DeleteConfirmMsg">&#1055;&#1088;&#1080;&#1083;&#1086;&#1078;&#1077;&#1085;&#1080;&#1077; &#1073;&#1091;&#1076;&#1077;&#1090; &#1091;&#1076;&#1072;&#1083;&#1077;&#1085;&#1086; &#1080;&#1079; &#1084;&#1072;&#1075;&#1072;&#1079;&#1080;&#1085;&#1072;.</sys:String>
-    <sys:String x:Key="ShortName">&#1050;&#1088;&#1072;&#1090;&#1082;&#1086;&#1077; &#1085;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077;</sys:String>
-    <sys:String x:Key="FullName">&#1055;&#1086;&#1083;&#1085;&#1086;&#1077; &#1085;&#1072;&#1079;&#1074;&#1072;&#1085;&#1080;&#1077;</sys:String>
-    <sys:String x:Key="Developer">&#1056;&#1072;&#1079;&#1088;&#1072;&#1073;&#1086;&#1090;&#1095;&#1080;&#1082;</sys:String>
-    <sys:String x:Key="Description">&#1054;&#1087;&#1080;&#1089;&#1072;&#1085;&#1080;&#1077;</sys:String>
-    <sys:String x:Key="Category">&#1050;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1103;</sys:String>
-    <sys:String x:Key="Price">&#1062;&#1077;&#1085;&#1072;</sys:String>
-    <sys:String x:Key="Rating">&#1056;&#1077;&#1081;&#1090;&#1080;&#1085;&#1075;</sys:String>
-    <sys:String x:Key="Version">&#1042;&#1077;&#1088;&#1089;&#1080;&#1103;</sys:String>
-    <sys:String x:Key="Country">&#1057;&#1090;&#1088;&#1072;&#1085;&#1072;</sys:String>
-    <sys:String x:Key="AgeRating">&#1042;&#1086;&#1079;&#1088;&#1072;&#1089;&#1090;</sys:String>
-    <sys:String x:Key="Size">&#1056;&#1072;&#1079;&#1084;&#1077;&#1088;</sys:String>
-    <sys:String x:Key="Tags">&#1058;&#1077;&#1075;&#1080;</sys:String>
-    <sys:String x:Key="InStock">&#1042; &#1085;&#1072;&#1083;&#1080;&#1095;&#1080;&#1080;</sys:String>
-    <sys:String x:Key="Discount">&#1057;&#1082;&#1080;&#1076;&#1082;&#1072; %</sys:String>
-    <sys:String x:Key="AppsInStore">&#1087;&#1088;&#1080;&#1083;&#1086;&#1078;&#1077;&#1085;&#1080;&#1081;</sys:String>
-    <sys:String x:Key="AppsInstalled">&#1091;&#1089;&#1090;&#1072;&#1085;&#1086;&#1074;&#1083;&#1077;&#1085;&#1086;</sys:String>
-    <sys:String x:Key="Downloads">&#1047;&#1072;&#1075;&#1088;&#1091;&#1079;&#1086;&#1082;</sys:String>
-    <sys:String x:Key="NoAppsFound">&#1055;&#1088;&#1080;&#1083;&#1086;&#1078;&#1077;&#1085;&#1080;&#1103; &#1085;&#1077; &#1085;&#1072;&#1081;&#1076;&#1077;&#1085;&#1099;</sys:String>
-    <sys:String x:Key="NoAppsHint">&#1055;&#1086;&#1087;&#1088;&#1086;&#1073;&#1091;&#1081;&#1090;&#1077; &#1076;&#1088;&#1091;&#1075;&#1086;&#1081; &#1079;&#1072;&#1087;&#1088;&#1086;&#1089;</sys:String>
-    <sys:String x:Key="TileRatings">&#1054;&#1094;&#1077;&#1085;&#1086;&#1082;</sys:String>
-    <sys:String x:Key="TileAge">&#1042;&#1086;&#1079;&#1088;&#1072;&#1089;&#1090;</sys:String>
-    <sys:String x:Key="TileYears">&#1083;&#1077;&#1090;</sys:String>
-    <sys:String x:Key="TileDev">&#1056;&#1072;&#1079;&#1088;&#1072;&#1073;&#1086;&#1090;&#1095;&#1080;&#1082;</sys:String>
-    <sys:String x:Key="TileDevLabel">&#1056;&#1072;&#1079;&#1088;&#1072;&#1073;&#1086;&#1090;&#1095;&#1080;&#1082;</sys:String>
-    <sys:String x:Key="TileLang">&#1071;&#1079;&#1099;&#1082;</sys:String>
-    <sys:String x:Key="TileSize">&#1056;&#1072;&#1079;&#1084;&#1077;&#1088;</sys:String>
-    <sys:String x:Key="EditAppTitle">&#1048;&#1079;&#1084;&#1077;&#1085;&#1077;&#1085;&#1080;&#1077; &#1087;&#1072;&#1088;&#1072;&#1084;&#1077;&#1090;&#1088;&#1086;&#1074;</sys:String>
-    <sys:String x:Key="DeleteAppTitle">&#1059;&#1076;&#1072;&#1083;&#1077;&#1085;&#1080;&#1077; &#1087;&#1088;&#1080;&#1083;&#1086;&#1078;&#1077;&#1085;&#1080;&#1103;</sys:String>
-    <sys:String x:Key="BtnGet">&#1047;&#1072;&#1075;&#1088;&#1091;&#1079;&#1080;&#1090;&#1100;</sys:String>
-    <sys:String x:Key="BtnOpen">&#1054;&#1090;&#1082;&#1088;&#1099;&#1090;&#1100;</sys:String>
-    <sys:String x:Key="CatCategories">&#1050;&#1072;&#1090;&#1077;&#1075;&#1086;&#1088;&#1080;&#1080;</sys:String>
+<ResourceDictionary
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:sys="clr-namespace:System;assembly=mscorlib"
+>
+  <!-- General -->
+  <sys:String x:Key="AppTitle">Магазин приложений</sys:String>
+  <sys:String x:Key="CurrentLanguage">ru</sys:String>
+  <!-- Sidebar categories -->
+  <sys:String x:Key="CatDiscover">Обзор</sys:String>
+  <sys:String x:Key="CatCreate">Создать</sys:String>
+  <sys:String x:Key="CatWork">Работа</sys:String>
+  <sys:String x:Key="CatPlay">Игры</sys:String>
+  <sys:String x:Key="CatDevelop">Разработка</sys:String>
+  <sys:String x:Key="CatCategories">Категории</sys:String>
+  <sys:String x:Key="CatInstalled">Установленные</sys:String>
+  <!-- Section headers -->
+  <sys:String x:Key="TopApps">Лучшие приложения</sys:String>
+  <sys:String x:Key="SeeAll">Все</sys:String>
+  <sys:String x:Key="Filters">Фильтры</sys:String>
+  <sys:String x:Key="AddApp">+ Добавить</sys:String>
+  <sys:String x:Key="EditApp">Редактировать</sys:String>
+  <!-- Featured banner -->
+  <sys:String x:Key="FeaturedToday">ВЫБОР ДНЯ</sys:String>
+  <sys:String x:Key="Download">Скачать</sys:String>
+  <!-- App detail tiles -->
+  <sys:String x:Key="TileRatings">Оценки</sys:String>
+  <sys:String x:Key="TileAge">Возраст</sys:String>
+  <sys:String x:Key="TileYears">Лет</sys:String>
+  <sys:String x:Key="TileDev">Разработчик</sys:String>
+  <sys:String x:Key="TileDevLabel">Разработчик</sys:String>
+  <sys:String x:Key="TileLang">Язык</sys:String>
+  <sys:String x:Key="TileSize">Размер</sys:String>
+  <!-- Detail view -->
+  <sys:String x:Key="Back">Назад</sys:String>
+  <sys:String x:Key="EditBtn">Изменить</sys:String>
+  <sys:String x:Key="Developer">Разработчик</sys:String>
+  <sys:String x:Key="Version">Версия</sys:String>
+  <sys:String x:Key="Country">Страна</sys:String>
+  <sys:String x:Key="Price">Цена</sys:String>
+  <sys:String x:Key="Tags">Теги</sys:String>
+  <sys:String x:Key="Description">Описание</sys:String>
+  <!-- Filter popup -->
+  <sys:String x:Key="SortBy">Сортировка</sys:String>
+  <sys:String x:Key="SortFeatured">Рекомендуемые</sys:String>
+  <sys:String x:Key="SortRating">Рейтинг ↓</sys:String>
+  <sys:String x:Key="SortPriceAsc">Цена ↑</sys:String>
+  <sys:String x:Key="SortPriceDesc">Цена ↓</sys:String>
+  <sys:String x:Key="SortDownloads">Загрузки</sys:String>
+  <sys:String x:Key="SortNewest">Новые</sys:String>
+  <sys:String x:Key="SortName">Имя А→Я</sys:String>
+  <sys:String x:Key="MinRating">Мин. рейтинг</sys:String>
+  <sys:String x:Key="PriceRange">Диапазон цен</sys:String>
+  <sys:String x:Key="DownloadedOnly">Только загруженные</sys:String>
+  <sys:String x:Key="ResetFilters">Сбросить фильтры</sys:String>
+  <sys:String x:Key="RestoreData">Восстановить приложения</sys:String>
+  <!-- Form -->
+  <sys:String x:Key="ShortName">Краткое имя</sys:String>
+  <sys:String x:Key="FullName">Полное имя</sys:String>
+  <sys:String x:Key="Category">Категория</sys:String>
+  <sys:String x:Key="Rating">Рейтинг</sys:String>
+  <sys:String x:Key="AgeRating">Возрастной рейтинг</sys:String>
+  <sys:String x:Key="Discount">Скидка %</sys:String>
+  <sys:String x:Key="InStock">В наличии</sys:String>
+  <sys:String x:Key="Cancel">Отмена</sys:String>
+  <sys:String x:Key="Save">Сохранить</sys:String>
+  <!-- Dialogs -->
+  <sys:String x:Key="EditAppTitle">Редактировать</sys:String>
+  <sys:String x:Key="DeleteAppTitle">Удалить</sys:String>
+  <sys:String x:Key="DeleteConfirmTitle">Удалить приложение?</sys:String>
+  <sys:String x:Key="DeleteConfirmMsg"
+    >Это действие нельзя отменить. Приложение будет удалено
+
+        навсегда.</sys:String
+  >
+  <sys:String x:Key="DeleteBtn">Удалить</sys:String>
+  <sys:String x:Key="RestoreConfirmTitle">Восстановить?</sys:String>
+  <sys:String x:Key="RestoreConfirmMsg">Все приложения будут заменены на 12 исходных.</sys:String>
+  <sys:String x:Key="RestoreBtn">Восстановить</sys:String>
+  <!-- Empty state -->
+  <sys:String x:Key="NoAppsFound">Ничего не найдено</sys:String>
+  <sys:String x:Key="NoAppsHint">Попробуйте изменить фильтры или поисковый запрос</sys:String>
+  <!-- Stats -->
+  <sys:String x:Key="AppsInStore">приложений</sys:String>
+  <sys:String x:Key="AppsInstalled">установлено</sys:String>
+  <!-- Auth -->
+  <sys:String x:Key="LoginSubtitle">Войдите в аккаунт</sys:String>
+  <sys:String x:Key="LoginLabel">Логин</sys:String>
+  <sys:String x:Key="PasswordLabel">Пароль</sys:String>
+  <sys:String x:Key="SignIn">Войти</sys:String>
+  <sys:String x:Key="LoginHint">admin / admin или user / 1234</sys:String>
+  <sys:String x:Key="LoginError">Неверный логин или пароль</sys:String>
+  <sys:String x:Key="Logout">Выйти</sys:String>
+  <!-- Profile -->
+  <sys:String x:Key="ProfileEditTitle">Профиль</sys:String>
+  <sys:String x:Key="LabelFirstName">Имя</sys:String>
+  <sys:String x:Key="LabelLastName">Фамилия</sys:String>
+  <sys:String x:Key="LabelEmail">Эл. почта</sys:String>
+  <sys:String x:Key="PlaceholderFirstName">Введите имя</sys:String>
+  <sys:String x:Key="PlaceholderLastName">Введите фамилию</sys:String>
+  <sys:String x:Key="PlaceholderEmail">Введите email</sys:String>
+  <sys:String x:Key="SaveProfile">Сохранить профиль</sys:String>
+  <sys:String x:Key="ChangePasswordTitle">Смена пароля</sys:String>
+  <sys:String x:Key="LabelOldPassword">Текущий пароль</sys:String>
+  <sys:String x:Key="LabelNewPassword">Новый пароль</sys:String>
+  <sys:String x:Key="ChangePassword">Сменить пароль</sys:String>
+  <sys:String x:Key="DarkModeLabel">Тёмная тема</sys:String>
+  <sys:String x:Key="DarkModeHint">Переключить оформление</sys:String>
 </ResourceDictionary>

@@ -1,239 +1,280 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Windows.Media;
-using AppStore.Models;
+using Project.Models;
 
-namespace AppStore.Converters
+namespace Project.Converters
 {
+    // ── 1. BoolToVisibilityConverter ──────────────────────────────────────────
+    /// <summary>true → Visible, false → Collapsed</summary>
+    [ValueConversion(typeof(bool), typeof(Visibility))]
     public class BoolToVisibilityConverter : IValueConverter
     {
-        public object Convert(object v, Type t, object p, CultureInfo c) =>
-            v is bool b && b ? Visibility.Visible : Visibility.Collapsed;
+        public object Convert(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => value is bool b && b ? Visibility.Visible : Visibility.Collapsed;
 
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            v is Visibility vis && vis == Visibility.Visible;
+        public object ConvertBack(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => value is Visibility v && v == Visibility.Visible;
     }
 
+    // ── 2. InverseBoolToVisibilityConverter ───────────────────────────────────
+    /// <summary>true → Collapsed, false → Visible</summary>
+    [ValueConversion(typeof(bool), typeof(Visibility))]
     public class InverseBoolToVisibilityConverter : IValueConverter
     {
-        public object Convert(object v, Type t, object p, CultureInfo c) =>
-            v is bool b && b ? Visibility.Collapsed : Visibility.Visible;
+        public object Convert(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => value is bool b && b ? Visibility.Collapsed : Visibility.Visible;
 
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
+        public object ConvertBack(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => value is Visibility v && v == Visibility.Collapsed;
     }
 
+    // ── 3. NullToVisibilityConverter ──────────────────────────────────────────
+    /// <summary>null → Collapsed, non-null → Visible</summary>
+    [ValueConversion(typeof(object), typeof(Visibility))]
     public class NullToVisibilityConverter : IValueConverter
     {
-        public object Convert(object v, Type t, object p, CultureInfo c) =>
-            v == null ? Visibility.Collapsed : Visibility.Visible;
+        public object Convert(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => value == null ? Visibility.Collapsed : Visibility.Visible;
 
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
+        public object ConvertBack(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => DependencyProperty.UnsetValue;
     }
 
-    public class StringNotEmptyToVisibilityConverter : IValueConverter
-    {
-        public object Convert(object v, Type t, object p, CultureInfo c) =>
-            v is string s && s.Length > 0 ? Visibility.Visible : Visibility.Collapsed;
-
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
-    }
-
-    // -------------------------------------------------------
-    // GET/OPEN label for row buttons
-    // Binds to the whole AppItem, returns localised string or price
-    // -------------------------------------------------------
-    public class AppGetLabelConverter : IValueConverter
-    {
-        public static string CurrentCurrency { get; set; } = "USD";
-        public static double ExchangeRate { get; set; } = 1.0;
-        public static string GetLabel { get; set; } = "Get";
-        public static string OpenLabel { get; set; } = "Open";
-
-        public object Convert(object v, Type t, object p, CultureInfo c)
-        {
-            if (v is AppItem app)
-            {
-                if (app.IsDownloaded)
-                    return OpenLabel;
-                if (app.IsFree)
-                    return GetLabel;
-                double price = app.FinalPrice * ExchangeRate;
-                string sym = CurrentCurrency == "BYN" ? "BYN " : "$";
-                return $"{sym}{price:F2}";
-            }
-            return GetLabel;
-        }
-
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
-    }
-
-    // -------------------------------------------------------
-    // DlBtnText — binds to bool IsDownloaded, returns Get/Open
-    // -------------------------------------------------------
-    public class DownloadButtonTextConverter : IValueConverter
-    {
-        public object Convert(object v, Type t, object p, CultureInfo c) =>
-            v is bool b && b ? AppGetLabelConverter.OpenLabel : AppGetLabelConverter.GetLabel;
-
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
-    }
-
-    // -------------------------------------------------------
-    // Price in info table (Free / $9.99 / 29.40 BYN)
-    // -------------------------------------------------------
+    // ── 4. PriceConverter ─────────────────────────────────────────────────────
+    /// <summary>
+    /// Formats a price value based on the current language resource.
+    /// Reads "CurrentLanguage" from Application.Current.Resources to select currency symbol.
+    /// e.g.  en → "$9.99"  ru → "9,99 ₽"  de → "9,99 €"
+    /// </summary>
+    [ValueConversion(typeof(double), typeof(string))]
     public class PriceConverter : IValueConverter
     {
-        public object Convert(object v, Type t, object p, CultureInfo c)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (v is double price)
+            if (value is not double price)
+                return string.Empty;
+
+            if (price <= 0)
+                return GetString("Free") ?? "Free";
+
+            var lang = Application.Current?.Resources["CurrentLanguage"] as string ?? "en";
+            return lang switch
             {
-                if (price <= 0)
-                    return "Free";
-                double converted = price * AppGetLabelConverter.ExchangeRate;
-                string sym = AppGetLabelConverter.CurrentCurrency == "BYN" ? "BYN " : "$";
-                return $"{sym}{converted:F2}";
-            }
-            return "Free";
+                "ru" => $"{price:F2} ₽".Replace('.', ','),
+                "de" => $"{price:F2} €".Replace('.', ','),
+                "fr" => $"{price:F2} €".Replace('.', ','),
+                _ => $"${price:F2}",
+            };
         }
 
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
-    }
+        public object ConvertBack(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => DependencyProperty.UnsetValue;
 
-    // -------------------------------------------------------
-    // Discount — show ONLY when price > 0 AND discount > 0
-    // -------------------------------------------------------
-    public class DiscountVisibilityConverter : IValueConverter
-    {
-        // parameter = Price value passed via MultiBinding or ConverterParameter
-        public object Convert(object v, Type t, object p, CultureInfo c) =>
-            v is double d && d > 0 ? Visibility.Visible : Visibility.Collapsed;
-
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
-    }
-
-    // DiscountVisible only when both Price > 0 AND Discount > 0
-    public class DiscountWithPriceVisibilityConverter : IMultiValueConverter
-    {
-        public object Convert(object[] values, Type t, object p, CultureInfo c)
+        private static string? GetString(string key)
         {
-            if (values.Length < 2)
-                return Visibility.Collapsed;
-
-            double price = values[0] is double d ? d : 0;
-            double discount = values[1] is double dv ? dv : 0;
-
-            return price > 0 && discount > 0 ? Visibility.Visible : Visibility.Collapsed;
+            try
+            {
+                return Application.Current?.Resources[key] as string;
+            }
+            catch
+            {
+                return null;
+            }
         }
-
-        public object[] ConvertBack(object v, Type[] t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
     }
 
+    // ── 5. DownloadCountConverter ─────────────────────────────────────────────
+    /// <summary>Formats large numbers: 1234 → "1.2K", 1234567 → "1.2M"</summary>
+    [ValueConversion(typeof(int), typeof(string))]
     public class DownloadCountConverter : IValueConverter
     {
-        public object Convert(object v, Type t, object p, CultureInfo c)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (v is int n)
+            long n = value switch
             {
-                if (n >= 1_000_000)
-                    return $"{n / 1_000_000.0:F1}M";
-                if (n >= 1_000)
-                    return $"{n / 1000.0:F0}K";
-                return n.ToString();
-            }
-            return "0";
+                int i => i,
+                long l => l,
+                double d => (long)d,
+                _ => 0,
+            };
+
+            return n switch
+            {
+                >= 1_000_000 => $"{n / 1_000_000.0:0.#}M",
+                >= 1_000 => $"{n / 1_000.0:0.#}K",
+                _ => n.ToString(),
+            };
         }
 
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
+        public object ConvertBack(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => DependencyProperty.UnsetValue;
     }
 
+    // ── 6. RatingToStarsConverter ─────────────────────────────────────────────
+    /// <summary>4.5 → "★★★★½"  (out of 5 stars, uses half-star ½)</summary>
+    [ValueConversion(typeof(double), typeof(string))]
     public class RatingToStarsConverter : IValueConverter
     {
-        public object Convert(object v, Type t, object p, CultureInfo c)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (v is double r)
+            if (value is not double rating)
+                return string.Empty;
+
+            var result = string.Empty;
+            double remaining = Math.Clamp(rating, 0, 5);
+
+            for (int i = 1; i <= 5; i++)
             {
-                int full = Math.Max(
-                    0,
-                    Math.Min(5, (int)Math.Round(r, MidpointRounding.AwayFromZero))
-                );
-                return new string('★', full) + new string('☆', 5 - full);
+                if (remaining >= 1.0)
+                {
+                    result += "★";
+                    remaining -= 1.0;
+                }
+                else if (remaining >= 0.5)
+                {
+                    result += "½";
+                    remaining = 0;
+                }
+                else
+                {
+                    result += "☆";
+                }
             }
-            return "★★★★★";
+            return result;
         }
 
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
+        public object ConvertBack(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => DependencyProperty.UnsetValue;
     }
 
+    // ── 7. SizeConverter ──────────────────────────────────────────────────────
+    /// <summary>Returns a human-readable size string: "186.3 MB" or "12.5 GB"</summary>
+    [ValueConversion(typeof(double), typeof(string))]
     public class SizeConverter : IValueConverter
     {
-        public object Convert(object v, Type t, object p, CultureInfo c)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (v is double mb)
-                return mb >= 1024 ? $"{mb / 1024.0:F1} GB" : $"{mb:F1} MB";
-            return "—";
+            if (value is not double sizeMB)
+                return string.Empty;
+            return sizeMB >= 1024 ? $"{sizeMB / 1024.0:0.#} GB" : $"{sizeMB:0.#} MB";
         }
 
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
+        public object ConvertBack(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => DependencyProperty.UnsetValue;
     }
 
-    public class SizeNumberConverter : IValueConverter
-    {
-        public object Convert(object v, Type t, object p, CultureInfo c) =>
-            v is double mb ? (mb >= 1024 ? $"{mb / 1024.0:F1}" : $"{mb:F0}") : "0";
-
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
-    }
-
-    public class SizeUnitConverter : IValueConverter
-    {
-        public object Convert(object v, Type t, object p, CultureInfo c) =>
-            v is double mb && mb >= 1024 ? "GB" : "MB";
-
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
-    }
-
+    // ── 8. StringToColorBrushConverter ───────────────────────────────────────
+    /// <summary>Converts a hex color string "#RRGGBB" to a SolidColorBrush.</summary>
+    [ValueConversion(typeof(string), typeof(SolidColorBrush))]
     public class StringToColorBrushConverter : IValueConverter
     {
-        public object Convert(object v, Type t, object p, CultureInfo c)
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            if (v is string hex)
+            if (value is not string hex)
+                return new SolidColorBrush(Colors.Transparent);
+
+            try
             {
-                try
-                {
-                    return new SolidColorBrush((Color)ColorConverter.ConvertFromString(hex));
-                }
-                catch { }
+                var color = (Color)ColorConverter.ConvertFromString(hex);
+                return new SolidColorBrush(color);
             }
-            return new SolidColorBrush(Color.FromRgb(0, 114, 247));
+            catch
+            {
+                return new SolidColorBrush(Colors.Transparent);
+            }
         }
 
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
+        public object ConvertBack(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => DependencyProperty.UnsetValue;
     }
 
-    public class StockToColorConverter : IValueConverter
+    // ── 9. DiscountVisibilityConverter ────────────────────────────────────────
+    /// <summary>null or 0 → Collapsed; any positive value → Visible</summary>
+    [ValueConversion(typeof(double?), typeof(Visibility))]
+    public class DiscountVisibilityConverter : IValueConverter
     {
-        public object Convert(object v, Type t, object p, CultureInfo c) =>
-            v is bool b && b
-                ? new SolidColorBrush(Color.FromRgb(52, 120, 246))
-                : new SolidColorBrush(Color.FromRgb(128, 128, 128));
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            if (value is null)
+                return Visibility.Collapsed;
+            if (value is double d && d > 0)
+                return Visibility.Visible;
+            return Visibility.Collapsed;
+        }
 
-        public object ConvertBack(object v, Type t, object p, CultureInfo c) =>
-            throw new NotImplementedException();
+        public object ConvertBack(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => DependencyProperty.UnsetValue;
+    }
+
+    // ── 10. RoleNameConverter ─────────────────────────────────────────────────
+    /// <summary>bool IsAdmin → "Admin" / "User"</summary>
+    [ValueConversion(typeof(bool), typeof(string))]
+    public class RoleNameConverter : IValueConverter
+    {
+        public object Convert(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => value is bool b && b ? "Admin" : "User";
+
+        public object ConvertBack(
+            object value,
+            Type targetType,
+            object parameter,
+            CultureInfo culture
+        ) => DependencyProperty.UnsetValue;
     }
 }

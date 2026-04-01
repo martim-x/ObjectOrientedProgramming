@@ -1,8 +1,9 @@
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using AppStore.ViewModels;
+using Project.ViewModels;
 
-namespace AppStore.Views
+namespace Project.Views
 {
     public partial class AppDetailView : UserControl
     {

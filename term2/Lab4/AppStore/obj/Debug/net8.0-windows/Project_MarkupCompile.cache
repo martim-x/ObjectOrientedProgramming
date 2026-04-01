@@ -1,0 +1,20 @@
+﻿Project
+
+
+winexe
+C#
+.cs
+C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\
+Project
+none
+false
+TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
+
+17492279842
+2-2051856976
+30-82020626
+228535260142
+ApplicationApp.xaml;Resources\Localization\en.xaml;Resources\Localization\ru.xaml;Resources\Styles\AppStyles.xaml;Resources\Styles\DarkAppTheme.xaml;Resources\Styles\DarkTheme.xaml;Resources\Styles\LightAppTheme.xaml;Views\AddEditWindow.xaml;Views\AppCardView.xaml;Views\AppDetailView.xaml;Views\AppRowView.xaml;Views\ConfirmDialog.xaml;Views\EditDeleteDialog.xaml;Views\FeaturedBannerView.xaml;Views\LoginWindow.xaml;Views\MainWindow.xaml;Views\ProfilePopup.xaml;
+
+False
+

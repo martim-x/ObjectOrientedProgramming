@@ -1,9 +1,10 @@
+using System;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
-using AppStore.ViewModels;
+using Project.ViewModels;
 
-namespace AppStore.Views
+namespace Project.Views
 {
     public partial class MainWindow : Window
     {
@@ -47,7 +48,7 @@ namespace AppStore.Views
 
         private void OnAddAppClick(object sender, RoutedEventArgs e)
         {
-            var dlg = new AddEditWindow(Vm.Service) { Owner = this };
+            var dlg = new AddEditWindow(Vm.Repository) { Owner = this };
             if (dlg.ShowDialog() == true)
                 Vm.RefreshCommand.Execute(null);
         }
@@ -59,15 +60,6 @@ namespace AppStore.Views
             Vm.MinPrice = 0;
             Vm.DownloadedOnly = false;
             FilterPopup.IsOpen = false;
-        }
-
-        private void OnGridAppClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            if (
-                sender is System.Windows.FrameworkElement fe
-                && fe.DataContext is AppStore.Models.AppItem app
-            )
-                Vm.OpenDetailCommand.Execute(app);
         }
 
         private void OnRestoreData(object sender, RoutedEventArgs e)
@@ -83,9 +75,27 @@ namespace AppStore.Views
                 Owner = this,
             };
             if (dlg.ShowDialog() == true)
-            {
                 Vm.RestoreDefaultsCommand.Execute(null);
-            }
+        }
+
+        private void OnProfileClick(object sender, RoutedEventArgs e)
+        {
+            var popup = new ProfilePopup(Vm.AuthService, Vm.ThemeService, this);
+            popup.Show();
+            popup.Closed += (_, __) =>
+            {
+                if (popup.LoggedOut)
+                    Vm.LogoutCommand.Execute(null);
+            };
+        }
+
+        private void OnGridAppClick(object sender, MouseButtonEventArgs e)
+        {
+            if (
+                sender is System.Windows.FrameworkElement fe
+                && fe.DataContext is Project.Models.App app
+            )
+                Vm.OpenDetailCommand.Execute(app);
         }
     }
 }

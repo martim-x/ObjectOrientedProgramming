@@ -1,19 +1,19 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
-using AppStore.Commands;
-using AppStore.Models;
-using AppStore.Services;
+using Project.Commands;
+using Project.Data;
+using Project.Models;
 
-namespace AppStore.ViewModels
+namespace Project.ViewModels
 {
     public class AddEditAppViewModel : ViewModelBase
     {
-        private readonly IAppService _service;
-        private AppItem _app;
+        private readonly IRepository _repo;
+        private App _app;
         private bool _isEditMode;
 
-        public AppItem App
+        public App App
         {
             get => _app;
             set => SetField(ref _app, value);
@@ -44,9 +44,9 @@ namespace AppStore.ViewModels
         public Action? OnSaved { get; set; }
         public Action? OnCancelled { get; set; }
 
-        public AddEditAppViewModel(IAppService service, AppItem? existing = null)
+        public AddEditAppViewModel(IRepository repo, App? existing = null)
         {
-            _service = service;
+            _repo = repo;
 
             if (existing != null)
             {
@@ -55,7 +55,7 @@ namespace AppStore.ViewModels
             }
             else
             {
-                _app = new AppItem { ReleaseDate = DateTime.Now };
+                _app = new App { ReleaseDate = DateTime.Now };
                 _isEditMode = false;
             }
 
@@ -66,13 +66,13 @@ namespace AppStore.ViewModels
         private void Save()
         {
             if (_isEditMode)
-                _service.Update(App);
+                _repo.UpdateApp(App);
             else
-                _service.Add(App);
+                _repo.AddApp(App);
             OnSaved?.Invoke();
         }
 
-        private static AppItem Clone(AppItem s) =>
+        private static App Clone(App s) =>
             new()
             {
                 Id = s.Id,

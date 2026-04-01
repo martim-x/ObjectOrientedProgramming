@@ -1,7 +1,9 @@
+using System;
+using System.Linq;
 using System.Windows;
-using AppStore.ViewModels;
+using Project.ViewModels;
 
-namespace AppStore.Views
+namespace Project.Views
 {
     public partial class EditDeleteDialog : Window
     {
@@ -19,7 +21,7 @@ namespace AppStore.Views
             Close();
             if (_vm.SelectedApp == null)
                 return;
-            var dlg = new AddEditWindow(_vm.Service, _vm.SelectedApp)
+            var dlg = new AddEditWindow(_vm.Repository, _vm.SelectedApp)
             {
                 Owner = Application.Current.MainWindow,
             };

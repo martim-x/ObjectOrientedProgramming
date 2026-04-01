@@ -1,8 +1,9 @@
+using System;
 using System.Windows.Controls;
 using System.Windows.Input;
-using AppStore.ViewModels;
+using Project.ViewModels;
 
-namespace AppStore.Views
+namespace Project.Views
 {
     public partial class FeaturedBannerView : UserControl
     {

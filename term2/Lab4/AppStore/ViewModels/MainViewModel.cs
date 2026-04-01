@@ -1,22 +1,29 @@
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows.Input;
-using AppStore.Commands;
-using AppStore.Models;
-using AppStore.Services;
+using Project.Commands;
+using Project.Data;
+using Project.Models;
+using Project.Services;
 
-namespace AppStore.ViewModels
+namespace Project.ViewModels
 {
     /// <summary>
     /// Root ViewModel. Owns all state visible to the main window:
     /// the current app list, filter settings, navigation state, and commands.
+    /// Uses IRepository directly — no AppService layer.
     /// </summary>
     public sealed class MainViewModel : ViewModelBase
     {
-        // ── public so Views can open child windows that need it
-        public readonly IAppService Service;
+        private readonly IRepository _repo;
         private readonly ILocalizationService _localization;
+        private readonly IAuthService _auth;
+        private readonly ThemeService _theme;
+
+        // Public so Views can access for add/edit dialogs
+        public IRepository Repository => _repo;
 
         // Maps sidebar nav key → Category string used in Filter (null = no category filter)
         private static readonly Dictionary<string, string?> NavCategoryMap = new()
@@ -31,10 +38,10 @@ namespace AppStore.ViewModels
         };
 
         // ── backing fields ──────────────────────────────────────────────────
-        private ObservableCollection<AppItem> _apps = new();
-        private ObservableCollection<AppItem> _featuredApps = new();
+        private ObservableCollection<App> _apps = new();
+        private ObservableCollection<App> _featuredApps = new();
         private ObservableCollection<string> _allTags = new();
-        private AppItem? _selectedApp;
+        private App? _selectedApp;
         private string _searchQuery = string.Empty;
         private string _selectedCategory = "Discover";
         private string? _selectedTag;
@@ -49,12 +56,12 @@ namespace AppStore.ViewModels
         private int _visibleCount = 6;
 
         // ── observable collections ──────────────────────────────────────────
-        public ObservableCollection<AppItem> Apps
+        public ObservableCollection<App> Apps
         {
             get => _apps;
             set => SetField(ref _apps, value);
         }
-        public ObservableCollection<AppItem> FeaturedApps
+        public ObservableCollection<App> FeaturedApps
         {
             get => _featuredApps;
             set => SetField(ref _featuredApps, value);
@@ -66,7 +73,7 @@ namespace AppStore.ViewModels
         }
 
         // ── selected app ────────────────────────────────────────────────────
-        public AppItem? SelectedApp
+        public App? SelectedApp
         {
             get => _selectedApp;
             set
@@ -177,8 +184,14 @@ namespace AppStore.ViewModels
             && string.IsNullOrEmpty(_searchQuery)
             && _selectedTag == null;
         public bool IsEmpty => Apps.Count == 0;
-        public int TotalCount => Service.GetTotalCount();
-        public int DownloadedCount => Service.GetDownloadedCount();
+        public int TotalCount => _repo.GetAllApps().Count;
+        public int DownloadedCount => _repo.GetAllApps().Count(a => a.IsDownloaded);
+
+        // ── auth ─────────────────────────────────────────────────────────────
+        public IAuthService AuthService => _auth;
+        public ThemeService ThemeService => _theme;
+        public User? CurrentUser => _auth.CurrentUser;
+        public bool IsAdmin => _auth.IsAdmin;
 
         // ── commands ─────────────────────────────────────────────────────────
         public ICommand DownloadCommand { get; }
@@ -192,44 +205,57 @@ namespace AppStore.ViewModels
         public ICommand RefreshCommand { get; }
         public ICommand ToggleSeeAllCommand { get; }
         public ICommand RestoreDefaultsCommand { get; }
+        public ICommand LogoutCommand { get; }
+
+        public event EventHandler? LogoutRequested;
 
         // ── constructor ──────────────────────────────────────────────────────
-        public MainViewModel(IAppService service, ILocalizationService localization)
+        public MainViewModel(
+            IRepository repo,
+            ILocalizationService localization,
+            IAuthService auth,
+            ThemeService theme
+        )
         {
-            Service = service;
+            _repo = repo;
             _localization = localization;
+            _auth = auth;
+            _theme = theme;
 
-            DownloadCommand = new DownloadAppCommand(
-                service,
-                app =>
+            DownloadCommand = new RelayCommand<App>(app =>
+            {
+                if (app == null)
+                    return;
+                if (app.IsDownloaded)
+                    _repo.UninstallApp(app.Id);
+                else
+                    _repo.DownloadApp(app.Id);
+
+                Reload();
+                OnPropertyChanged(nameof(DownloadedCount));
+
+                // Refresh SelectedApp reference so detail panel updates immediately
+                if (_selectedApp?.Id == app.Id)
                 {
-                    Reload();
-                    OnPropertyChanged(nameof(DownloadedCount));
-                    // Refresh SelectedApp reference so detail panel updates immediately
-                    if (app != null && _selectedApp?.Id == app.Id)
-                    {
-                        var fresh = service.GetById(app.Id);
-                        bool wasOpen = _isDetailOpen;
-                        _selectedApp = null;
-                        OnPropertyChanged(nameof(SelectedApp));
-                        _selectedApp = fresh;
-                        _isDetailOpen = wasOpen;
-                        OnPropertyChanged(nameof(SelectedApp));
-                    }
+                    var fresh = _repo.GetAppById(app.Id);
+                    bool wasOpen = _isDetailOpen;
+                    _selectedApp = null;
+                    OnPropertyChanged(nameof(SelectedApp));
+                    _selectedApp = fresh;
+                    _isDetailOpen = wasOpen;
+                    OnPropertyChanged(nameof(SelectedApp));
                 }
-            );
+            });
 
-            DeleteCommand = new DeleteAppCommand(
-                service,
-                () =>
-                {
-                    IsDetailOpen = false;
-                    SelectedApp = null;
-                    Reload();
-                }
-            );
+            DeleteCommand = new RelayCommand<Guid>(id =>
+            {
+                _repo.DeleteApp(id);
+                IsDetailOpen = false;
+                SelectedApp = null;
+                Reload();
+            });
 
-            OpenDetailCommand = new RelayCommand<AppItem>(app => SelectedApp = app);
+            OpenDetailCommand = new RelayCommand<App>(app => SelectedApp = app);
             CloseDetailCommand = new RelayCommand(() =>
             {
                 IsDetailOpen = false;
@@ -287,9 +313,10 @@ namespace AppStore.ViewModels
             });
             RestoreDefaultsCommand = new RelayCommand(() =>
             {
-                service.RestoreDefaults();
+                _repo.RestoreDefaults();
                 Reload();
             });
+            LogoutCommand = new RelayCommand(() => LogoutRequested?.Invoke(this, EventArgs.Empty));
 
             Reload();
         }
@@ -305,14 +332,17 @@ namespace AppStore.ViewModels
         }
 
         // ── private helpers ──────────────────────────────────────────────────
+
         private void LoadAllTags()
         {
-            var tags = Service.GetAll().SelectMany(a => a.Tags).Distinct().OrderBy(t => t);
+            var tags = _repo.GetAllApps().SelectMany(a => a.Tags).Distinct().OrderBy(t => t);
             AllTags = new ObservableCollection<string>(tags);
         }
 
         private void LoadFeatured() =>
-            FeaturedApps = new ObservableCollection<AppItem>(Service.GetFeatured());
+            FeaturedApps = new ObservableCollection<App>(
+                _repo.GetAllApps().Where(a => a.IsFeatured)
+            );
 
         private void RefreshList()
         {
@@ -321,38 +351,73 @@ namespace AppStore.ViewModels
             if (_visibleCount < int.MaxValue)
                 result = result.Take(_visibleCount);
 
-            Apps = new ObservableCollection<AppItem>(result);
+            Apps = new ObservableCollection<App>(result);
             OnPropertyChanged(nameof(IsEmpty));
             OnPropertyChanged(nameof(IsFeaturedVisible));
         }
 
-        private IEnumerable<AppItem> BuildQuery()
+        private IEnumerable<App> BuildQuery()
         {
-            if (!string.IsNullOrWhiteSpace(_searchQuery))
-                return Service.Search(_searchQuery);
+            var all = _repo.GetAllApps();
 
+            // Search takes priority
+            if (!string.IsNullOrWhiteSpace(_searchQuery))
+            {
+                var q = _searchQuery.ToLowerInvariant();
+                return all.Where(a =>
+                    a.ShortName.ToLowerInvariant().Contains(q)
+                    || a.FullName.ToLowerInvariant().Contains(q)
+                    || a.Developer.ToLowerInvariant().Contains(q)
+                    || a.Category.ToLowerInvariant().Contains(q)
+                    || a.Tags.Any(t => t.ToLowerInvariant().Contains(q))
+                );
+            }
+
+            // Tag filter
             if (_selectedTag != null)
             {
-                var tagged = Service.GetAll().Where(a => a.Tags.Contains(_selectedTag));
+                var tagged = all.Where(a => a.Tags.Contains(_selectedTag));
                 return _sortBy == "name"
                     ? tagged.OrderBy(a => a.ShortName)
                     : tagged.OrderByDescending(a => a.Rating);
             }
 
+            // Show all categories alphabetically
             if (_selectedCategory == "Categories")
-                return Service.GetAll().OrderBy(a => a.ShortName);
+                return all.OrderBy(a => a.ShortName);
 
+            // Resolve nav key → category string
             NavCategoryMap.TryGetValue(_selectedCategory, out var dbCat);
-            bool? dlOnly = _selectedCategory == "Installed" || _downloadedOnly ? true : null;
 
-            return Service.Filter(
-                dbCat,
-                _minPrice > 0 ? _minPrice : null,
-                _maxPrice < 1000 ? _maxPrice : null,
-                _minRating > 0 ? _minRating : null,
-                dlOnly,
-                _sortBy
-            );
+            // Build filtered query
+            IEnumerable<App> query = all;
+
+            if (dbCat != null)
+                query = query.Where(a => a.Category == dbCat);
+
+            if (_selectedCategory == "Installed" || _downloadedOnly)
+                query = query.Where(a => a.IsDownloaded);
+
+            if (_minPrice > 0)
+                query = query.Where(a => a.FinalPrice >= _minPrice);
+
+            if (_maxPrice < 1000)
+                query = query.Where(a => a.FinalPrice <= _maxPrice);
+
+            if (_minRating > 0)
+                query = query.Where(a => a.Rating >= _minRating);
+
+            return _sortBy switch
+            {
+                "name" => query.OrderBy(a => a.ShortName),
+                "price" => query.OrderBy(a => a.FinalPrice),
+                "rating" => query.OrderByDescending(a => a.Rating),
+                "newest" => query.OrderByDescending(a => a.ReleaseDate),
+                "featured" => query
+                    .OrderByDescending(a => a.IsFeatured)
+                    .ThenByDescending(a => a.Rating),
+                _ => query.OrderByDescending(a => a.IsFeatured).ThenByDescending(a => a.Rating),
+            };
         }
 
         private void SwitchLanguage(string lang)

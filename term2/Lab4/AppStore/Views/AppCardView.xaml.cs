@@ -1,9 +1,10 @@
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
-using AppStore.Models;
+using Project.Models;
 
-namespace AppStore.Views
+namespace Project.Views
 {
     public partial class AppCardView : UserControl
     {
@@ -37,7 +38,7 @@ namespace AppStore.Views
 
         private void OnCardClick(object sender, MouseButtonEventArgs e)
         {
-            if (DataContext is AppItem app)
+            if (DataContext is App app)
                 OpenDetailCommand?.Execute(app);
         }
     }

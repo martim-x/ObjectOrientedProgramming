@@ -1,7 +1,8 @@
+using System;
 using System.Windows;
 using System.Windows.Media;
 
-namespace AppStore.Views
+namespace Project.Views
 {
     public partial class ConfirmDialog : Window
     {

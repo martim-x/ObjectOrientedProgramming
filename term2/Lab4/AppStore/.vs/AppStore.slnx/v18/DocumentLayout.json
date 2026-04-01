@@ -3,32 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|solutionrelative:views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\resources\\buffer\\users.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|solutionrelative:resources\\buffer\\users.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|solutionrelative:views\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\resources\\buffer\\apps.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|solutionrelative:resources\\buffer\\apps.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\appdetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|solutionrelative:views\\appdetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|solutionrelative:app.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\featuredbannerview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|solutionrelative:views\\featuredbannerview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\approwview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|solutionrelative:views\\approwview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\appcardview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|solutionrelative:views\\appcardview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\addeditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|solutionrelative:views\\addeditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\data\\json.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F0390D9D-A44A-8621-DD92-4C9C71F6106C}|AppStore.csproj|solutionrelative:data\\json.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -51,84 +43,64 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "Views\\MainWindow.xaml",
-              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\MainWindow.xaml",
-              "RelativeToolTip": "Views\\MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-18T10:48:33.932Z",
+              "Title": "users.json",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Resources\\Buffer\\users.json",
+              "RelativeDocumentMoniker": "Resources\\Buffer\\users.json",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Resources\\Buffer\\users.json",
+              "RelativeToolTip": "Resources\\Buffer\\users.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-01T07:52:55.775Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "apps.json",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Resources\\Buffer\\apps.json",
+              "RelativeDocumentMoniker": "Resources\\Buffer\\apps.json",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Resources\\Buffer\\apps.json",
+              "RelativeToolTip": "Resources\\Buffer\\apps.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-01T07:52:43.343Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 3,
-              "Title": "FeaturedBannerView.xaml",
-              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\FeaturedBannerView.xaml",
-              "RelativeDocumentMoniker": "Views\\FeaturedBannerView.xaml",
-              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\FeaturedBannerView.xaml",
-              "RelativeToolTip": "Views\\FeaturedBannerView.xaml",
+              "Title": "App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\App.xaml.cs",
+              "RelativeDocumentMoniker": "App.xaml.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\App.xaml.cs",
+              "RelativeToolTip": "App.xaml.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAgwAkAAAAnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-01T07:50:49.886Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "App.xaml",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\App.xaml",
+              "RelativeDocumentMoniker": "App.xaml",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\App.xaml",
+              "RelativeToolTip": "App.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-18T10:15:49.072Z",
+              "WhenOpened": "2026-04-01T07:50:45.821Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "AppRowView.xaml",
-              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AppRowView.xaml",
-              "RelativeDocumentMoniker": "Views\\AppRowView.xaml",
-              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AppRowView.xaml",
-              "RelativeToolTip": "Views\\AppRowView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-18T10:15:31.042Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AppDetailView.xaml",
-              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AppDetailView.xaml",
-              "RelativeDocumentMoniker": "Views\\AppDetailView.xaml",
-              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AppDetailView.xaml",
-              "RelativeToolTip": "Views\\AppDetailView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-18T10:14:38.313Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "AppCardView.xaml",
-              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AppCardView.xaml",
-              "RelativeDocumentMoniker": "Views\\AppCardView.xaml",
-              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AppCardView.xaml",
-              "RelativeToolTip": "Views\\AppCardView.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-18T10:14:19.269Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "AddEditWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AddEditWindow.xaml",
-              "RelativeDocumentMoniker": "Views\\AddEditWindow.xaml",
-              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AddEditWindow.xaml",
-              "RelativeToolTip": "Views\\AddEditWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-03-18T10:12:39.553Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "Views\\MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\MainWindow.xaml.cs",
-              "RelativeToolTip": "Views\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAD8AAAAAAAAAAIA1wFsAAAAAAAAAAAAAAA==",
+              "Title": "Json.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Data\\Json.cs",
+              "RelativeDocumentMoniker": "Data\\Json.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Data\\Json.cs",
+              "RelativeToolTip": "Data\\Json.cs",
+              "ViewState": "AgIAAMIAAAAAAAAAAAAWwNMAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-18T09:46:16.542Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-04-01T07:43:43.692Z"
             }
           ]
         }

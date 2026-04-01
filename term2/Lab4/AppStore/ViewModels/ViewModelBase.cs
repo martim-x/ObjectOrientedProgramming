@@ -1,7 +1,8 @@
+using System;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 
-namespace AppStore.ViewModels
+namespace Project.ViewModels
 {
     public abstract class ViewModelBase : INotifyPropertyChanged
     {

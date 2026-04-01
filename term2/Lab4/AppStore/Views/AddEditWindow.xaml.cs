@@ -1,16 +1,16 @@
 using System.Windows;
-using AppStore.Models;
-using AppStore.Services;
-using AppStore.ViewModels;
+using Project.Data;
+using Project.Models;
+using Project.ViewModels;
 
-namespace AppStore.Views
+namespace Project.Views
 {
     public partial class AddEditWindow : Window
     {
-        public AddEditWindow(IAppService service, AppItem? existing = null)
+        public AddEditWindow(IRepository repository, App? existing = null)
         {
             InitializeComponent();
-            var vm = new AddEditAppViewModel(service, existing);
+            var vm = new AddEditAppViewModel(repository, existing);
             vm.OnSaved = () =>
             {
                 DialogResult = true;
