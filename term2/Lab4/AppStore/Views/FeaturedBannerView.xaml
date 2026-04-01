@@ -66,14 +66,14 @@
           Text="{DynamicResource FeaturedToday}"
           FontSize="11"
           FontWeight="SemiBold"
-          Foreground="{StaticResource AccentBlueBrush}"
+          Foreground="{DynamicResource AccentBlueBrush}"
           Margin="0,0,0,6"
         />
         <TextBlock
           Text="{Binding FeaturedApps[0].FullName, FallbackValue='Featured App'}"
           FontSize="22"
           FontWeight="Bold"
-          Foreground="{StaticResource TitleTextBrush}"
+          Foreground="{DynamicResource TitleTextBrush}"
           TextWrapping="Wrap"
           MaxWidth="360"
           Margin="0,0,0,6"
@@ -81,11 +81,11 @@
         <TextBlock
           Text="{Binding FeaturedApps[0].Developer}"
           FontSize="13"
-          Foreground="{StaticResource SecondaryTextBrush}"
+          Foreground="{DynamicResource SecondaryTextBrush}"
           Margin="0,0,0,14"
         />
         <Button
-          Style="{StaticResource PrimaryButtonStyle}"
+          Style="{DynamicResource PrimaryButtonStyle}"
           HorizontalAlignment="Left"
           Command="{Binding OpenDetailCommand}"
           CommandParameter="{Binding FeaturedApps[0]}"

@@ -22,10 +22,10 @@ namespace Project.Services
             var dicts = Application.Current.Resources.MergedDictionaries;
 
             var themeUri = isDark
-                ? new Uri("Resources/Styles/DarkAppTheme.xaml", UriKind.Relative)
-                : new Uri("Resources/Styles/LightAppTheme.xaml", UriKind.Relative);
+                ? "pack://application:,,,/Styles/DarkAppTheme.xaml"
+                : "pack://application:,,,/Styles/LightAppTheme.xaml";
 
-            dicts[0] = new ResourceDictionary { Source = themeUri };
+            dicts[0] = new ResourceDictionary { Source = new Uri(themeUri, UriKind.Absolute) };
         }
     }
 }

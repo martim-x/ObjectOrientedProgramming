@@ -1,0 +1,143 @@
+using System;
+using System.Security.Cryptography;
+using System.Text;
+using Project.Data;
+using Project.Models;
+
+namespace Project.Services
+{
+    public class AuthService : IAuthService
+    {
+        private readonly IRepository _repo;
+        private User? _currentUser;
+
+        public User? CurrentUser => _currentUser;
+        public bool IsAdmin => _currentUser?.Role == UserRole.Admin;
+
+        public AuthService(IRepository repo)
+        {
+            _repo = repo;
+        }
+
+        public User? Login(string login, string password)
+        {
+            var hash = HashPassword(password);
+            var user = _repo.GetUserByLogin(login);
+            if (user == null || user.PasswordHash != hash)
+                return null;
+
+            _currentUser = user;
+            return _currentUser;
+        }
+
+        public void Logout()
+        {
+            _currentUser = null;
+        }
+
+        public void UpdateProfile(string? firstName, string? lastName, string? email)
+        {
+            if (_currentUser == null)
+                throw new InvalidOperationException("No user is logged in.");
+
+            _currentUser.FirstName = firstName;
+            _currentUser.LastName = lastName;
+            _currentUser.Email = email;
+            _repo.UpdateUser(_currentUser);
+        }
+
+        public void ChangePassword(string oldPassword, string newPassword)
+        {
+            if (_currentUser == null)
+                throw new InvalidOperationException("No user is logged in.");
+
+            var oldHash = HashPassword(oldPassword);
+            if (_currentUser.PasswordHash != oldHash)
+                throw new UnauthorizedAccessException("Old password is incorrect.");
+
+            _currentUser.PasswordHash = HashPassword(newPassword);
+            _repo.UpdateUser(_currentUser);
+        }
+
+        public string HashPassword(string password) =>
+            Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(password))).ToLower();
+    }
+}
+using Project.Models;
+
+namespace Project.Services
+{
+    public interface IAuthService
+    {
+        User? CurrentUser { get; }
+        bool IsAdmin { get; }
+
+        User? Login(string login, string password);
+        void Logout();
+        void UpdateProfile(string? firstName, string? lastName, string? email);
+        void ChangePassword(string oldPassword, string newPassword);
+        string HashPassword(string password);
+    }
+}
+namespace Project.Services
+{
+    public interface ILocalizationService
+    {
+        void SetLanguage(string langCode);
+    }
+}
+using System;
+using System.Windows;
+
+namespace Project.Services
+{
+    public class LocalizationService : ILocalizationService
+    {
+        /// <summary>
+        /// Swaps the language ResourceDictionary at index 1 of
+        /// Application.Current.Resources.MergedDictionaries.
+        /// Files are located at Resources/Localization/{langCode}.xaml
+        /// </summary>
+        public void SetLanguage(string langCode)
+        {
+            var dicts = Application.Current.Resources.MergedDictionaries;
+            if (dicts.Count < 2)
+                return;
+
+            var uri = new Uri($"Resources/Localization/{langCode}.xaml", UriKind.Relative);
+
+            dicts[1] = new ResourceDictionary { Source = uri };
+        }
+    }
+}
+using System;
+using System.Windows;
+
+namespace Project.Services
+{
+    public class ThemeService
+    {
+        private bool _isDark;
+
+        public bool IsDark => _isDark;
+
+        /// <summary>
+        /// Swaps the style/theme ResourceDictionary at index 0 of
+        /// Application.Current.Resources.MergedDictionaries.
+        /// Light theme: Resources/Styles/LightAppTheme.xaml
+        /// Dark  theme: Resources/Styles/DarkAppTheme.xaml
+        /// </summary>
+        public void SetTheme(bool isDark)
+        {
+            _isDark = isDark;
+
+            var dicts = Application.Current.Resources.MergedDictionaries;
+
+            var themeUri = isDark
+                ? new Uri("Resources/Styles/DarkAppTheme.xaml", UriKind.Relative)
+                : new Uri("Resources/Styles/LightAppTheme.xaml", UriKind.Relative);
+
+            dicts[0] = new ResourceDictionary { Source = themeUri };
+        }
+    }
+}

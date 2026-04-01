@@ -86,7 +86,7 @@
           Margin="0,0,0,4"
         />
         <TextBox
-          Style="{StaticResource FormTextBoxStyle}"
+          Style="{DynamicResource FormTextBoxStyle}"
           BorderBrush="{DynamicResource DividerBrush}"
           Text="{Binding FirstName, UpdateSourceTrigger=PropertyChanged}"
           Tag="{DynamicResource PlaceholderFirstName}"
@@ -100,7 +100,7 @@
           Margin="0,0,0,4"
         />
         <TextBox
-          Style="{StaticResource FormTextBoxStyle}"
+          Style="{DynamicResource FormTextBoxStyle}"
           BorderBrush="{DynamicResource DividerBrush}"
           Text="{Binding LastName, UpdateSourceTrigger=PropertyChanged}"
           Tag="{DynamicResource PlaceholderLastName}"
@@ -114,7 +114,7 @@
           Margin="0,0,0,4"
         />
         <TextBox
-          Style="{StaticResource FormTextBoxStyle}"
+          Style="{DynamicResource FormTextBoxStyle}"
           BorderBrush="{DynamicResource DividerBrush}"
           Text="{Binding Email, UpdateSourceTrigger=PropertyChanged}"
           Tag="{DynamicResource PlaceholderEmail}"
@@ -122,7 +122,7 @@
         />
         <!-- Save Profile button -->
         <Button
-          Style="{StaticResource PrimaryButtonStyle}"
+          Style="{DynamicResource PrimaryButtonStyle}"
           HorizontalAlignment="Stretch"
           Command="{Binding SaveProfileCommand}"
         >
@@ -208,7 +208,7 @@
         </Border>
         <!-- Change Password button -->
         <Button
-          Style="{StaticResource GetButtonStyle}"
+          Style="{DynamicResource GetButtonStyle}"
           HorizontalAlignment="Stretch"
           Command="{Binding ChangePasswordCommand}"
         >
@@ -244,7 +244,7 @@
         </StackPanel>
         <ToggleButton
           Grid.Column="1"
-          Style="{StaticResource ToggleSwitchStyle}"
+          Style="{DynamicResource ToggleSwitchStyle}"
           IsChecked="{Binding IsDarkMode, Mode=TwoWay}"
           VerticalAlignment="Center"
           Command="{Binding ToggleThemeCommand}"

@@ -10,7 +10,7 @@
   Height="780"
   MinWidth="900"
   MinHeight="600"
-  Style="{StaticResource AppWindowStyle}"
+  Style="{DynamicResource AppWindowStyle}"
   WindowStartupLocation="CenterScreen"
 >
   <Grid>
@@ -21,9 +21,9 @@
     <!-- SIDEBAR -->
     <Border
       Grid.Column="0"
-      Background="{StaticResource SidebarBgBrush}"
+      Background="{DynamicResource SidebarBgBrush}"
       BorderThickness="0,0,1,0"
-      BorderBrush="{StaticResource SeparatorBrush}"
+      BorderBrush="{DynamicResource SeparatorBrush}"
     >
       <DockPanel LastChildFill="True">
         <!-- Logo + lang switcher -->
@@ -49,14 +49,14 @@
               Text="{DynamicResource AppTitle}"
               FontSize="15"
               FontWeight="SemiBold"
-              Foreground="{StaticResource TitleTextBrush}"
+              Foreground="{DynamicResource TitleTextBrush}"
               VerticalAlignment="Center"
             />
           </StackPanel>
           <StackPanel Orientation="Horizontal">
             <Button
               Content="EN"
-              Style="{StaticResource GetButtonStyle}"
+              Style="{DynamicResource GetButtonStyle}"
               Padding="10,4"
               FontSize="12"
               Margin="0,0,6,0"
@@ -65,7 +65,7 @@
             />
             <Button
               Content="RU"
-              Style="{StaticResource GetButtonStyle}"
+              Style="{DynamicResource GetButtonStyle}"
               Padding="10,4"
               FontSize="12"
               Command="{Binding SwitchLanguageCommand}"
@@ -77,7 +77,7 @@
         <Border DockPanel.Dock="Top" Margin="12,0,12,12">
           <Border
             x:Name="SearchBorder"
-            Background="{StaticResource SearchBubbleBgBrush}"
+            Background="{DynamicResource SearchBubbleBgBrush}"
             CornerRadius="10"
             Padding="8,7"
           >
@@ -90,7 +90,7 @@
               <Path
                 Grid.Column="0"
                 Data="M10,10 L14,14 M7,3.5 A3.5,3.5,0,1,0,7,10.5 A3.5,3.5,0,1,0,7,3.5"
-                Stroke="{StaticResource SearchTextBrush}"
+                Stroke="{DynamicResource SearchTextBrush}"
                 StrokeThickness="1.5"
                 StrokeStartLineCap="Round"
                 StrokeEndLineCap="Round"
@@ -102,7 +102,7 @@
               />
               <TextBox
                 Grid.Column="1"
-                Style="{StaticResource SearchBoxStyle}"
+                Style="{DynamicResource SearchBoxStyle}"
                 Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
                 GotFocus="OnSearchGotFocus"
                 LostFocus="OnSearchLostFocus"
@@ -153,7 +153,7 @@
             <!-- Main sections -->
             <RadioButton
               GroupName="Cat"
-              Style="{StaticResource NavCategoryStyle}"
+              Style="{DynamicResource NavCategoryStyle}"
               IsChecked="True"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Discover"
@@ -161,37 +161,37 @@
             />
             <RadioButton
               GroupName="Cat"
-              Style="{StaticResource NavCategoryStyle}"
+              Style="{DynamicResource NavCategoryStyle}"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Create"
               Content="{DynamicResource CatCreate}"
             />
             <RadioButton
               GroupName="Cat"
-              Style="{StaticResource NavCategoryStyle}"
+              Style="{DynamicResource NavCategoryStyle}"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Work"
               Content="{DynamicResource CatWork}"
             />
             <RadioButton
               GroupName="Cat"
-              Style="{StaticResource NavCategoryStyle}"
+              Style="{DynamicResource NavCategoryStyle}"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Play"
               Content="{DynamicResource CatPlay}"
             />
             <RadioButton
               GroupName="Cat"
-              Style="{StaticResource NavCategoryStyle}"
+              Style="{DynamicResource NavCategoryStyle}"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Develop"
               Content="{DynamicResource CatDevelop}"
             />
             <!-- Separator + Categories nav button -->
-            <Border Height="1" Background="{StaticResource SeparatorBrush}" Margin="4,10,4,10" />
+            <Border Height="1" Background="{DynamicResource SeparatorBrush}" Margin="4,10,4,10" />
             <RadioButton
               GroupName="Cat"
-              Style="{StaticResource NavCategoryStyle}"
+              Style="{DynamicResource NavCategoryStyle}"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Categories"
               Content="{DynamicResource CatCategories}"
@@ -206,7 +206,7 @@
                 <DataTemplate>
                   <RadioButton
                     GroupName="CatTag"
-                    Style="{StaticResource NavCategoryStyle}"
+                    Style="{DynamicResource NavCategoryStyle}"
                     Padding="10,7"
                     FontSize="13"
                     Command="{Binding DataContext.SelectTagCommand,
@@ -218,10 +218,10 @@
               </ItemsControl.ItemTemplate>
             </ItemsControl>
             <!-- Separator + Installed -->
-            <Border Height="1" Background="{StaticResource SeparatorBrush}" Margin="4,10,4,10" />
+            <Border Height="1" Background="{DynamicResource SeparatorBrush}" Margin="4,10,4,10" />
             <RadioButton
               GroupName="Cat"
-              Style="{StaticResource NavCategoryStyle}"
+              Style="{DynamicResource NavCategoryStyle}"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Installed"
               Content="{DynamicResource CatInstalled}"
@@ -233,7 +233,7 @@
         <Button
           DockPanel.Dock="Bottom"
           Margin="12,0,12,12"
-          Style="{StaticResource IconButtonStyle}"
+          Style="{DynamicResource IconButtonStyle}"
           Padding="12,10"
           HorizontalContentAlignment="Left"
           Click="OnProfileClick"
@@ -265,13 +265,13 @@
                 Text="{Binding CurrentUser.Login}"
                 FontSize="13"
                 FontWeight="SemiBold"
-                Foreground="{StaticResource TitleTextBrush}"
+                Foreground="{DynamicResource TitleTextBrush}"
                 TextTrimming="CharacterEllipsis"
               />
               <TextBlock
                 Text="{Binding IsAdmin, Converter={StaticResource RoleNameConv}}"
                 FontSize="11"
-                Foreground="{StaticResource SecondaryTextBrush}"
+                Foreground="{DynamicResource SecondaryTextBrush}"
               />
             </StackPanel>
           </Grid>
@@ -281,7 +281,7 @@
           DockPanel.Dock="Bottom"
           Margin="12,0,12,4"
           Padding="12,10"
-          Background="{StaticResource CategorySelectedBgBrush}"
+          Background="{DynamicResource CategorySelectedBgBrush}"
           CornerRadius="10"
         >
           <StackPanel>
@@ -290,13 +290,13 @@
                 Text="{Binding TotalCount}"
                 FontSize="13"
                 FontWeight="SemiBold"
-                Foreground="{StaticResource TitleTextBrush}"
+                Foreground="{DynamicResource TitleTextBrush}"
                 Margin="0,0,4,0"
               />
               <TextBlock
                 Text="{DynamicResource AppsInStore}"
                 FontSize="12"
-                Foreground="{StaticResource SecondaryTextBrush}"
+                Foreground="{DynamicResource SecondaryTextBrush}"
                 VerticalAlignment="Center"
               />
             </StackPanel>
@@ -305,13 +305,13 @@
                 Text="{Binding DownloadedCount}"
                 FontSize="13"
                 FontWeight="SemiBold"
-                Foreground="{StaticResource AccentBlueBrush}"
+                Foreground="{DynamicResource AccentBlueBrush}"
                 Margin="0,0,4,0"
               />
               <TextBlock
                 Text="{DynamicResource AppsInstalled}"
                 FontSize="12"
-                Foreground="{StaticResource SecondaryTextBrush}"
+                Foreground="{DynamicResource SecondaryTextBrush}"
                 VerticalAlignment="Center"
               />
             </StackPanel>
@@ -321,7 +321,7 @@
       </DockPanel>
     </Border>
     <!-- MAIN CONTENT -->
-    <Grid Grid.Column="1" Background="{StaticResource WindowBgBrush}">
+    <Grid Grid.Column="1" Background="{DynamicResource WindowBgBrush}">
       <Grid.RowDefinitions>
         <!-- Featured banner (only on Discover) -->
         <RowDefinition Height="Auto" />
@@ -340,9 +340,9 @@
       <!-- Section header box -->
       <Border
         Grid.Row="1"
-        Background="{StaticResource WindowBgBrush}"
+        Background="{DynamicResource WindowBgBrush}"
         BorderThickness="0,0,0,1"
-        BorderBrush="{StaticResource SeparatorBrush}"
+        BorderBrush="{DynamicResource SeparatorBrush}"
         Padding="20,12"
       >
         <Grid>
@@ -357,11 +357,11 @@
             Text="{Binding SelectedCategoryLabel}"
             FontSize="20"
             FontWeight="Bold"
-            Foreground="{StaticResource TitleTextBrush}"
+            Foreground="{DynamicResource TitleTextBrush}"
           />
           <Button
             Grid.Column="1"
-            Style="{StaticResource GetButtonStyle}"
+            Style="{DynamicResource GetButtonStyle}"
             Margin="0,0,10,0"
             Padding="14,6"
             Click="OnFilterClick"
@@ -371,11 +371,11 @@
                 Text="⇅"
                 FontSize="14"
                 Margin="0,0,5,0"
-                Foreground="{StaticResource GetBtnTextBrush}"
+                Foreground="{DynamicResource GetBtnTextBrush}"
               />
               <TextBlock
                 Text="{DynamicResource Filters}"
-                Foreground="{StaticResource GetBtnTextBrush}"
+                Foreground="{DynamicResource GetBtnTextBrush}"
                 FontSize="13"
                 FontWeight="SemiBold"
               />
@@ -383,7 +383,7 @@
           </Button>
           <Button
             Grid.Column="2"
-            Style="{StaticResource PrimaryButtonStyle}"
+            Style="{DynamicResource PrimaryButtonStyle}"
             Padding="14,6"
             Click="OnAddAppClick"
             Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}"
@@ -410,11 +410,11 @@
               Text="{DynamicResource TopApps}"
               FontSize="17"
               FontWeight="Bold"
-              Foreground="{StaticResource TitleTextBrush}"
+              Foreground="{DynamicResource TitleTextBrush}"
             />
             <Button
               Grid.Column="1"
-              Style="{StaticResource IconButtonStyle}"
+              Style="{DynamicResource IconButtonStyle}"
               Padding="0"
               Background="Transparent"
               Command="{Binding ToggleSeeAllCommand}"
@@ -422,7 +422,7 @@
               <TextBlock
                 Text="{DynamicResource SeeAll}"
                 FontSize="13"
-                Foreground="{StaticResource SeeAllBrush}"
+                Foreground="{DynamicResource SeeAllBrush}"
               />
             </Button>
           </Grid>
@@ -447,13 +447,13 @@
               Text="{DynamicResource NoAppsFound}"
               FontSize="16"
               FontWeight="SemiBold"
-              Foreground="{StaticResource SecondaryTextBrush}"
+              Foreground="{DynamicResource SecondaryTextBrush}"
               HorizontalAlignment="Center"
               Margin="0,0,0,6"
             />
             <TextBlock
               Text="{DynamicResource NoAppsHint}"
-              Foreground="{StaticResource DescriptionTextBrush}"
+              Foreground="{DynamicResource DescriptionTextBrush}"
               HorizontalAlignment="Center"
             />
           </StackPanel>
@@ -476,7 +476,7 @@
           <ItemsControl.ItemTemplate>
             <DataTemplate>
               <Border
-                Background="{StaticResource InfoCardBgBrush}"
+                Background="{DynamicResource InfoCardBgBrush}"
                 CornerRadius="12"
                 Margin="0,0,12,12"
                 Padding="14,12"
@@ -512,19 +512,19 @@
                       Text="{Binding ShortName}"
                       FontSize="13"
                       FontWeight="SemiBold"
-                      Foreground="{StaticResource TitleTextBrush}"
+                      Foreground="{DynamicResource TitleTextBrush}"
                       TextTrimming="CharacterEllipsis"
                     />
                     <TextBlock
                       Text="{Binding Category}"
                       FontSize="11"
-                      Foreground="{StaticResource SecondaryTextBrush}"
+                      Foreground="{DynamicResource SecondaryTextBrush}"
                       Margin="0,1,0,0"
                     />
                   </StackPanel>
                   <Button
                     Grid.Column="2"
-                    Style="{StaticResource GetButtonStyle}"
+                    Style="{DynamicResource GetButtonStyle}"
                     Padding="12,4"
                     VerticalAlignment="Center"
                     Content="{Binding ButtonLabel}"
@@ -542,7 +542,7 @@
     <!-- DETAIL PANEL -->
     <Grid
       Grid.Column="1"
-      Background="{StaticResource WindowBgBrush}"
+      Background="{DynamicResource WindowBgBrush}"
       Visibility="{Binding IsDetailOpen, Converter={StaticResource BoolToVis}}"
     >
       <views:AppDetailView DataContext="{Binding}" />
@@ -564,14 +564,14 @@
             Text="{DynamicResource Filters}"
             FontSize="15"
             FontWeight="SemiBold"
-            Foreground="{StaticResource TitleTextBrush}"
+            Foreground="{DynamicResource TitleTextBrush}"
             Margin="0,0,0,14"
           />
           <TextBlock
             Text="{DynamicResource SortBy}"
             FontSize="12"
             FontWeight="SemiBold"
-            Foreground="{StaticResource SecondaryTextBrush}"
+            Foreground="{DynamicResource SecondaryTextBrush}"
             Margin="0,0,0,6"
           />
           <ComboBox
@@ -579,9 +579,9 @@
             FontSize="13"
             Padding="8,6"
             BorderThickness="1"
-            BorderBrush="{StaticResource DividerBrush}"
-            Background="{StaticResource InfoCardBgBrush}"
-            Foreground="{StaticResource TitleTextBrush}"
+            BorderBrush="{DynamicResource DividerBrush}"
+            Background="{DynamicResource InfoCardBgBrush}"
+            Foreground="{DynamicResource TitleTextBrush}"
             SelectedValue="{Binding SortBy}"
             SelectedValuePath="Tag"
           >
@@ -597,20 +597,20 @@
             Text="{DynamicResource MinRating}"
             FontSize="12"
             FontWeight="SemiBold"
-            Foreground="{StaticResource SecondaryTextBrush}"
+            Foreground="{DynamicResource SecondaryTextBrush}"
             Margin="0,0,0,4"
           />
           <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
-            <TextBlock Text="★" Foreground="{StaticResource RatingStarBrush}" FontSize="13" />
+            <TextBlock Text="★" Foreground="{DynamicResource RatingStarBrush}" FontSize="13" />
             <TextBlock
               Text="{Binding MinRating, StringFormat={}{0:F1}}"
-              Foreground="{StaticResource TitleTextBrush}"
+              Foreground="{DynamicResource TitleTextBrush}"
               FontSize="13"
               Margin="4,0"
             />
           </StackPanel>
           <Slider
-            Style="{StaticResource DarkSliderStyle}"
+            Style="{DynamicResource DarkSliderStyle}"
             Minimum="0"
             Maximum="5"
             TickFrequency="0.5"
@@ -621,17 +621,17 @@
             Text="{DynamicResource PriceRange}"
             FontSize="12"
             FontWeight="SemiBold"
-            Foreground="{StaticResource SecondaryTextBrush}"
+            Foreground="{DynamicResource SecondaryTextBrush}"
             Margin="0,0,0,4"
           />
           <TextBlock
             Text="{Binding MaxPrice, StringFormat=Max: ${0:F0}}"
-            Foreground="{StaticResource TitleTextBrush}"
+            Foreground="{DynamicResource TitleTextBrush}"
             FontSize="13"
             Margin="0,0,0,4"
           />
           <Slider
-            Style="{StaticResource DarkSliderStyle}"
+            Style="{DynamicResource DarkSliderStyle}"
             Minimum="0"
             Maximum="100"
             Value="{Binding MaxPrice}"
@@ -639,27 +639,27 @@
           />
           <CheckBox
             Content="{DynamicResource DownloadedOnly}"
-            Style="{StaticResource DarkCheckBoxStyle}"
+            Style="{DynamicResource DarkCheckBoxStyle}"
             IsChecked="{Binding DownloadedOnly}"
             Margin="0,0,0,14"
           />
           <!-- Reset + Restore -->
-          <Border Height="1" Background="{StaticResource SeparatorBrush}" Margin="0,0,0,10" />
+          <Border Height="1" Background="{DynamicResource SeparatorBrush}" Margin="0,0,0,10" />
           <Button
-            Style="{StaticResource GetButtonStyle}"
+            Style="{DynamicResource GetButtonStyle}"
             HorizontalAlignment="Stretch"
             Margin="0,0,0,8"
             Click="OnResetFilters"
           >
             <TextBlock
               Text="{DynamicResource ResetFilters}"
-              Foreground="{StaticResource GetBtnTextBrush}"
+              Foreground="{DynamicResource GetBtnTextBrush}"
               FontSize="13"
               FontWeight="SemiBold"
             />
           </Button>
           <Button
-            Style="{StaticResource DangerButtonStyle}"
+            Style="{DynamicResource DangerButtonStyle}"
             HorizontalAlignment="Stretch"
             Click="OnRestoreData"
           >

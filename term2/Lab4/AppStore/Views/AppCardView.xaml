@@ -4,7 +4,7 @@
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   Width="176"
 >
-  <Border Style="{StaticResource AppRowStyle}" Padding="14" MouseLeftButtonUp="OnCardClick">
+  <Border Style="{DynamicResource AppRowStyle}" Padding="14" MouseLeftButtonUp="OnCardClick">
     <Border.Effect>
       <DropShadowEffect ShadowDepth="0" BlurRadius="12" Opacity="0.3" Color="Black" />
     </Border.Effect>
@@ -34,7 +34,7 @@
         <Border
           HorizontalAlignment="Right"
           VerticalAlignment="Top"
-          Background="{StaticResource OrangeBrush}"
+          Background="{DynamicResource OrangeBrush}"
           CornerRadius="8"
           Padding="5,2"
           Margin="0,4,4,0"
@@ -51,7 +51,7 @@
         <Border
           HorizontalAlignment="Left"
           VerticalAlignment="Top"
-          Background="{StaticResource GreenBrush}"
+          Background="{DynamicResource GreenBrush}"
           CornerRadius="8"
           Padding="5,2"
           Margin="4,4,0,0"
@@ -74,7 +74,7 @@
       <TextBlock
         Text="{Binding Developer}"
         FontSize="11"
-        Foreground="{StaticResource TextSecondaryBrush}"
+        Foreground="{DynamicResource TextSecondaryBrush}"
         TextAlignment="Center"
         TextTrimming="CharacterEllipsis"
         Margin="0,0,0,6"
@@ -83,12 +83,12 @@
       <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,8">
         <TextBlock
           Text="{Binding Rating, Converter={StaticResource RatingStars}}"
-          Foreground="{StaticResource OrangeBrush}"
+          Foreground="{DynamicResource OrangeBrush}"
           FontSize="10"
         />
         <TextBlock
           Text="{Binding RatingCount, Converter={StaticResource DlCountConv}}"
-          Foreground="{StaticResource TextTertiaryBrush}"
+          Foreground="{DynamicResource TextTertiaryBrush}"
           FontSize="10"
           Margin="4,0,0,0"
         />
@@ -97,12 +97,12 @@
       <Button
         HorizontalAlignment="Center"
         Padding="16,5"
-        Style="{StaticResource GetButtonStyle}"
+        Style="{DynamicResource GetButtonStyle}"
         Command="{Binding DownloadCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
         CommandParameter="{Binding}"
       >
         <Button.Content>
-          <TextBlock Text="{Binding ButtonLabel}" Foreground="{StaticResource GetBtnTextBrush}" />
+          <TextBlock Text="{Binding ButtonLabel}" Foreground="{DynamicResource GetBtnTextBrush}" />
         </Button.Content>
       </Button>
     </StackPanel>
