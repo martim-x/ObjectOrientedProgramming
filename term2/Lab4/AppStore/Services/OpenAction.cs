@@ -18,4 +18,4 @@ namespace Project.Services.UndoRedo
         public void Undo() => _undo();
         public void Redo() => _redo();
     }
-}ƒ
+};
