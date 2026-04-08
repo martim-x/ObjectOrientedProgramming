@@ -22,16 +22,24 @@ namespace Project.Services
         {
             var hash = HashPassword(password);
             var user = _repo.GetUserByLogin(login);
+
             if (user == null || user.PasswordHash != hash)
                 return null;
 
             _currentUser = user;
+
+            if (_repo is JsonRep jsonRep)
+                jsonRep.SetCurrentUser(user.Id);
+
             return _currentUser;
         }
 
         public void Logout()
         {
             _currentUser = null;
+
+            if (_repo is JsonRep jsonRep)
+                jsonRep.SetCurrentUser(null);
         }
 
         public void UpdateProfile(string? firstName, string? lastName, string? email)

@@ -105,7 +105,6 @@
                 GotFocus="OnSearchGotFocus"
                 LostFocus="OnSearchLostFocus"
               />
-              <!-- Clear: solid circle, X cut out -->
               <Viewbox
                 Grid.Column="2"
                 Width="16"
@@ -148,7 +147,6 @@
           HorizontalScrollBarVisibility="Disabled"
         >
           <StackPanel Margin="8,0,8,0">
-            <!-- Main sections -->
             <RadioButton
               GroupName="Cat"
               Style="{DynamicResource NavCategoryStyle}"
@@ -185,7 +183,6 @@
               CommandParameter="Develop"
               Content="{DynamicResource CatDevelop}"
             />
-            <!-- Separator + Categories nav button -->
             <Border Height="1" Background="{DynamicResource SeparatorBrush}" Margin="4,10,4,10" />
             <RadioButton
               GroupName="Cat"
@@ -194,7 +191,6 @@
               CommandParameter="Categories"
               Content="{DynamicResource CatCategories}"
             />
-            <!-- Tags shown only when Categories is open, indented -->
             <ItemsControl
               ItemsSource="{Binding AllTags}"
               Visibility="{Binding IsCategoryGridOpen, Converter={StaticResource BoolToVis}}"
@@ -208,14 +204,13 @@
                     Padding="10,7"
                     FontSize="13"
                     Command="{Binding DataContext.SelectTagCommand,
-                                                     RelativeSource={RelativeSource AncestorType=Window}}"
+                                             RelativeSource={RelativeSource AncestorType=Window}}"
                     CommandParameter="{Binding}"
                     Content="{Binding}"
                   />
                 </DataTemplate>
               </ItemsControl.ItemTemplate>
             </ItemsControl>
-            <!-- Separator + Installed -->
             <Border Height="1" Background="{DynamicResource SeparatorBrush}" Margin="4,10,4,10" />
             <RadioButton
               GroupName="Cat"
@@ -227,7 +222,7 @@
             <Border Height="16" />
           </StackPanel>
         </ScrollViewer>
-        <!-- Avatar profile button at very bottom -->
+        <!-- Avatar profile button -->
         <Button
           DockPanel.Dock="Bottom"
           Margin="12,0,12,12"
@@ -321,21 +316,18 @@
     <!-- MAIN CONTENT -->
     <Grid Grid.Column="1" Background="{DynamicResource WindowBgBrush}">
       <Grid.RowDefinitions>
-        <!-- Featured banner (only on Discover) -->
         <RowDefinition Height="Auto" />
-        <!-- Section header bar: title + sort + create -->
         <RowDefinition Height="Auto" />
-        <!-- List / grid -->
         <RowDefinition Height="*" />
       </Grid.RowDefinitions>
-      <!-- Featured banner (Discover only) -->
+      <!-- Featured banner -->
       <views:FeaturedBannerView
         Grid.Row="0"
         DataContext="{Binding}"
         Visibility="{Binding IsFeaturedVisible, Converter={StaticResource BoolToVis}}"
         Margin="20,20,20,0"
       />
-      <!-- Section header box -->
+      <!-- Section header -->
       <Border
         Grid.Row="1"
         Background="{DynamicResource WindowBgBrush}"
@@ -348,6 +340,8 @@
             <ColumnDefinition Width="*" />
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto" />
           </Grid.ColumnDefinitions>
           <TextBlock
             Grid.Column="0"
@@ -357,8 +351,49 @@
             FontWeight="Bold"
             Foreground="{DynamicResource TitleTextBrush}"
           />
+          <!-- UNDO -->
           <Button
             Grid.Column="1"
+            Style="{DynamicResource IconButtonStyle}"
+            Width="34"
+            Height="34"
+            Margin="0,0,8,0"
+            Padding="0"
+            Command="{Binding UndoCommand}"
+            ToolTip="Undo"
+          >
+            <TextBlock
+              Text="←"
+              FontSize="16"
+              FontWeight="SemiBold"
+              Foreground="{DynamicResource TitleTextBrush}"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+            />
+          </Button>
+          <!-- REDO -->
+          <Button
+            Grid.Column="2"
+            Style="{DynamicResource IconButtonStyle}"
+            Width="34"
+            Height="34"
+            Margin="0,0,10,0"
+            Padding="0"
+            Command="{Binding RedoCommand}"
+            ToolTip="Redo"
+          >
+            <TextBlock
+              Text="→"
+              FontSize="16"
+              FontWeight="SemiBold"
+              Foreground="{DynamicResource TitleTextBrush}"
+              HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+            />
+          </Button>
+          <!-- FILTERS -->
+          <Button
+            Grid.Column="3"
             Style="{DynamicResource GetButtonStyle}"
             Margin="0,0,10,0"
             Padding="14,6"
@@ -379,8 +414,9 @@
               />
             </StackPanel>
           </Button>
+          <!-- ADD APP -->
           <Button
-            Grid.Column="2"
+            Grid.Column="4"
             Style="{DynamicResource PrimaryButtonStyle}"
             Padding="14,6"
             Click="OnAddAppClick"
@@ -457,7 +493,7 @@
           </StackPanel>
         </StackPanel>
       </ScrollViewer>
-      <!-- Category grid view (2 columns) -->
+      <!-- Category grid -->
       <ScrollViewer
         Grid.Row="2"
         Padding="20,14,20,20"
@@ -526,7 +562,7 @@
                     Padding="12,4"
                     VerticalAlignment="Center"
                     Command="{Binding DataContext.DownloadCommand,
-                    RelativeSource={RelativeSource AncestorType=Window}}"
+                                      RelativeSource={RelativeSource AncestorType=Window}}"
                     CommandParameter="{Binding}"
                   >
                     <Button.Content>
@@ -655,7 +691,6 @@
             IsChecked="{Binding DownloadedOnly}"
             Margin="0,0,0,14"
           />
-          <!-- Reset + Restore -->
           <Border Height="1" Background="{DynamicResource SeparatorBrush}" Margin="0,0,0,10" />
           <Button
             Style="{DynamicResource GetButtonStyle}"

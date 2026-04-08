@@ -11,7 +11,8 @@ namespace Project.Data
         private readonly string _appsFilePath;
         private readonly string _usersFilePath;
         private readonly string _usersAppsFilePath;
-        private readonly Guid? _currentUserId;
+
+        private Guid? _currentUserId;
 
         private List<App> _appsCache = new();
         private List<User> _usersCache = new();
@@ -38,7 +39,13 @@ namespace Project.Data
             LoadApps();
             LoadUsers();
             LoadUsersApps();
-            WriteBufferFiles();
+            SaveBufferFiles();
+        }
+
+        public void SetCurrentUser(Guid? userId)
+        {
+            _currentUserId = userId;
+            SaveBufferFiles();
         }
 
         public override List<App> GetAllApps()
@@ -83,6 +90,7 @@ namespace Project.Data
         {
             _appsCache.Add(app);
             SaveApps();
+            SaveBufferFiles();
         }
 
         public override void UpdateApp(App app)
@@ -92,6 +100,7 @@ namespace Project.Data
                 _appsCache[idx] = app;
 
             SaveApps();
+            SaveBufferFiles();
         }
 
         public override void DeleteApp(Guid id)
@@ -101,6 +110,7 @@ namespace Project.Data
 
             SaveApps();
             SaveUsersApps();
+            SaveBufferFiles();
         }
 
         public override void DownloadApp(Guid appId)
@@ -139,6 +149,7 @@ namespace Project.Data
 
             SaveApps();
             SaveUsersApps();
+            SaveBufferFiles();
         }
 
         public override void UninstallApp(Guid appId)
@@ -162,6 +173,7 @@ namespace Project.Data
 
             SaveApps();
             SaveUsersApps();
+            SaveBufferFiles();
         }
 
         public override void RestoreDefaults()
@@ -173,6 +185,7 @@ namespace Project.Data
             SaveApps();
             SaveUsers();
             SaveUsersApps();
+            SaveBufferFiles();
         }
 
         private Guid? GetCurrentUserId() => _currentUserId;
@@ -188,6 +201,7 @@ namespace Project.Data
         {
             _usersCache.Add(user);
             SaveUsers();
+            SaveBufferFiles();
         }
 
         public override void UpdateUser(User user)
@@ -197,6 +211,7 @@ namespace Project.Data
                 _usersCache[idx] = user;
 
             SaveUsers();
+            SaveBufferFiles();
         }
 
         private void LoadApps()
@@ -274,29 +289,6 @@ namespace Project.Data
             }
         }
 
-        private void WriteBufferFiles()
-        {
-            try
-            {
-                var bufferDir = Path.Combine(AppContext.BaseDirectory, "Resources", "Buffer");
-                Directory.CreateDirectory(bufferDir);
-
-                File.WriteAllText(
-                    Path.Combine(bufferDir, "apps.json"),
-                    JsonConvert.SerializeObject(SeedApps(), Formatting.Indented)
-                );
-                File.WriteAllText(
-                    Path.Combine(bufferDir, "users.json"),
-                    JsonConvert.SerializeObject(SeedUsers(), Formatting.Indented)
-                );
-                File.WriteAllText(
-                    Path.Combine(bufferDir, "users_apps.json"),
-                    JsonConvert.SerializeObject(SeedUsersApps(), Formatting.Indented)
-                );
-            }
-            catch { }
-        }
-
         private void SaveApps()
         {
             Directory.CreateDirectory(Path.GetDirectoryName(_appsFilePath)!);
@@ -322,6 +314,31 @@ namespace Project.Data
                 _usersAppsFilePath,
                 JsonConvert.SerializeObject(_usersAppsCache, Formatting.Indented)
             );
+        }
+
+        private void SaveBufferFiles()
+        {
+            try
+            {
+                var bufferDir = Path.Combine(AppContext.BaseDirectory, "Resources", "Buffer");
+                Directory.CreateDirectory(bufferDir);
+
+                File.WriteAllText(
+                    Path.Combine(bufferDir, "apps.json"),
+                    JsonConvert.SerializeObject(_appsCache, Formatting.Indented)
+                );
+
+                File.WriteAllText(
+                    Path.Combine(bufferDir, "users.json"),
+                    JsonConvert.SerializeObject(_usersCache, Formatting.Indented)
+                );
+
+                File.WriteAllText(
+                    Path.Combine(bufferDir, "users_apps.json"),
+                    JsonConvert.SerializeObject(_usersAppsCache, Formatting.Indented)
+                );
+            }
+            catch { }
         }
     }
 }
