@@ -9,6 +9,7 @@
     <RootNamespace>Project</RootNamespace>
     <Platforms>AnyCPU</Platforms>
     <StartupObject>Project.ApplicationApp</StartupObject>
+    <ApplicationIcon>Resources\Icons\app.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -17,12 +18,8 @@
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="8.0.0" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Resources\Icons\app.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Resources\Cursors\arrow.cur">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Resources\Icons\app.ico" />
+    <Resource Include="Resources\Cursors\arrow.cur" />
   </ItemGroup>
   <ItemGroup>
     <None Update="Resources\Buffer\apps.json" CopyToOutputDirectory="PreserveNewest" />

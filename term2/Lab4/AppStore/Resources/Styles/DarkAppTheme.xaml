@@ -9,33 +9,33 @@
          override all brush keys with dark equivalents.
          Accent / brand colors remain unchanged.
     ════════════════════════════════════════════════ -->
-  <!-- ─── Brush Palette (dark overrides) ────────── -->
+  <!-- ─── Brush Palette (dark) ─────────────────────────── -->
   <SolidColorBrush x:Key="WindowBgBrush" Color="#1C1C1E" />
   <SolidColorBrush x:Key="SidebarBgBrush" Color="#2C2C2E" />
+  <SolidColorBrush x:Key="AccentBlueBrush" Color="#0072F7" />
+  <SolidColorBrush x:Key="GetBtnBgBrush" Color="#3A3A3C" />
+  <SolidColorBrush x:Key="GetBtnTextBrush" Color="#3478F6" />
   <SolidColorBrush x:Key="TitleTextBrush" Color="#F5F5F7" />
   <SolidColorBrush x:Key="SecondaryTextBrush" Color="#8E8E93" />
   <SolidColorBrush x:Key="SeparatorBrush" Color="#38383A" />
   <SolidColorBrush x:Key="DividerBrush" Color="#48484A" />
   <SolidColorBrush x:Key="InfoCardBgBrush" Color="#2C2C2E" />
   <SolidColorBrush x:Key="SearchBubbleBgBrush" Color="#3A3A3C" />
-  <SolidColorBrush x:Key="GetBtnBgBrush" Color="#3A3A3C" />
+  <SolidColorBrush x:Key="SearchTextBrush" Color="#8E8E93" />
+  <SolidColorBrush x:Key="SearchFocusBrush" Color="#FFFFFF" />
   <SolidColorBrush x:Key="CategorySelectedBgBrush" Color="#3A3A3C" />
-  <SolidColorBrush x:Key="DescriptionTextBrush" Color="#AEAEB2" />
-  <SolidColorBrush x:Key="PopupBgBrush" Color="#2C2C2E" />
-  <SolidColorBrush x:Key="ToggleBgOff" Color="#48484A" />
-  <SolidColorBrush x:Key="ToggleThumbBrush" Color="#FFFFFF" />
   <SolidColorBrush x:Key="RatingStarBrush" Color="#AEAEB2" />
   <SolidColorBrush x:Key="RatingCountBrush" Color="#636366" />
-  <SolidColorBrush x:Key="SearchTextBrush" Color="#8E8E93" />
-  <SolidColorBrush x:Key="TextSecondaryBrush" Color="#636366" />
-  <SolidColorBrush x:Key="TextTertiaryBrush" Color="#48484A" />
-  <!-- Accent / brand colors — intentionally identical to light theme -->
-  <SolidColorBrush x:Key="AccentBlueBrush" Color="#0072F7" />
-  <SolidColorBrush x:Key="GetBtnTextBrush" Color="#3478F6" />
+  <SolidColorBrush x:Key="DescriptionTextBrush" Color="#AEAEB2" />
   <SolidColorBrush x:Key="SeeAllBrush" Color="#0072F7" />
   <SolidColorBrush x:Key="OrangeBrush" Color="#FF9500" />
   <SolidColorBrush x:Key="GreenBrush" Color="#34C759" />
+  <SolidColorBrush x:Key="TextSecondaryBrush" Color="#636366" />
+  <SolidColorBrush x:Key="TextTertiaryBrush" Color="#48484A" />
+  <SolidColorBrush x:Key="ToggleBgOff" Color="#48484A" />
   <SolidColorBrush x:Key="ToggleBgOn" Color="#34C759" />
+  <SolidColorBrush x:Key="ToggleThumbBrush" Color="#FFFFFF" />
+  <SolidColorBrush x:Key="PopupBgBrush" Color="#2C2C2E" />
   <SolidColorBrush x:Key="ErrorBrush" Color="#FF3B30" />
   <SolidColorBrush x:Key="DangerBrush" Color="#FF3B30" />
   <!-- ─── Scalar values (same as light) ─────────── -->

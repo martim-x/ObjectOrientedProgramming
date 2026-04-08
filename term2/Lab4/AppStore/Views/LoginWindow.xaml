@@ -1,7 +1,5 @@
 <Window
   x:Class="Project.Views.LoginWindow"
-  Icon="pack://application:,,,/Resources/Icons/app.ico"
-  Cursor="pack://application:,,,/Resources/Cursors/arrow.cur"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
   Background="White"

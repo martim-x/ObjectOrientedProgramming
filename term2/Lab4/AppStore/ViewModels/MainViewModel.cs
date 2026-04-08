@@ -5,7 +5,6 @@ using System.Linq;
 using System.Windows.Input;
 using Project.Commands;
 using Project.Data;
-using Project.Models;
 using Project.Services;
 
 namespace Project.ViewModels
@@ -20,7 +19,7 @@ namespace Project.ViewModels
         private readonly IRepository _repo;
         private readonly ILocalizationService _localization;
         private readonly IAuthService _auth;
-        private readonly ThemeService _theme;
+        private readonly IThemeService _theme;
 
         // Public so Views can access for add/edit dialogs
         public IRepository Repository => _repo;
@@ -189,7 +188,7 @@ namespace Project.ViewModels
 
         // ── auth ─────────────────────────────────────────────────────────────
         public IAuthService AuthService => _auth;
-        public ThemeService ThemeService => _theme;
+        public IThemeService ThemeService => _theme;
         public User? CurrentUser => _auth.CurrentUser;
         public bool IsAdmin => _auth.IsAdmin;
 
@@ -214,7 +213,7 @@ namespace Project.ViewModels
             IRepository repo,
             ILocalizationService localization,
             IAuthService auth,
-            ThemeService theme
+            IThemeService theme
         )
         {
             _repo = repo;

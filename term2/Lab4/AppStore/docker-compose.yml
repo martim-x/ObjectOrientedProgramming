@@ -1,6 +1,5 @@
 version: "3.9"
-name: oop-appstore
-
+name: appstore
 
 services:
     postgres:
@@ -14,7 +13,6 @@ services:
             - "${DB_PORT_FROM}:${DB_PORT_TO}"
         volumes:
             - ${DB_VOLUME}
-
 
 volumes:
     OOP-AppStore:

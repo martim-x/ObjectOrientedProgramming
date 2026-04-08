@@ -1,9 +1,7 @@
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Project.csproj.AssemblyReference.cache
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Resources\Localization\en.baml
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Resources\Localization\ru.baml
-C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Resources\Styles\AppStyles.baml
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Resources\Styles\DarkAppTheme.baml
-C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Resources\Styles\DarkTheme.baml
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Resources\Styles\LightAppTheme.baml
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Views\AddEditWindow.baml
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Views\AppCardView.baml
@@ -29,8 +27,6 @@ C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Project_MarkupCompile.cache
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Project_MarkupCompile.lref
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\bin\Debug\net8.0-windows\.env
-C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\bin\Debug\net8.0-windows\Resources\Buffer\apps.json
-C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\bin\Debug\net8.0-windows\Resources\Buffer\users.json
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\bin\Debug\net8.0-windows\Project.exe
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\bin\Debug\net8.0-windows\Project.deps.json
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\bin\Debug\net8.0-windows\Project.runtimeconfig.json
@@ -132,6 +128,3 @@ C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Project.pdb
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Project.genruntimeconfig.cache
 C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\ref\Project.dll
-C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\obj\Debug\net8.0-windows\Project_Content.g.cs
-C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\bin\Debug\net8.0-windows\Resources\Icons\app.ico
-C:\Users\timof\Documents\Visual Studio Code\ObjectOrientedProgramming\term2\Lab4\AppStore\bin\Debug\net8.0-windows\Resources\Cursors\arrow.cur

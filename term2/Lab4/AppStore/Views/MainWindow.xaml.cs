@@ -93,7 +93,7 @@ namespace Project.Views
         {
             if (
                 sender is System.Windows.FrameworkElement fe
-                && fe.DataContext is Project.Models.App app
+                && fe.DataContext is Project.Data.App app
             )
                 Vm.OpenDetailCommand.Execute(app);
         }

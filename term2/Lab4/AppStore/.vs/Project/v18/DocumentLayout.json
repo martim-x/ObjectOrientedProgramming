@@ -3,16 +3,56 @@
   "WorkspaceRootPath": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\applicationapp.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:applicationapp.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:views\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:services\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\applicationapp.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:applicationapp.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\viewmodels\\profileviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:viewmodels\\profileviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\.env||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:.env||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\profilepopup.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:views\\profilepopup.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:views\\loginwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\editdeletedialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:views\\editdeletedialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\addeditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:views\\addeditwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\confirmdialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:views\\confirmdialog.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\featuredbannerview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:views\\featuredbannerview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\approwview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:views\\approwview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\appdetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:views\\appdetailview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|c:\\users\\timof\\documents\\visual studio code\\objectorientedprogramming\\term2\\lab4\\appstore\\views\\appcardview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{B2C3D4E5-F6A7-8901-BCDE-F12345678901}|Project.csproj|solutionrelative:views\\appcardview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,7 +62,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 196,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Bookmark",
@@ -35,38 +75,152 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "ApplicationApp.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\ApplicationApp.xaml.cs",
+              "RelativeDocumentMoniker": "ApplicationApp.xaml.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\ApplicationApp.xaml.cs",
+              "RelativeToolTip": "ApplicationApp.xaml.cs",
+              "ViewState": "AgIAABsAAAAAAAAAAAAowCkAAAAZAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T11:40:53.282Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ProfileViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\ViewModels\\ProfileViewModel.cs",
+              "RelativeDocumentMoniker": "ViewModels\\ProfileViewModel.cs",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\ViewModels\\ProfileViewModel.cs",
+              "RelativeToolTip": "ViewModels\\ProfileViewModel.cs",
+              "ViewState": "AgIAAB8AAAAAAAAAAAAmwDIAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-08T11:39:03.412Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": ".env",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\.env",
+              "RelativeDocumentMoniker": ".env",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\.env",
+              "RelativeToolTip": ".env",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-04-08T11:31:48.859Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "ProfilePopup.xaml",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\ProfilePopup.xaml",
+              "RelativeDocumentMoniker": "Views\\ProfilePopup.xaml",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\ProfilePopup.xaml",
+              "RelativeToolTip": "Views\\ProfilePopup.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-08T11:11:06.884Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\MainWindow.xaml",
               "RelativeDocumentMoniker": "Views\\MainWindow.xaml",
               "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\MainWindow.xaml",
               "RelativeToolTip": "Views\\MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-04-01T09:12:28.986Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "AuthService.cs",
-              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Services\\AuthService.cs",
-              "RelativeDocumentMoniker": "Services\\AuthService.cs",
-              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Services\\AuthService.cs",
-              "RelativeToolTip": "Services\\AuthService.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAmwCkAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-01T08:41:35.055Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ApplicationApp.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\ApplicationApp.xaml.cs",
-              "RelativeDocumentMoniker": "ApplicationApp.xaml.cs",
-              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\ApplicationApp.xaml.cs",
-              "RelativeToolTip": "ApplicationApp.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-04-01T08:41:27.51Z",
+              "WhenOpened": "2026-04-08T11:11:03.582Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "LoginWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\LoginWindow.xaml",
+              "RelativeDocumentMoniker": "Views\\LoginWindow.xaml",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\LoginWindow.xaml",
+              "RelativeToolTip": "Views\\LoginWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-08T11:11:02.383Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FeaturedBannerView.xaml",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\FeaturedBannerView.xaml",
+              "RelativeDocumentMoniker": "Views\\FeaturedBannerView.xaml",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\FeaturedBannerView.xaml",
+              "RelativeToolTip": "Views\\FeaturedBannerView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-08T11:11:01.903Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "EditDeleteDialog.xaml",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\EditDeleteDialog.xaml",
+              "RelativeDocumentMoniker": "Views\\EditDeleteDialog.xaml",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\EditDeleteDialog.xaml",
+              "RelativeToolTip": "Views\\EditDeleteDialog.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-08T11:11:01.441Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ConfirmDialog.xaml",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\ConfirmDialog.xaml",
+              "RelativeDocumentMoniker": "Views\\ConfirmDialog.xaml",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\ConfirmDialog.xaml",
+              "RelativeToolTip": "Views\\ConfirmDialog.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-08T11:11:00.989Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "AppRowView.xaml",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AppRowView.xaml",
+              "RelativeDocumentMoniker": "Views\\AppRowView.xaml",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AppRowView.xaml",
+              "RelativeToolTip": "Views\\AppRowView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-08T11:11:00.494Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "AppDetailView.xaml",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AppDetailView.xaml",
+              "RelativeDocumentMoniker": "Views\\AppDetailView.xaml",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AppDetailView.xaml",
+              "RelativeToolTip": "Views\\AppDetailView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-08T11:10:59.435Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AppCardView.xaml",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AppCardView.xaml",
+              "RelativeDocumentMoniker": "Views\\AppCardView.xaml",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AppCardView.xaml",
+              "RelativeToolTip": "Views\\AppCardView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-08T11:10:58.468Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AddEditWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AddEditWindow.xaml",
+              "RelativeDocumentMoniker": "Views\\AddEditWindow.xaml",
+              "ToolTip": "C:\\Users\\timof\\Documents\\Visual Studio Code\\ObjectOrientedProgramming\\term2\\Lab4\\AppStore\\Views\\AddEditWindow.xaml",
+              "RelativeToolTip": "Views\\AddEditWindow.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-04-08T11:10:57.844Z"
             }
           ]
         }

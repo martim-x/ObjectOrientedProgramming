@@ -1,6 +1,5 @@
 using System.Windows;
 using Project.Data;
-using Project.Models;
 using Project.ViewModels;
 
 namespace Project.Views

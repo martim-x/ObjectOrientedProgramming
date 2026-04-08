@@ -26,9 +26,8 @@
       "Collaboration",
       "UI"
     ],
-    "RelatedAppIds": [],
     "FinalPrice": 0.0,
-    "ButtonLabel": "Get"
+    "ButtonLabel": "Загрузить"
   },
   {
     "Id": "60f93d8d-8fcf-42eb-a54d-0fd84e16602a",
@@ -57,15 +56,14 @@
       "Productivity",
       "Business"
     ],
-    "RelatedAppIds": [],
     "FinalPrice": 0.0,
-    "ButtonLabel": "Get"
+    "ButtonLabel": "Загрузить"
   },
   {
     "Id": "c1b8015f-1bc0-4b78-8112-ce391eceee54",
     "ShortName": "Xcode",
     "FullName": "Xcode – Apple Developer IDE",
-    "Description": "Xcode is Apple's integrated development environment for macOS, iOS, watchOS, and tvOS apps.",
+    "Description": "Xcode is Apple's integrated development environment for macOS, iOS, watchOS, and tvOS.",
     "Developer": "Apple",
     "Category": "Development",
     "Rating": 3.9,
@@ -88,9 +86,8 @@
       "Swift",
       "Development"
     ],
-    "RelatedAppIds": [],
     "FinalPrice": 0.0,
-    "ButtonLabel": "Get"
+    "ButtonLabel": "Загрузить"
   },
   {
     "Id": "ecb14f17-0ea4-41ff-a59d-7c6a2a409004",
@@ -119,7 +116,6 @@
       "Creative",
       "Adobe"
     ],
-    "RelatedAppIds": [],
     "FinalPrice": 43.992000000000004,
     "ButtonLabel": "$43,99"
   },
@@ -150,9 +146,8 @@
       "Wiki",
       "Database"
     ],
-    "RelatedAppIds": [],
     "FinalPrice": 0.0,
-    "ButtonLabel": "Get"
+    "ButtonLabel": "Загрузить"
   },
   {
     "Id": "63ad3a22-fc71-4724-a8a9-5101e15376b5",
@@ -181,9 +176,8 @@
       "Voice",
       "Social"
     ],
-    "RelatedAppIds": [],
     "FinalPrice": 0.0,
-    "ButtonLabel": "Get"
+    "ButtonLabel": "Загрузить"
   },
   {
     "Id": "df07dc9b-e24b-44e3-9fb1-3144737547f0",
@@ -212,9 +206,8 @@
       "Development",
       "Microsoft"
     ],
-    "RelatedAppIds": [],
     "FinalPrice": 0.0,
-    "ButtonLabel": "Get"
+    "ButtonLabel": "Загрузить"
   },
   {
     "Id": "e5ee2bdf-b6a8-4eab-8590-44ede8f7d678",
@@ -243,7 +236,6 @@
       "Professional",
       "Apple"
     ],
-    "RelatedAppIds": [],
     "FinalPrice": 299.99,
     "ButtonLabel": "$299,99"
   },
@@ -274,7 +266,6 @@
       "Production",
       "Apple"
     ],
-    "RelatedAppIds": [],
     "FinalPrice": 199.99,
     "ButtonLabel": "$199,99"
   },
@@ -305,9 +296,8 @@
       "Valve",
       "Store"
     ],
-    "RelatedAppIds": [],
     "FinalPrice": 0.0,
-    "ButtonLabel": "Get"
+    "ButtonLabel": "Загрузить"
   },
   {
     "Id": "7f98ddcd-e009-4aaf-9354-94e5b7c7e0e9",
@@ -336,9 +326,8 @@
       "Streaming",
       "Audio"
     ],
-    "RelatedAppIds": [],
     "FinalPrice": 0.0,
-    "ButtonLabel": "Get"
+    "ButtonLabel": "Загрузить"
   },
   {
     "Id": "79f5b512-9182-43dd-93f5-c75553983367",
@@ -367,8 +356,7 @@
       "Social",
       "Chat"
     ],
-    "RelatedAppIds": [],
     "FinalPrice": 0.0,
-    "ButtonLabel": "Get"
+    "ButtonLabel": "Загрузить"
   }
 ]

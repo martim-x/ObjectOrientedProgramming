@@ -3,7 +3,7 @@ using System.Windows;
 
 namespace Project.Services
 {
-    public class ThemeService
+    public class ThemeService : IThemeService
     {
         private bool _isDark;
 

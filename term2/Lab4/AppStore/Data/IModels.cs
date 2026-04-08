@@ -1,8 +1,14 @@
 using System;
 using System.Collections.Generic;
 
-namespace Project.Models
+namespace Project.Data
 {
+    public enum UserRole
+    {
+        User = 0,
+        Admin = 1,
+    }
+
     public interface IApp
     {
         Guid Id { get; set; }
@@ -25,12 +31,28 @@ namespace Project.Models
         int DownloadCount { get; set; }
         double? DiscountPercent { get; set; }
         DateTime ReleaseDate { get; set; }
-
         List<string> Tags { get; set; }
-        List<Guid> RelatedAppIds { get; set; }
+        double FinalPrice { get; } // вычисляемое
+        string ButtonLabel { get; } // вычисляемое
+    }
 
-        // Computed
-        double FinalPrice { get; }
-        string ButtonLabel { get; }
+    public interface IUser
+    {
+        Guid Id { get; set; }
+        string Login { get; set; }
+        string PasswordHash { get; set; }
+        string? FirstName { get; set; }
+        string? LastName { get; set; }
+        string? Email { get; set; }
+        UserRole Role { get; set; }
+        string AvatarColor { get; set; }
+        string AvatarLetter { get; } // вычисляемое
+    }
+
+    public interface IUsersApps
+    {
+        public Guid UserId { get; set; }
+        public Guid AppId { get; set; }
+        public DateTime InstalledAt { get; set; }
     }
 }

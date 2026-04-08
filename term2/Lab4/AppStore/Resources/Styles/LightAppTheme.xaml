@@ -8,7 +8,8 @@
          All colors exposed as DynamicResource keys so
          the dark theme can override them at runtime.
     ════════════════════════════════════════════════ -->
-  <!-- ─── Brush Palette ─────────────────────────── -->
+  <!-- ─── Brush Palette (light) ─────────────────────────── -->
+  <!-- Фон главного окна / сцены -->
   <SolidColorBrush x:Key="WindowBgBrush" Color="#FFFFFF" />
   <SolidColorBrush x:Key="SidebarBgBrush" Color="#F5F5F7" />
   <SolidColorBrush x:Key="AccentBlueBrush" Color="#0072F7" />

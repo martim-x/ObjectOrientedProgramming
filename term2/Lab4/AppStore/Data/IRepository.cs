@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Project.Models;
 
 namespace Project.Data
 {
@@ -13,7 +12,7 @@ namespace Project.Data
         void UpdateApp(App app);
         void DeleteApp(Guid id);
         void DownloadApp(Guid id);
-        void UninstallApp(Guid id); // DownloadCount-- on uninstall
+        void UninstallApp(Guid id);
         void RestoreDefaults();
 
         // Users

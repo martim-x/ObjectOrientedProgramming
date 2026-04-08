@@ -1,7 +1,7 @@
 using System;
 using System.Windows;
 using System.Windows.Media;
-using Project.Models;
+using Project.Data;
 using Project.Services;
 using Project.ViewModels;
 
@@ -12,7 +12,7 @@ namespace Project.Views
         private readonly IAuthService _auth;
         public bool LoggedOut { get; private set; }
 
-        public ProfilePopup(IAuthService auth, ThemeService theme, Window owner)
+        public ProfilePopup(IAuthService auth, IThemeService theme, Window owner)
         {
             InitializeComponent();
             _auth = auth;

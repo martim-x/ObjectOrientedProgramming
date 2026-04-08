@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Project.Models
+namespace Project.Data
 {
     public class App : IApp
     {
@@ -25,12 +25,36 @@ namespace Project.Models
         public int DownloadCount { get; set; }
         public double? DiscountPercent { get; set; }
         public DateTime ReleaseDate { get; set; }
-
         public List<string> Tags { get; set; } = new();
-        public List<Guid> RelatedAppIds { get; set; } = new();
 
-        // Computed: apply discount if set
         public double FinalPrice =>
             DiscountPercent.HasValue ? Price * (1.0 - DiscountPercent.Value / 100.0) : Price;
+
+        public string ButtonLabel =>
+            IsDownloaded ? "Открыть"
+            : Price == 0 ? "Загрузить"
+            : $"${FinalPrice:F2}";
+    }
+
+    public class User : IUser
+    {
+        public Guid Id { get; set; } = Guid.NewGuid();
+        public string Login { get; set; } = string.Empty;
+        public string PasswordHash { get; set; } = string.Empty;
+        public string? FirstName { get; set; }
+        public string? LastName { get; set; }
+        public string? Email { get; set; }
+        public UserRole Role { get; set; } = UserRole.User;
+        public string AvatarColor { get; set; } = "#007AFF";
+
+        public string AvatarLetter =>
+            string.IsNullOrEmpty(Login) ? "?" : Login[0].ToString().ToUpper();
+    }
+
+    public class UsersApps : IUsersApps
+    {
+        public Guid UserId { get; set; }
+        public Guid AppId { get; set; }
+        public DateTime InstalledAt { get; set; }
     }
 }

@@ -8,7 +8,7 @@ namespace Project.ViewModels
     public class ProfileViewModel : ViewModelBase
     {
         private readonly IAuthService _auth;
-        private readonly ThemeService _theme;
+        private readonly IThemeService _theme;
 
         private string? _firstName;
         private string? _lastName;
@@ -50,7 +50,7 @@ namespace Project.ViewModels
         public Func<string>? GetOldPassword { get; set; }
         public Func<string>? GetNewPassword { get; set; }
 
-        public ProfileViewModel(IAuthService auth, ThemeService theme)
+        public ProfileViewModel(IAuthService auth, IThemeService theme)
         {
             _auth = auth;
             _theme = theme;

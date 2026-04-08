@@ -3,7 +3,6 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 using Project.Commands;
 using Project.Data;
-using Project.Models;
 
 namespace Project.ViewModels
 {
@@ -96,7 +95,6 @@ namespace Project.ViewModels
                 DiscountPercent = s.DiscountPercent,
                 ReleaseDate = s.ReleaseDate,
                 Tags = new(s.Tags),
-                RelatedAppIds = new(s.RelatedAppIds),
             };
     }
 }

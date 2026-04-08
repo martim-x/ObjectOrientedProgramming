@@ -11,11 +11,8 @@ namespace Project
 {
     public partial class ApplicationApp : Application
     {
-        // ThemeService is static so it persists across login/logout cycles
-        private static readonly ThemeService _themeService = new();
-
-        private const string IconPath = "Resources/Icons/app.ico";
-        private const string CursorPath = "Resources/Cursors/arrow.cur";
+        // Экземплярное поле — живёт весь цикл приложения, переживает logout
+        private readonly IThemeService _themeService = new ThemeService();
 
         [STAThread]
         public static void Main()
@@ -27,39 +24,68 @@ namespace Project
 
         protected override void OnStartup(StartupEventArgs e)
         {
-            ShutdownMode = ShutdownMode.OnExplicitShutdown;
+            this.ShutdownMode = ShutdownMode.OnExplicitShutdown;
             base.OnStartup(e);
-            ShowLogin();
+
+            var resourceInfo = Application.GetResourceStream(
+                new Uri("Resources/Cursors/arrow.cur", UriKind.Relative)
+            );
+            if (resourceInfo != null)
+            {
+                var appCursor = new Cursor(resourceInfo.Stream);
+
+                EventManager.RegisterClassHandler(
+                    typeof(Window),
+                    Window.LoadedEvent,
+                    new RoutedEventHandler(
+                        (sender, _) =>
+                        {
+                            if (sender is Window window)
+                                window.Cursor = appCursor;
+                        }
+                    )
+                );
+            }
+            this.ShowLogin();
         }
 
-        public static void ShowLogin()
+        private void ShowLogin()
         {
             var repo = new JsonRep();
             // var repo = new PostgreSQLRep();
             var auth = new AuthService(repo);
-            var loginWin = new LoginWindow(auth);
+            var login = new LoginWindow(auth);
 
-            if (loginWin.ShowDialog() != true)
+            // Закрыли логин без входа — завершаем процесс
+            if (login.ShowDialog() != true)
             {
-                Current.Shutdown();
+                this.Shutdown();
                 return;
             }
 
-            OpenMainWindow(repo, auth);
+            this.OpenCatalog(repo, auth);
         }
 
-        private static void OpenMainWindow(IRepository repo, IAuthService auth)
+        // Открывает каталог; управляет двумя сценариями закрытия окна
+        private void OpenCatalog(IRepository repo, IAuthService auth)
         {
-            var localization = new LocalizationService();
-            var vm = new MainViewModel(repo, localization, auth, _themeService);
-
+            var vm = new MainViewModel(repo, new LocalizationService(), auth, this._themeService);
             var window = new MainWindow { DataContext = vm };
+            var isLogout = false;
 
-            // Handle logout: close current window, show login again
+            // Закрываем каталог — завершаем процесс
+            window.Closed += (_, __) =>
+            {
+                if (!isLogout)
+                    this.Shutdown();
+            };
+
+            // Logout — закрываем каталог и возвращаемся к логину
             vm.LogoutRequested += (_, __) =>
             {
+                isLogout = true; // ← до Close(), иначе Closed вызовет Shutdown
                 window.Close();
-                ShowLogin();
+                this.ShowLogin();
             };
 
             window.Show();
