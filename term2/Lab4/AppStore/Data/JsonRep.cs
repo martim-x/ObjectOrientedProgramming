@@ -6,27 +6,26 @@ using Newtonsoft.Json;
 
 namespace Project.Data
 {
-    /// <summary>
-    /// Репозиторий на базе JSON-файлов.
-    /// Рабочие файлы: %AppData%/AppStore/apps.json и users.json.
-    /// При первом запуске или пустых/отсутствующих файлах — данные берутся из Seed.
-    /// </summary>
     public class JsonRep : BaseRepository
     {
         private readonly string _appsFilePath;
         private readonly string _usersFilePath;
         private readonly string _usersAppsFilePath;
+        private readonly Guid? _currentUserId;
 
         private List<App> _appsCache = new();
         private List<User> _usersCache = new();
         private List<UsersApps> _usersAppsCache = new();
 
         public JsonRep(
+            Guid? currentUserId = null,
             string? appsFilePath = null,
             string? usersFilePath = null,
             string? usersAppsFilePath = null
         )
         {
+            _currentUserId = currentUserId;
+
             var appDataDir = Path.Combine(
                 Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData),
                 "AppStore"
@@ -42,31 +41,26 @@ namespace Project.Data
             WriteBufferFiles();
         }
 
-        // ── Apps ───────────────────────────────────────────────────────────────
-
-        // public override List<App> GetAllApps() => new(_appsCache);
-
-        // public override App? GetAppById(Guid id) => _appsCache.FirstOrDefault(a => a.Id == id);
         public override List<App> GetAllApps()
         {
             var apps = new List<App>(_appsCache);
             var userId = GetCurrentUserId();
 
-            if (userId != null)
-            {
-                var installedIds = _usersAppsCache
-                    .Where(x => x.UserId == userId.Value)
-                    .Select(x => x.AppId)
-                    .ToHashSet();
-
-                foreach (var app in apps)
-                    app.IsDownloaded = installedIds.Contains(app.Id);
-            }
-            else
+            if (userId == null)
             {
                 foreach (var app in apps)
                     app.IsDownloaded = false;
+
+                return apps;
             }
+
+            var installedIds = _usersAppsCache
+                .Where(x => x.UserId == userId.Value)
+                .Select(x => x.AppId)
+                .ToHashSet();
+
+            foreach (var app in apps)
+                app.IsDownloaded = installedIds.Contains(app.Id);
 
             return apps;
         }
@@ -78,16 +72,9 @@ namespace Project.Data
                 return null;
 
             var userId = GetCurrentUserId();
-            if (userId != null)
-            {
-                app.IsDownloaded = _usersAppsCache.Any(x =>
-                    x.UserId == userId.Value && x.AppId == id
-                );
-            }
-            else
-            {
-                app.IsDownloaded = false;
-            }
+            app.IsDownloaded =
+                userId != null
+                && _usersAppsCache.Any(x => x.UserId == userId.Value && x.AppId == id);
 
             return app;
         }
@@ -103,6 +90,7 @@ namespace Project.Data
             var idx = _appsCache.FindIndex(a => a.Id == app.Id);
             if (idx >= 0)
                 _appsCache[idx] = app;
+
             SaveApps();
         }
 
@@ -125,13 +113,10 @@ namespace Project.Data
             if (userId == null)
                 return;
 
-            app.DownloadCount++;
-
-            app.IsDownloaded = true;
-
             var existing = _usersAppsCache.FirstOrDefault(x =>
                 x.UserId == userId.Value && x.AppId == appId
             );
+
             if (existing == null)
             {
                 _usersAppsCache.Add(
@@ -142,11 +127,15 @@ namespace Project.Data
                         InstalledAt = DateTime.UtcNow,
                     }
                 );
+
+                app.DownloadCount++;
             }
             else
             {
                 existing.InstalledAt = DateTime.UtcNow;
             }
+
+            app.IsDownloaded = true;
 
             SaveApps();
             SaveUsersApps();
@@ -162,12 +151,14 @@ namespace Project.Data
             if (userId == null)
                 return;
 
-            if (app.DownloadCount > 0)
+            var removed = _usersAppsCache.RemoveAll(x =>
+                x.UserId == userId.Value && x.AppId == appId
+            );
+
+            if (removed > 0 && app.DownloadCount > 0)
                 app.DownloadCount--;
 
             app.IsDownloaded = false;
-
-            _usersAppsCache.RemoveAll(x => x.UserId == userId.Value && x.AppId == appId);
 
             SaveApps();
             SaveUsersApps();
@@ -176,17 +167,15 @@ namespace Project.Data
         public override void RestoreDefaults()
         {
             _appsCache = SeedApps();
+            _usersCache = SeedUsers();
             _usersAppsCache = SeedUsersApps();
 
             SaveApps();
+            SaveUsers();
             SaveUsersApps();
         }
 
-        // ── Users ──────────────────────────────────────────────────────────────
-        private Guid? GetCurrentUserId()
-        {
-            return _usersCache.FirstOrDefault()?.Id;
-        }
+        private Guid? GetCurrentUserId() => _currentUserId;
 
         public override List<User> GetAllUsers() => new(_usersCache);
 
@@ -206,10 +195,9 @@ namespace Project.Data
             var idx = _usersCache.FindIndex(u => u.Id == user.Id);
             if (idx >= 0)
                 _usersCache[idx] = user;
+
             SaveUsers();
         }
-
-        // ── Загрузка / сохранение ──────────────────────────────────────────────
 
         private void LoadApps()
         {
@@ -224,12 +212,12 @@ namespace Project.Data
                         return;
                     }
                 }
+
                 _appsCache = SeedApps();
                 SaveApps();
             }
             catch
             {
-                // Повреждённый файл — тихо восстанавливаем из Seed
                 _appsCache = SeedApps();
                 SaveApps();
             }
@@ -249,6 +237,7 @@ namespace Project.Data
                         return;
                     }
                 }
+
                 _usersCache = SeedUsers();
                 SaveUsers();
             }
