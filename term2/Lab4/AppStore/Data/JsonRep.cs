@@ -11,7 +11,6 @@ namespace Project.Data
         private readonly string _appsFilePath;
         private readonly string _usersFilePath;
         private readonly string _usersAppsFilePath;
-
         private Guid? _currentUserId;
 
         private List<App> _appsCache = new();
@@ -51,7 +50,7 @@ namespace Project.Data
         public override List<App> GetAllApps()
         {
             var apps = new List<App>(_appsCache);
-            var userId = GetCurrentUserId();
+            var userId = _currentUserId;
 
             if (userId == null)
             {
@@ -78,10 +77,9 @@ namespace Project.Data
             if (app == null)
                 return null;
 
-            var userId = GetCurrentUserId();
             app.IsDownloaded =
-                userId != null
-                && _usersAppsCache.Any(x => x.UserId == userId.Value && x.AppId == id);
+                _currentUserId != null
+                && _usersAppsCache.Any(x => x.UserId == _currentUserId.Value && x.AppId == id);
 
             return app;
         }
@@ -115,65 +113,61 @@ namespace Project.Data
 
         public override void DownloadApp(Guid appId)
         {
+            if (_currentUserId == null)
+                return;
+
             var app = _appsCache.FirstOrDefault(a => a.Id == appId);
             if (app == null)
                 return;
 
-            var userId = GetCurrentUserId();
-            if (userId == null)
-                return;
-
-            var existing = _usersAppsCache.FirstOrDefault(x =>
-                x.UserId == userId.Value && x.AppId == appId
+            var exists = _usersAppsCache.Any(x =>
+                x.UserId == _currentUserId.Value && x.AppId == appId
             );
 
-            if (existing == null)
+            if (!exists)
             {
                 _usersAppsCache.Add(
                     new UsersApps
                     {
-                        UserId = userId.Value,
+                        UserId = _currentUserId.Value,
                         AppId = appId,
                         InstalledAt = DateTime.UtcNow,
                     }
                 );
 
                 app.DownloadCount++;
-            }
-            else
-            {
-                existing.InstalledAt = DateTime.UtcNow;
-            }
+                app.IsDownloaded = true;
 
-            app.IsDownloaded = true;
-
-            SaveApps();
-            SaveUsersApps();
-            SaveBufferFiles();
+                SaveApps();
+                SaveUsersApps();
+                SaveBufferFiles();
+            }
         }
 
         public override void UninstallApp(Guid appId)
         {
+            if (_currentUserId == null)
+                return;
+
             var app = _appsCache.FirstOrDefault(a => a.Id == appId);
             if (app == null)
                 return;
 
-            var userId = GetCurrentUserId();
-            if (userId == null)
-                return;
-
             var removed = _usersAppsCache.RemoveAll(x =>
-                x.UserId == userId.Value && x.AppId == appId
+                x.UserId == _currentUserId.Value && x.AppId == appId
             );
 
-            if (removed > 0 && app.DownloadCount > 0)
-                app.DownloadCount--;
+            if (removed > 0)
+            {
+                if (app.DownloadCount > 0)
+                    app.DownloadCount--;
 
-            app.IsDownloaded = false;
+                app.IsDownloaded = false;
 
-            SaveApps();
-            SaveUsersApps();
-            SaveBufferFiles();
+                SaveApps();
+                SaveUsersApps();
+                SaveBufferFiles();
+            }
         }
 
         public override void RestoreDefaults()
@@ -187,8 +181,6 @@ namespace Project.Data
             SaveUsersApps();
             SaveBufferFiles();
         }
-
-        private Guid? GetCurrentUserId() => _currentUserId;
 
         public override List<User> GetAllUsers() => new(_usersCache);
 
@@ -221,7 +213,7 @@ namespace Project.Data
                 if (File.Exists(_appsFilePath))
                 {
                     var json = File.ReadAllText(_appsFilePath).Trim();
-                    if (!string.IsNullOrEmpty(json) && json != "[]")
+                    if (!string.IsNullOrWhiteSpace(json) && json != "[]")
                     {
                         _appsCache = JsonConvert.DeserializeObject<List<App>>(json) ?? SeedApps();
                         return;
@@ -245,7 +237,7 @@ namespace Project.Data
                 if (File.Exists(_usersFilePath))
                 {
                     var json = File.ReadAllText(_usersFilePath).Trim();
-                    if (!string.IsNullOrEmpty(json) && json != "[]")
+                    if (!string.IsNullOrWhiteSpace(json) && json != "[]")
                     {
                         _usersCache =
                             JsonConvert.DeserializeObject<List<User>>(json) ?? SeedUsers();
@@ -270,7 +262,7 @@ namespace Project.Data
                 if (File.Exists(_usersAppsFilePath))
                 {
                     var json = File.ReadAllText(_usersAppsFilePath).Trim();
-                    if (!string.IsNullOrEmpty(json) && json != "[]")
+                    if (!string.IsNullOrWhiteSpace(json) && json != "[]")
                     {
                         _usersAppsCache =
                             JsonConvert.DeserializeObject<List<UsersApps>>(json)
@@ -334,7 +326,7 @@ namespace Project.Data
                 );
 
                 File.WriteAllText(
-                    Path.Combine(bufferDir, "users_apps.json"),
+                    Path.Combine(bufferDir, "usersapps.json"),
                     JsonConvert.SerializeObject(_usersAppsCache, Formatting.Indented)
                 );
             }
