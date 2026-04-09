@@ -49,6 +49,7 @@
           Grid.Column="2"
           VerticalAlignment="Center"
           Style="{DynamicResource GetButtonStyle}"
+          MinWidth="65"
           Command="{Binding DownloadCommand, RelativeSource={RelativeSource AncestorType=UserControl}}"
           CommandParameter="{Binding}"
         >

@@ -148,7 +148,7 @@
           <Border
             x:Name="Bd"
             Background="{TemplateBinding Background}"
-            CornerRadius="14"
+            CornerRadius="8"
             Padding="{TemplateBinding Padding}"
           >
             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
@@ -183,7 +183,7 @@
           <Border
             x:Name="Bd"
             Background="{TemplateBinding Background}"
-            CornerRadius="14"
+            CornerRadius="8"
             Padding="{TemplateBinding Padding}"
           >
             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />

@@ -1,4 +1,4 @@
-namespace Project.Services.UndoRedo
+namespace Project.Services
 {
     public interface IUndoRedoAction
     {

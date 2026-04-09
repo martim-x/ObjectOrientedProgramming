@@ -1,86 +1,59 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using Project.Data;
 
-namespace Project.Services.UndoRedo
+namespace Project.Services
 {
-    public class UndoRedoService
+    public class UndoRedoService : IUndoRedoService
     {
-        private const int MaxActionsPerUser = 2;
+        private const int MaxActions = 10;
 
-        private readonly Dictionary<Guid, Stack<IUndoRedoAction>> _undoStacks = new();
-        private readonly Dictionary<Guid, Stack<IUndoRedoAction>> _redoStacks = new();
+        private readonly Stack<IUndoRedoAction> _undoStack = new();
+        private readonly Stack<IUndoRedoAction> _redoStack = new();
 
-        private Stack<IUndoRedoAction> GetUndoStack(Guid userId)
+        public bool CanUndo => _undoStack.Count > 0;
+        public bool CanRedo => _redoStack.Count > 0;
+
+        /// <summary>
+        /// Сохранить уже выполненное действие в историю.
+        /// Caller сам вызывает repo-метод ДО Push.
+        /// </summary>
+        public void Push(IUndoRedoAction action)
         {
-            if (!_undoStacks.TryGetValue(userId, out var stack))
+            _undoStack.Push(action);
+            _redoStack.Clear();
+
+            if (_undoStack.Count > MaxActions)
             {
-                stack = new Stack<IUndoRedoAction>();
-                _undoStacks[userId] = stack;
-            }
-
-            return stack;
-        }
-
-        private Stack<IUndoRedoAction> GetRedoStack(Guid userId)
-        {
-            if (!_redoStacks.TryGetValue(userId, out var stack))
-            {
-                stack = new Stack<IUndoRedoAction>();
-                _redoStacks[userId] = stack;
-            }
-
-            return stack;
-        }
-
-        public void PushAction(Guid userId, IUndoRedoAction action)
-        {
-            var undo = GetUndoStack(userId);
-            var redo = GetRedoStack(userId);
-
-            undo.Push(action);
-            redo.Clear();
-
-            while (undo.Count > MaxActionsPerUser)
-            {
-                var temp = undo.Reverse().Skip(1).Reverse().ToArray();
-                undo.Clear();
-                foreach (var item in temp)
-                    undo.Push(item);
+                var items = _undoStack.ToArray(); // [новый, ..., старый]
+                _undoStack.Clear();
+                for (int i = MaxActions - 1; i >= 0; i--)
+                    _undoStack.Push(items[i]);
             }
         }
 
-        public bool CanUndo(Guid userId) =>
-            _undoStacks.TryGetValue(userId, out var stack) && stack.Count > 0;
-
-        public bool CanRedo(Guid userId) =>
-            _redoStacks.TryGetValue(userId, out var stack) && stack.Count > 0;
-
-        public void Undo(Guid userId)
+        public void Undo()
         {
-            if (!CanUndo(userId))
+            if (!CanUndo)
                 return;
-
-            var undo = GetUndoStack(userId);
-            var redo = GetRedoStack(userId);
-
-            var action = undo.Pop();
+            var action = _undoStack.Pop();
             action.Undo();
-            redo.Push(action);
+            _redoStack.Push(action);
         }
 
-        public void Redo(Guid userId)
+        public void Redo()
         {
-            if (!CanRedo(userId))
+            if (!CanRedo)
                 return;
-
-            var undo = GetUndoStack(userId);
-            var redo = GetRedoStack(userId);
-
-            var action = redo.Pop();
+            var action = _redoStack.Pop();
             action.Redo();
-            undo.Push(action);
+            _undoStack.Push(action);
+        }
+
+        /// <summary>Очистить историю при logout — данные одного пользователя не видит другой.</summary>
+        public void Clear()
+        {
+            _undoStack.Clear();
+            _redoStack.Clear();
         }
     }
 }

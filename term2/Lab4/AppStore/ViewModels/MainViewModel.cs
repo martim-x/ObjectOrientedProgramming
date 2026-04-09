@@ -20,6 +20,7 @@ namespace Project.ViewModels
         private readonly ILocalizationService _localization;
         private readonly IAuthService _auth;
         private readonly IThemeService _theme;
+        private readonly IUndoRedoService _undoRedo = new UndoRedoService();
 
         // Public so Views can access for add/edit dialogs
         public IRepository Repository => _repo;
@@ -206,6 +207,9 @@ namespace Project.ViewModels
         public ICommand RestoreDefaultsCommand { get; }
         public ICommand LogoutCommand { get; }
 
+        public ICommand UndoCommand { get; }
+        public ICommand RedoCommand { get; }
+
         public event EventHandler? LogoutRequested;
 
         // ── constructor ──────────────────────────────────────────────────────
@@ -225,26 +229,66 @@ namespace Project.ViewModels
             {
                 if (app == null)
                     return;
+
+                var id = app.Id;
+
                 if (app.IsDownloaded)
-                    _repo.UninstallApp(app.Id);
-                else
-                    _repo.DownloadApp(app.Id);
-
-                Reload();
-                OnPropertyChanged(nameof(DownloadedCount));
-
-                // Refresh SelectedApp reference so detail panel updates immediately
-                if (_selectedApp?.Id == app.Id)
                 {
-                    var fresh = _repo.GetAppById(app.Id);
-                    bool wasOpen = _isDetailOpen;
-                    _selectedApp = null;
-                    OnPropertyChanged(nameof(SelectedApp));
-                    _selectedApp = fresh;
-                    _isDetailOpen = wasOpen;
-                    OnPropertyChanged(nameof(SelectedApp));
+                    _repo.UninstallApp(id);
+                    _undoRedo.Push(
+                        new OpenAction(
+                            undo: () =>
+                            {
+                                _repo.DownloadApp(id);
+                                RefreshAfterDownload(id);
+                            },
+                            redo: () =>
+                            {
+                                _repo.UninstallApp(id);
+                                RefreshAfterDownload(id);
+                            }
+                        )
+                    );
                 }
+                else
+                {
+                    _repo.DownloadApp(id);
+                    _undoRedo.Push(
+                        new GetAction(
+                            undo: () =>
+                            {
+                                _repo.UninstallApp(id);
+                                RefreshAfterDownload(id);
+                            },
+                            redo: () =>
+                            {
+                                _repo.DownloadApp(id);
+                                RefreshAfterDownload(id);
+                            }
+                        )
+                    );
+                }
+
+                RefreshAfterDownload(id);
             });
+
+            UndoCommand = new RelayCommand(
+                () =>
+                {
+                    _undoRedo.Undo();
+                    Reload();
+                },
+                () => _undoRedo.CanUndo
+            );
+
+            RedoCommand = new RelayCommand(
+                () =>
+                {
+                    _undoRedo.Redo();
+                    Reload();
+                },
+                () => _undoRedo.CanRedo
+            );
 
             DeleteCommand = new RelayCommand<Guid>(id =>
             {
@@ -315,7 +359,11 @@ namespace Project.ViewModels
                 _repo.RestoreDefaults();
                 Reload();
             });
-            LogoutCommand = new RelayCommand(() => LogoutRequested?.Invoke(this, EventArgs.Empty));
+            LogoutCommand = new RelayCommand(() =>
+            {
+                _undoRedo.Clear();
+                LogoutRequested?.Invoke(this, EventArgs.Empty);
+            });
 
             Reload();
         }
@@ -425,6 +473,23 @@ namespace Project.ViewModels
             CurrentLanguage = lang;
             // Rebuild collections so converters re-evaluate with new currency/labels
             Reload();
+        }
+
+        private void RefreshAfterDownload(Guid id)
+        {
+            Reload();
+            OnPropertyChanged(nameof(DownloadedCount));
+
+            if (_selectedApp?.Id == id)
+            {
+                var fresh = _repo.GetAppById(id);
+                bool wasOpen = _isDetailOpen;
+                _selectedApp = null;
+                OnPropertyChanged(nameof(SelectedApp));
+                _selectedApp = fresh;
+                _isDetailOpen = wasOpen;
+                OnPropertyChanged(nameof(SelectedApp));
+            }
         }
     }
 }

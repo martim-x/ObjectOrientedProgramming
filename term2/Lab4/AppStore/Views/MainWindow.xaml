@@ -76,8 +76,8 @@
           <Border
             x:Name="SearchBorder"
             Background="{DynamicResource SearchBubbleBgBrush}"
-            CornerRadius="10"
-            Padding="8,7"
+            CornerRadius="8"
+            Padding="12,8"
           >
             <Grid>
               <Grid.ColumnDefinitions>
@@ -409,7 +409,7 @@
               <TextBlock
                 Text="{DynamicResource Filters}"
                 Foreground="{DynamicResource GetBtnTextBrush}"
-                FontSize="13"
+                FontSize="14"
                 FontWeight="SemiBold"
               />
             </StackPanel>
@@ -422,7 +422,7 @@
             Click="OnAddAppClick"
             Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}"
           >
-            <TextBlock Text="{DynamicResource AddApp}" FontSize="13" />
+            <TextBlock Text="{DynamicResource AddApp}" FontSize="14" />
           </Button>
         </Grid>
       </Border>
@@ -455,6 +455,7 @@
             >
               <TextBlock
                 Text="{DynamicResource SeeAll}"
+                Padding="8,2"
                 FontSize="13"
                 Foreground="{DynamicResource SeeAllBrush}"
               />
