@@ -125,6 +125,7 @@
             Padding="18,6"
             Command="{Binding DownloadCommand}"
             CommandParameter="{Binding SelectedApp}"
+            MinWidth="80"
           >
             <TextBlock FontSize="14">
               <TextBlock.Text>

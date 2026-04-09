@@ -38,6 +38,11 @@
   <SolidColorBrush x:Key="PopupBgBrush" Color="#FFFFFF" />
   <SolidColorBrush x:Key="ErrorBrush" Color="#FF3B30" />
   <SolidColorBrush x:Key="DangerBrush" Color="#FF3B30" />
+  <SolidColorBrush x:Key="FeaturedBannerLightStartBrush" Color="#E8F4FD" />
+  <SolidColorBrush x:Key="FeaturedBannerLightEndBrush" Color="#D6EAFF" />
+  <SolidColorBrush x:Key="FeaturedBannerTextBrush" Color="#FFFFFF" />
+  <SolidColorBrush x:Key="FilterPopupBgBrush" Color="#FFFFFF" />
+  <SolidColorBrush x:Key="FilterPopupBorderBrush" Color="#00000000" />
   <!-- ─── Scalar values reused in templates ─────── -->
   <sys:Double x:Key="NavFontSize">13</sys:Double>
   <sys:Double x:Key="FormFontSize">14</sys:Double>
@@ -150,7 +155,7 @@
           <Border
             x:Name="Bd"
             Background="{TemplateBinding Background}"
-            CornerRadius="14"
+            CornerRadius="8"
             Padding="{TemplateBinding Padding}"
           >
             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />

@@ -2,14 +2,8 @@
   x:Class="Project.Views.FeaturedBannerView"
   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  Loaded="OnLoaded"
 >
-  <!--
-        FeaturedBannerView.xaml — Updated version
-        Animated gradient background cycles between light-to-deep blue tones
-        via ColorAnimation on the two GradientStop.Color properties.
-        RepeatBehavior="Forever" + AutoReverse="True" creates a smooth loop.
-        All existing content is unchanged.
-    -->
   <Border
     CornerRadius="16"
     Height="180"
@@ -19,43 +13,10 @@
   >
     <Border.Background>
       <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-        <GradientStop x:Name="GradStop0" Color="#E8F4FD" Offset="0" />
-        <GradientStop x:Name="GradStop1" Color="#D6EAFF" Offset="1" />
+        <GradientStop x:Name="GradStop0" Offset="0" />
+        <GradientStop x:Name="GradStop1" Offset="1" />
       </LinearGradientBrush>
     </Border.Background>
-    <!-- Animated gradient storyboard — starts when the control loads -->
-    <Border.Triggers>
-      <EventTrigger RoutedEvent="FrameworkElement.Loaded">
-        <BeginStoryboard>
-          <Storyboard RepeatBehavior="Forever" AutoReverse="True">
-            <!-- Stop 0: animate between #E8F4FD and #D6EAFF -->
-            <ColorAnimation
-              Storyboard.TargetName="GradStop0"
-              Storyboard.TargetProperty="Color"
-              From="#E8F4FD"
-              To="#D6EAFF"
-              Duration="0:0:3.5"
-              AutoReverse="True"
-              RepeatBehavior="Forever"
-            />
-            <!-- Stop 1: animate between #D6EAFF and #B8DBFF -->
-            <ColorAnimation
-              Storyboard.TargetName="GradStop1"
-              Storyboard.TargetProperty="Color"
-              From="#D6EAFF"
-              To="#B8DBFF"
-              Duration="0:0:3.5"
-              AutoReverse="True"
-              RepeatBehavior="Forever"
-            />
-          </Storyboard>
-        </BeginStoryboard>
-      </EventTrigger>
-    </Border.Triggers>
-    <Border.Effect>
-      <DropShadowEffect ShadowDepth="0" BlurRadius="16" Opacity="0.08" Color="#000000" />
-    </Border.Effect>
-    <!-- ─── Existing content (unchanged) ─── -->
     <Grid Margin="24,0">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="*" />
@@ -66,14 +27,14 @@
           Text="{DynamicResource FeaturedToday}"
           FontSize="11"
           FontWeight="SemiBold"
-          Foreground="{DynamicResource AccentBlueBrush}"
+          Foreground="{DynamicResource TextSecondaryBrush}"
           Margin="0,0,0,6"
         />
         <TextBlock
           Text="{Binding FeaturedApps[0].FullName, FallbackValue='Featured App'}"
           FontSize="22"
           FontWeight="Bold"
-          Foreground="{DynamicResource TitleTextBrush}"
+          Foreground="{DynamicResource FeaturedBannerTextBrush}"
           TextWrapping="Wrap"
           MaxWidth="360"
           Margin="0,0,0,6"
@@ -81,14 +42,15 @@
         <TextBlock
           Text="{Binding FeaturedApps[0].Developer}"
           FontSize="13"
-          Foreground="{DynamicResource SecondaryTextBrush}"
+          Foreground="{DynamicResource TextSecondaryBrush}"
           Margin="0,0,0,14"
         />
         <Button
-          Style="{DynamicResource PrimaryButtonStyle}"
+          Style="{DynamicResource GetButtonStyle}"
           HorizontalAlignment="Left"
           Command="{Binding OpenDetailCommand}"
           CommandParameter="{Binding FeaturedApps[0]}"
+          MinWidth="90"
         >
           <TextBlock Text="{DynamicResource Download}" FontSize="13" />
         </Button>
@@ -97,12 +59,12 @@
         Grid.Column="1"
         Width="100"
         Height="100"
-        CornerRadius="22"
+        CornerRadius="8"
         Margin="0,0,8,0"
         Background="{Binding FeaturedApps[0].Color, Converter={StaticResource ColorBrush}}"
       >
         <Border.Effect>
-          <DropShadowEffect ShadowDepth="0" BlurRadius="20" Opacity="0.25" Color="#000000" />
+          <DropShadowEffect ShadowDepth="0" BlurRadius="20" Opacity="0.4" Color="#000000" />
         </Border.Effect>
         <TextBlock
           Text="{Binding FeaturedApps[0].ShortName}"

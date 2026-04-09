@@ -599,11 +599,12 @@
     <!-- FILTER POPUP -->
     <Popup x:Name="FilterPopup" Grid.Column="1" StaysOpen="False" AllowsTransparency="True">
       <Border
-        Background="White"
+        Background="{DynamicResource FilterPopupBgBrush}"
         CornerRadius="12"
         Padding="18,14"
         MinWidth="260"
-        BorderThickness="0"
+        BorderThickness="1"
+        BorderBrush="{DynamicResource FilterPopupBorderBrush}"
       >
         <Border.Effect>
           <DropShadowEffect ShadowDepth="0" BlurRadius="20" Opacity="0.15" Color="#000000" />

@@ -6,8 +6,8 @@
   Height="660"
   MinWidth="440"
   MinHeight="500"
-  Background="White"
-  Foreground="#272727"
+  Background="{DynamicResource WindowBgBrush}"
+  Foreground="{DynamicResource TitleTextBrush}"
   FontFamily="Segoe UI"
   WindowStartupLocation="CenterOwner"
   ResizeMode="CanResize"
@@ -18,65 +18,67 @@
       <RowDefinition Height="*" />
       <RowDefinition Height="Auto" />
     </Grid.RowDefinitions>
+    <!-- Header -->
     <Grid Grid.Row="0" Margin="0,0,0,20">
       <TextBlock
         Text="{DynamicResource EditApp}"
         FontSize="20"
         FontWeight="Bold"
-        Foreground="#272727"
+        Foreground="{DynamicResource TitleTextBrush}"
         Visibility="{Binding IsEditMode, Converter={StaticResource BoolToVis}}"
       />
       <TextBlock
         Text="{DynamicResource AddApp}"
         FontSize="20"
         FontWeight="Bold"
-        Foreground="#272727"
+        Foreground="{DynamicResource TitleTextBrush}"
         Visibility="{Binding IsEditMode, Converter={StaticResource InverseBoolToVis}}"
       />
     </Grid>
+    <!-- Form -->
     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
       <StackPanel>
         <TextBlock
           Text="{DynamicResource ShortName}"
-          FontSize="12"
-          Foreground="#828282"
+          Style="{DynamicResource CaptionStyle}"
           Margin="0,0,0,4"
         />
         <TextBox
           Style="{DynamicResource FormTextBoxStyle}"
+          BorderBrush="{DynamicResource DividerBrush}"
           Text="{Binding App.ShortName, UpdateSourceTrigger=PropertyChanged}"
           Margin="0,0,0,14"
         />
         <TextBlock
           Text="{DynamicResource FullName}"
-          FontSize="12"
-          Foreground="#828282"
+          Style="{DynamicResource CaptionStyle}"
           Margin="0,0,0,4"
         />
         <TextBox
           Style="{DynamicResource FormTextBoxStyle}"
+          BorderBrush="{DynamicResource DividerBrush}"
           Text="{Binding App.FullName, UpdateSourceTrigger=PropertyChanged}"
           Margin="0,0,0,14"
         />
         <TextBlock
           Text="{DynamicResource Developer}"
-          FontSize="12"
-          Foreground="#828282"
+          Style="{DynamicResource CaptionStyle}"
           Margin="0,0,0,4"
         />
         <TextBox
           Style="{DynamicResource FormTextBoxStyle}"
+          BorderBrush="{DynamicResource DividerBrush}"
           Text="{Binding App.Developer, UpdateSourceTrigger=PropertyChanged}"
           Margin="0,0,0,14"
         />
         <TextBlock
           Text="{DynamicResource Description}"
-          FontSize="12"
-          Foreground="#828282"
+          Style="{DynamicResource CaptionStyle}"
           Margin="0,0,0,4"
         />
         <TextBox
           Style="{DynamicResource FormTextBoxStyle}"
+          BorderBrush="{DynamicResource DividerBrush}"
           Text="{Binding App.Description, UpdateSourceTrigger=PropertyChanged}"
           Height="80"
           TextWrapping="Wrap"
@@ -86,15 +88,14 @@
         />
         <TextBlock
           Text="{DynamicResource Category}"
-          FontSize="12"
-          Foreground="#828282"
+          Style="{DynamicResource CaptionStyle}"
           Margin="0,0,0,4"
         />
         <ComboBox
-          Background="#F7F7F8"
-          Foreground="#272727"
+          Background="{DynamicResource InfoCardBgBrush}"
+          Foreground="{DynamicResource TitleTextBrush}"
           BorderThickness="1"
-          BorderBrush="#E6E6E6"
+          BorderBrush="{DynamicResource DividerBrush}"
           ItemsSource="{Binding AvailableCategories}"
           SelectedItem="{Binding App.Category}"
           Padding="10,7"
@@ -110,24 +111,24 @@
           <StackPanel Grid.Column="0">
             <TextBlock
               Text="{DynamicResource Price}"
-              FontSize="12"
-              Foreground="#828282"
+              Style="{DynamicResource CaptionStyle}"
               Margin="0,0,0,4"
             />
             <TextBox
               Style="{DynamicResource FormTextBoxStyle}"
+              BorderBrush="{DynamicResource DividerBrush}"
               Text="{Binding App.Price, StringFormat={}{0:F2}, UpdateSourceTrigger=PropertyChanged}"
             />
           </StackPanel>
           <StackPanel Grid.Column="2">
             <TextBlock
               Text="{DynamicResource Rating}"
-              FontSize="12"
-              Foreground="#828282"
+              Style="{DynamicResource CaptionStyle}"
               Margin="0,0,0,4"
             />
             <TextBox
               Style="{DynamicResource FormTextBoxStyle}"
+              BorderBrush="{DynamicResource DividerBrush}"
               Text="{Binding App.Rating, StringFormat={}{0:F1}, UpdateSourceTrigger=PropertyChanged}"
             />
           </StackPanel>
@@ -141,19 +142,20 @@
           <StackPanel Grid.Column="0">
             <TextBlock
               Text="{DynamicResource Version}"
-              FontSize="12"
-              Foreground="#828282"
+              Style="{DynamicResource CaptionStyle}"
               Margin="0,0,0,4"
             />
             <TextBox
               Style="{DynamicResource FormTextBoxStyle}"
+              BorderBrush="{DynamicResource DividerBrush}"
               Text="{Binding App.Version, UpdateSourceTrigger=PropertyChanged}"
             />
           </StackPanel>
           <StackPanel Grid.Column="2">
-            <TextBlock Text="Size (MB)" FontSize="12" Foreground="#828282" Margin="0,0,0,4" />
+            <TextBlock Text="Size (MB)" Style="{DynamicResource CaptionStyle}" Margin="0,0,0,4" />
             <TextBox
               Style="{DynamicResource FormTextBoxStyle}"
+              BorderBrush="{DynamicResource DividerBrush}"
               Text="{Binding App.SizeMB, StringFormat={}{0:F0}, UpdateSourceTrigger=PropertyChanged}"
             />
           </StackPanel>
@@ -167,27 +169,26 @@
           <StackPanel Grid.Column="0">
             <TextBlock
               Text="{DynamicResource Country}"
-              FontSize="12"
-              Foreground="#828282"
+              Style="{DynamicResource CaptionStyle}"
               Margin="0,0,0,4"
             />
             <TextBox
               Style="{DynamicResource FormTextBoxStyle}"
+              BorderBrush="{DynamicResource DividerBrush}"
               Text="{Binding App.Country, UpdateSourceTrigger=PropertyChanged}"
             />
           </StackPanel>
           <StackPanel Grid.Column="2">
             <TextBlock
               Text="{DynamicResource AgeRating}"
-              FontSize="12"
-              Foreground="#828282"
+              Style="{DynamicResource CaptionStyle}"
               Margin="0,0,0,4"
             />
             <ComboBox
-              Background="#F7F7F8"
-              Foreground="#272727"
+              Background="{DynamicResource InfoCardBgBrush}"
+              Foreground="{DynamicResource TitleTextBrush}"
               BorderThickness="1"
-              BorderBrush="#E6E6E6"
+              BorderBrush="{DynamicResource DividerBrush}"
               SelectedItem="{Binding App.AgeRating}"
               Padding="10,7"
               FontSize="13"
@@ -202,16 +203,16 @@
         </Grid>
         <TextBlock
           Text="{DynamicResource Discount}"
-          FontSize="12"
-          Foreground="#828282"
+          Style="{DynamicResource CaptionStyle}"
           Margin="0,0,0,4"
         />
         <TextBox
           Style="{DynamicResource FormTextBoxStyle}"
+          BorderBrush="{DynamicResource DividerBrush}"
           Text="{Binding App.DiscountPercent, UpdateSourceTrigger=PropertyChanged}"
           Margin="0,0,0,14"
         />
-        <TextBlock Text="App Color (hex)" FontSize="12" Foreground="#828282" Margin="0,0,0,4" />
+        <TextBlock Text="App Color (hex)" Style="{DynamicResource CaptionStyle}" Margin="0,0,0,4" />
         <Grid Margin="0,0,0,14">
           <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -220,6 +221,7 @@
           <TextBox
             Grid.Column="0"
             Style="{DynamicResource FormTextBoxStyle}"
+            BorderBrush="{DynamicResource DividerBrush}"
             Text="{Binding App.Color, UpdateSourceTrigger=PropertyChanged}"
           />
           <Border
@@ -246,12 +248,13 @@
         </WrapPanel>
       </StackPanel>
     </ScrollViewer>
+    <!-- Footer -->
     <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,16,0,0">
       <Button
         Content="{DynamicResource Cancel}"
         Style="{DynamicResource GetButtonStyle}"
-        Margin="0,0,10,0"
         MinWidth="80"
+        Margin="0,0,10,0"
         Command="{Binding CancelCommand}"
       />
       <Button

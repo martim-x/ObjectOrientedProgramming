@@ -38,6 +38,11 @@
   <SolidColorBrush x:Key="PopupBgBrush" Color="#2C2C2E" />
   <SolidColorBrush x:Key="ErrorBrush" Color="#FF3B30" />
   <SolidColorBrush x:Key="DangerBrush" Color="#FF3B30" />
+  <SolidColorBrush x:Key="FeaturedBannerLightStartBrush" Color="#162447" />
+  <SolidColorBrush x:Key="FeaturedBannerLightEndBrush" Color="#1F4068" />
+  <SolidColorBrush x:Key="FeaturedBannerTextBrush" Color="#FFFFFF" />
+  <SolidColorBrush x:Key="FilterPopupBgBrush" Color="#1C1C1E" />
+  <SolidColorBrush x:Key="FilterPopupBorderBrush" Color="#333333" />
   <!-- ─── Scalar values (same as light) ─────────── -->
   <sys:Double x:Key="NavFontSize">13</sys:Double>
   <sys:Double x:Key="FormFontSize">14</sys:Double>
