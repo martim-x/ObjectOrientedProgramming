@@ -20,7 +20,7 @@ namespace Project.Data
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
-                optionsBuilder.UseNpgsql(PostgreSQLRep.LoadConnectionString());
+                optionsBuilder.UseNpgsql(PostgreSQLRepEF.LoadConnectionString());
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -69,12 +69,12 @@ namespace Project.Data
         }
     }
 
-    public class PostgreSQLRep : BaseRepository
+    public class PostgreSQLRepEF : BaseRepository
     {
         private readonly PostgreDbContext _db;
         private readonly Guid _userId;
 
-        public PostgreSQLRep(Guid currentUserId = default)
+        public PostgreSQLRepEF(Guid currentUserId = default)
         {
             _userId = currentUserId;
 
