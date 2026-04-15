@@ -35,6 +35,9 @@ namespace Project.Data
         protected static string HashPassword(string password) =>
             Convert.ToHexString(SHA256.HashData(Encoding.UTF8.GetBytes(password))).ToLower();
 
+        protected static DateTime Utc(int year, int month, int day) =>
+            DateTime.SpecifyKind(new DateTime(year, month, day), DateTimeKind.Unspecified);
+
         // ── Seed — Apps ──────────────────────────────────────────────────────────
 
         protected static List<App> SeedApps() =>
@@ -60,7 +63,7 @@ namespace Project.Data
                     IsFeatured = true,
                     IsInStock = true,
                     DownloadCount = 5200000,
-                    ReleaseDate = new DateTime(2016, 9, 27),
+                    ReleaseDate = Utc(2016, 9, 27),
                     Tags = new() { "Design", "Prototyping", "Collaboration", "UI" },
                 },
                 new App
@@ -83,7 +86,7 @@ namespace Project.Data
                     IsFeatured = true,
                     IsInStock = true,
                     DownloadCount = 12000000,
-                    ReleaseDate = new DateTime(2013, 8, 14),
+                    ReleaseDate = Utc(2013, 8, 14),
                     Tags = new() { "Messaging", "Teams", "Productivity", "Business" },
                 },
                 new App
@@ -106,7 +109,7 @@ namespace Project.Data
                     IsFeatured = false,
                     IsInStock = true,
                     DownloadCount = 8000000,
-                    ReleaseDate = new DateTime(2003, 10, 24),
+                    ReleaseDate = Utc(2003, 10, 24),
                     Tags = new() { "IDE", "Apple", "Swift", "Development" },
                 },
                 new App
@@ -130,7 +133,7 @@ namespace Project.Data
                     IsInStock = true,
                     DownloadCount = 9500000,
                     DiscountPercent = 20,
-                    ReleaseDate = new DateTime(1990, 2, 19),
+                    ReleaseDate = Utc(1990, 2, 19),
                     Tags = new() { "Design", "Photo Editing", "Creative", "Adobe" },
                 },
                 new App
@@ -153,7 +156,7 @@ namespace Project.Data
                     IsFeatured = false,
                     IsInStock = true,
                     DownloadCount = 7800000,
-                    ReleaseDate = new DateTime(2016, 6, 1),
+                    ReleaseDate = Utc(2016, 6, 1),
                     Tags = new() { "Notes", "Productivity", "Wiki", "Database" },
                 },
                 new App
@@ -175,7 +178,7 @@ namespace Project.Data
                     IsFeatured = true,
                     IsInStock = true,
                     DownloadCount = 20000000,
-                    ReleaseDate = new DateTime(2015, 5, 13),
+                    ReleaseDate = Utc(2015, 5, 13),
                     Tags = new() { "Chat", "Gaming", "Voice", "Social" },
                 },
                 new App
@@ -198,7 +201,7 @@ namespace Project.Data
                     IsFeatured = true,
                     IsInStock = true,
                     DownloadCount = 25000000,
-                    ReleaseDate = new DateTime(2015, 4, 29),
+                    ReleaseDate = Utc(2015, 4, 29),
                     Tags = new() { "IDE", "Editor", "Development", "Microsoft" },
                 },
                 new App
@@ -221,7 +224,7 @@ namespace Project.Data
                     IsFeatured = false,
                     IsInStock = true,
                     DownloadCount = 2100000,
-                    ReleaseDate = new DateTime(2011, 6, 21),
+                    ReleaseDate = Utc(2011, 6, 21),
                     Tags = new() { "Video", "Editing", "Professional", "Apple" },
                 },
                 new App
@@ -244,7 +247,7 @@ namespace Project.Data
                     IsFeatured = false,
                     IsInStock = true,
                     DownloadCount = 1800000,
-                    ReleaseDate = new DateTime(1993, 1, 1),
+                    ReleaseDate = Utc(1993, 1, 1),
                     Tags = new() { "Music", "Audio", "Production", "Apple" },
                 },
                 new App
@@ -266,7 +269,7 @@ namespace Project.Data
                     IsFeatured = true,
                     IsInStock = true,
                     DownloadCount = 30000000,
-                    ReleaseDate = new DateTime(2003, 9, 12),
+                    ReleaseDate = Utc(2003, 9, 12),
                     Tags = new() { "Games", "Gaming", "Valve", "Store" },
                 },
                 new App
@@ -288,7 +291,7 @@ namespace Project.Data
                     IsFeatured = true,
                     IsInStock = true,
                     DownloadCount = 50000000,
-                    ReleaseDate = new DateTime(2008, 10, 7),
+                    ReleaseDate = Utc(2008, 10, 7),
                     Tags = new() { "Music", "Podcasts", "Streaming", "Audio" },
                 },
                 new App
@@ -311,7 +314,7 @@ namespace Project.Data
                     IsFeatured = false,
                     IsInStock = true,
                     DownloadCount = 40000000,
-                    ReleaseDate = new DateTime(2013, 8, 14),
+                    ReleaseDate = Utc(2013, 8, 14),
                     Tags = new() { "Messaging", "Privacy", "Social", "Chat" },
                 },
             };

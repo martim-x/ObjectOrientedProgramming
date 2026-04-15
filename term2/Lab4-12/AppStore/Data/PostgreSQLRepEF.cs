@@ -28,9 +28,33 @@ namespace Project.Data
             modelBuilder.Entity<App>(e =>
             {
                 e.ToTable("apps");
+
                 e.HasKey(a => a.Id);
 
+                e.Property(a => a.Id).HasColumnName("id");
+                e.Property(a => a.ShortName).HasColumnName("short_name");
+                e.Property(a => a.FullName).HasColumnName("full_name");
+                e.Property(a => a.Description).HasColumnName("description");
+                e.Property(a => a.Developer).HasColumnName("developer");
+                e.Property(a => a.Category).HasColumnName("category");
+                e.Property(a => a.Rating).HasColumnName("rating");
+                e.Property(a => a.RatingCount).HasColumnName("rating_count");
+                e.Property(a => a.Price).HasColumnName("price");
+                e.Property(a => a.Version).HasColumnName("version");
+                e.Property(a => a.SizeMB).HasColumnName("size_mb");
+                e.Property(a => a.Country).HasColumnName("country");
+                e.Property(a => a.AgeRating).HasColumnName("age_rating");
+                e.Property(a => a.Color).HasColumnName("color");
+                e.Property(a => a.IsFeatured).HasColumnName("is_featured");
+                e.Property(a => a.IsInStock).HasColumnName("is_in_stock");
+                e.Property(a => a.DownloadCount).HasColumnName("download_count");
+                e.Property(a => a.DiscountPercent).HasColumnName("discount_percent");
+                e.Property(a => a.ReleaseDate)
+                    .HasColumnName("release_date")
+                    .HasColumnType("timestamp without time zone");
+
                 e.Property(a => a.Tags)
+                    .HasColumnName("tags")
                     .HasConversion(
                         v => string.Join(",", v),
                         v =>
@@ -47,14 +71,32 @@ namespace Project.Data
             modelBuilder.Entity<User>(e =>
             {
                 e.ToTable("users");
+
                 e.HasKey(u => u.Id);
+
+                e.Property(u => u.Id).HasColumnName("id");
+                e.Property(u => u.Login).HasColumnName("login");
+                e.Property(u => u.PasswordHash).HasColumnName("password_hash");
+                e.Property(u => u.FirstName).HasColumnName("first_name");
+                e.Property(u => u.LastName).HasColumnName("last_name");
+                e.Property(u => u.Email).HasColumnName("email");
+                e.Property(u => u.Role).HasColumnName("role");
+                e.Property(u => u.AvatarColor).HasColumnName("avatar_color");
+
                 e.Ignore(u => u.AvatarLetter);
             });
 
             modelBuilder.Entity<UsersApps>(e =>
             {
                 e.ToTable("users_apps");
+
                 e.HasKey(x => new { x.UserId, x.AppId });
+
+                e.Property(x => x.UserId).HasColumnName("user_id");
+                e.Property(x => x.AppId).HasColumnName("app_id");
+                e.Property(x => x.InstalledAt)
+                    .HasColumnName("installed_at")
+                    .HasColumnType("timestamp without time zone");
 
                 e.HasOne<User>()
                     .WithMany()
@@ -85,7 +127,6 @@ namespace Project.Data
             _db = new PostgreDbContext(options);
 
             EnsureDatabaseCreated();
-
             if (!_db.Apps.Any())
                 SeedAppsToDb();
 
@@ -146,6 +187,18 @@ namespace Project.Data
         {
             _db.Database.ExecuteSqlRaw(
                 """
+                    create table if not exists users
+                    (
+                        id uuid primary key,
+                        login text not null unique,
+                        password_hash text not null,
+                        first_name text null,
+                        last_name text null,
+                        email text null,
+                        role integer not null,
+                        avatar_color text not null
+                    );
+
                     create table if not exists apps
                     (
                         id uuid primary key,
@@ -168,18 +221,6 @@ namespace Project.Data
                         discount_percent double precision null,
                         release_date timestamp without time zone not null,
                         tags text not null
-                    );
-
-                    create table if not exists users
-                    (
-                        id uuid primary key,
-                        login text not null unique,
-                        password_hash text not null,
-                        first_name text null,
-                        last_name text null,
-                        email text null,
-                        role integer not null,
-                        avatar_color text not null
                     );
 
                     create table if not exists users_apps
@@ -272,7 +313,7 @@ namespace Project.Data
                     {
                         UserId = _userId,
                         AppId = appId,
-                        InstalledAt = DateTime.UtcNow,
+                        InstalledAt = DateTime.Now,
                     }
                 );
 
@@ -280,7 +321,7 @@ namespace Project.Data
             }
             else
             {
-                record.InstalledAt = DateTime.UtcNow;
+                record.InstalledAt = DateTime.Now;
             }
 
             _db.SaveChanges();
