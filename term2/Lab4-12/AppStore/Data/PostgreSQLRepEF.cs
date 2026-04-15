@@ -99,7 +99,8 @@ namespace Project.Data
             if (!File.Exists(envPath))
                 envPath = Path.Combine(Directory.GetCurrentDirectory(), ".env");
 
-            string host = "0.0.0.0",
+            string host = "localhost",
+                // host = "172.20.10.2",
                 port = "5433",
                 database = "postgres",
                 username = "postgres",
