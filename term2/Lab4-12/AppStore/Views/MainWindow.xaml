@@ -11,30 +11,30 @@
   Style="{DynamicResource AppWindowStyle}"
   WindowStartupLocation="CenterScreen"
 >
-  <Grid>
-    <Grid.ColumnDefinitions>
-      <ColumnDefinition Width="220" MinWidth="180" MaxWidth="280" />
-      <ColumnDefinition Width="*" />
-    </Grid.ColumnDefinitions>
-    <!-- SIDEBAR -->
-    <Border
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="220" MinWidth="180" MaxWidth="280" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <!-- SIDEBAR -->
+        <Border
       Grid.Column="0"
       Background="{DynamicResource SidebarBgBrush}"
       BorderThickness="0,0,1,0"
       BorderBrush="{DynamicResource SeparatorBrush}"
     >
-      <DockPanel LastChildFill="True">
-        <!-- Logo + lang switcher -->
-        <StackPanel DockPanel.Dock="Top" Margin="16,20,16,16">
-          <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
-            <Border Width="28" Height="28" CornerRadius="7" Margin="0,0,10,0">
-              <Border.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
-                  <GradientStop Color="#0072F7" Offset="0" />
-                  <GradientStop Color="#34AADC" Offset="1" />
-                </LinearGradientBrush>
-              </Border.Background>
-              <TextBlock
+            <DockPanel LastChildFill="True">
+                <!-- Logo + lang switcher -->
+                <StackPanel DockPanel.Dock="Top" Margin="16,20,16,16">
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,14">
+                        <Border Width="28" Height="28" CornerRadius="7" Margin="0,0,10,0">
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                    <GradientStop Color="#0072F7" Offset="0" />
+                                    <GradientStop Color="#34AADC" Offset="1" />
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <TextBlock
                 Text="A"
                 FontSize="15"
                 FontWeight="Bold"
@@ -42,17 +42,17 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
               />
-            </Border>
-            <TextBlock
+                        </Border>
+                        <TextBlock
               Text="{DynamicResource AppTitle}"
               FontSize="15"
               FontWeight="SemiBold"
               Foreground="{DynamicResource TitleTextBrush}"
               VerticalAlignment="Center"
             />
-          </StackPanel>
-          <StackPanel Orientation="Horizontal">
-            <Button
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button
               Content="EN"
               Style="{DynamicResource GetButtonStyle}"
               Padding="10,4"
@@ -61,7 +61,7 @@
               Command="{Binding SwitchLanguageCommand}"
               CommandParameter="en"
             />
-            <Button
+                        <Button
               Content="RU"
               Style="{DynamicResource GetButtonStyle}"
               Padding="10,4"
@@ -69,23 +69,46 @@
               Command="{Binding SwitchLanguageCommand}"
               CommandParameter="ru"
             />
-          </StackPanel>
-        </StackPanel>
-        <!-- Search -->
-        <Border DockPanel.Dock="Top" Margin="12,0,12,12">
-          <Border
+                    </StackPanel>
+                </StackPanel>
+                <!-- Search -->
+                <Border DockPanel.Dock="Top" Margin="12,0,12,12">
+                    <Border
             x:Name="SearchBorder"
             Background="{DynamicResource SearchBubbleBgBrush}"
             CornerRadius="8"
             Padding="12,8"
           >
-            <Grid>
-              <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-              </Grid.ColumnDefinitions>
-              <Path
+                        <Border.Style>
+                            <Style TargetType="Border">
+                                <Setter Property="BorderThickness" Value="0" />
+                                <Setter Property="BorderBrush" Value="Transparent" />
+
+                                <Style.Triggers>
+                                    <DataTrigger Binding="{Binding SearchQuery}" Value="">
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="BorderBrush" Value="Transparent" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding SearchQuery}" Value="{x:Null}">
+                                        <Setter Property="BorderThickness" Value="0" />
+                                        <Setter Property="BorderBrush" Value="Transparent" />
+                                    </DataTrigger>
+
+                                    <DataTrigger Binding="{Binding SearchQuery.Length}" Value="1">
+                                        <Setter Property="BorderThickness" Value="2" />
+                                        <Setter Property="BorderBrush" Value="LimeGreen" />
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </Border.Style>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Path
                 Grid.Column="0"
                 Data="M10,10 L14,14 M7,3.5 A3.5,3.5,0,1,0,7,10.5 A3.5,3.5,0,1,0,7,3.5"
                 Stroke="{DynamicResource SearchTextBrush}"
@@ -98,14 +121,14 @@
                 Margin="0,0,6,0"
                 VerticalAlignment="Center"
               />
-              <TextBox
+                            <TextBox
                 Grid.Column="1"
                 Style="{DynamicResource SearchBoxStyle}"
                 Text="{Binding SearchQuery, UpdateSourceTrigger=PropertyChanged}"
                 GotFocus="OnSearchGotFocus"
                 LostFocus="OnSearchLostFocus"
               />
-              <Viewbox
+                            <Viewbox
                 Grid.Column="2"
                 Width="16"
                 Height="16"
@@ -113,9 +136,9 @@
                 Cursor="Hand"
                 Visibility="{Binding SearchQuery, Converter={StaticResource NullToVis}}"
               >
-                <Canvas Width="16" Height="16" MouseLeftButtonDown="OnClearSearch">
-                  <Ellipse Width="16" Height="16" Fill="#717171" />
-                  <Line
+                                <Canvas Width="16" Height="16" MouseLeftButtonDown="OnClearSearch">
+                                    <Ellipse Width="16" Height="16" Fill="#717171" />
+                                    <Line
                     X1="5"
                     Y1="5"
                     X2="11"
@@ -125,7 +148,7 @@
                     StrokeStartLineCap="Round"
                     StrokeEndLineCap="Round"
                   />
-                  <Line
+                                    <Line
                     X1="11"
                     Y1="5"
                     X2="5"
@@ -135,19 +158,19 @@
                     StrokeStartLineCap="Round"
                     StrokeEndLineCap="Round"
                   />
-                </Canvas>
-              </Viewbox>
-            </Grid>
-          </Border>
-        </Border>
-        <!-- Scrollable nav area -->
-        <ScrollViewer
+                                </Canvas>
+                            </Viewbox>
+                        </Grid>
+                    </Border>
+                </Border>
+                <!-- Scrollable nav area -->
+                <ScrollViewer
           DockPanel.Dock="Top"
           VerticalScrollBarVisibility="Auto"
           HorizontalScrollBarVisibility="Disabled"
         >
-          <StackPanel Margin="8,0,8,0">
-            <RadioButton
+                    <StackPanel Margin="8,0,8,0">
+                        <RadioButton
               GroupName="Cat"
               Style="{DynamicResource NavCategoryStyle}"
               IsChecked="True"
@@ -155,50 +178,50 @@
               CommandParameter="Discover"
               Content="{DynamicResource CatDiscover}"
             />
-            <RadioButton
+                        <RadioButton
               GroupName="Cat"
               Style="{DynamicResource NavCategoryStyle}"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Create"
               Content="{DynamicResource CatCreate}"
             />
-            <RadioButton
+                        <RadioButton
               GroupName="Cat"
               Style="{DynamicResource NavCategoryStyle}"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Work"
               Content="{DynamicResource CatWork}"
             />
-            <RadioButton
+                        <RadioButton
               GroupName="Cat"
               Style="{DynamicResource NavCategoryStyle}"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Play"
               Content="{DynamicResource CatPlay}"
             />
-            <RadioButton
+                        <RadioButton
               GroupName="Cat"
               Style="{DynamicResource NavCategoryStyle}"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Develop"
               Content="{DynamicResource CatDevelop}"
             />
-            <Border Height="1" Background="{DynamicResource SeparatorBrush}" Margin="4,10,4,10" />
-            <RadioButton
+                        <Border Height="1" Background="{DynamicResource SeparatorBrush}" Margin="4,10,4,10" />
+                        <RadioButton
               GroupName="Cat"
               Style="{DynamicResource NavCategoryStyle}"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Categories"
               Content="{DynamicResource CatCategories}"
             />
-            <ItemsControl
+                        <ItemsControl
               ItemsSource="{Binding AllTags}"
               Visibility="{Binding IsCategoryGridOpen, Converter={StaticResource BoolToVis}}"
               Margin="8,0,0,0"
             >
-              <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                  <RadioButton
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <RadioButton
                     GroupName="CatTag"
                     Style="{DynamicResource NavCategoryStyle}"
                     Padding="10,7"
@@ -208,22 +231,22 @@
                     CommandParameter="{Binding}"
                     Content="{Binding}"
                   />
-                </DataTemplate>
-              </ItemsControl.ItemTemplate>
-            </ItemsControl>
-            <Border Height="1" Background="{DynamicResource SeparatorBrush}" Margin="4,10,4,10" />
-            <RadioButton
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Border Height="1" Background="{DynamicResource SeparatorBrush}" Margin="4,10,4,10" />
+                        <RadioButton
               GroupName="Cat"
               Style="{DynamicResource NavCategoryStyle}"
               Command="{Binding SelectCategoryCommand}"
               CommandParameter="Installed"
               Content="{DynamicResource CatInstalled}"
             />
-            <Border Height="16" />
-          </StackPanel>
-        </ScrollViewer>
-        <!-- Avatar profile button -->
-        <Button
+                        <Border Height="16" />
+                    </StackPanel>
+                </ScrollViewer>
+                <!-- Avatar profile button -->
+                <Button
           DockPanel.Dock="Bottom"
           Margin="12,0,12,12"
           Style="{DynamicResource IconButtonStyle}"
@@ -231,12 +254,12 @@
           HorizontalContentAlignment="Left"
           Click="OnProfileClick"
         >
-          <Grid>
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="Auto" />
-              <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Border
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border
               Grid.Column="0"
               Width="34"
               Height="34"
@@ -244,7 +267,7 @@
               Background="{Binding CurrentUser.AvatarColor, Converter={StaticResource ColorBrush}}"
               Margin="0,0,10,0"
             >
-              <TextBlock
+                            <TextBlock
                 Text="{Binding CurrentUser.AvatarLetter}"
                 FontSize="14"
                 FontWeight="Bold"
@@ -252,98 +275,98 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
               />
-            </Border>
-            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-              <TextBlock
+                        </Border>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock
                 Text="{Binding CurrentUser.Login}"
                 FontSize="13"
                 FontWeight="SemiBold"
                 Foreground="{DynamicResource TitleTextBrush}"
                 TextTrimming="CharacterEllipsis"
               />
-              <TextBlock
+                            <TextBlock
                 Text="{Binding IsAdmin, Converter={StaticResource RoleNameConv}}"
                 FontSize="11"
                 Foreground="{DynamicResource SecondaryTextBrush}"
               />
-            </StackPanel>
-          </Grid>
-        </Button>
-        <!-- Stats -->
-        <Border
+                        </StackPanel>
+                    </Grid>
+                </Button>
+                <!-- Stats -->
+                <Border
           DockPanel.Dock="Bottom"
           Margin="12,0,12,4"
           Padding="12,10"
           Background="{DynamicResource CategorySelectedBgBrush}"
           CornerRadius="10"
         >
-          <StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
-              <TextBlock
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
+                            <TextBlock
                 Text="{Binding TotalCount}"
                 FontSize="13"
                 FontWeight="SemiBold"
                 Foreground="{DynamicResource TitleTextBrush}"
                 Margin="0,0,4,0"
               />
-              <TextBlock
+                            <TextBlock
                 Text="{DynamicResource AppsInStore}"
                 FontSize="12"
                 Foreground="{DynamicResource SecondaryTextBrush}"
                 VerticalAlignment="Center"
               />
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-              <TextBlock
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
                 Text="{Binding DownloadedCount}"
                 FontSize="13"
                 FontWeight="SemiBold"
                 Foreground="{DynamicResource AccentBlueBrush}"
                 Margin="0,0,4,0"
               />
-              <TextBlock
+                            <TextBlock
                 Text="{DynamicResource AppsInstalled}"
                 FontSize="12"
                 Foreground="{DynamicResource SecondaryTextBrush}"
                 VerticalAlignment="Center"
               />
-            </StackPanel>
-          </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Grid />
+            </DockPanel>
         </Border>
-        <Grid />
-      </DockPanel>
-    </Border>
-    <!-- MAIN CONTENT -->
-    <Grid Grid.Column="1" Background="{DynamicResource WindowBgBrush}">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="Auto" />
-        <RowDefinition Height="*" />
-      </Grid.RowDefinitions>
-      <!-- Featured banner -->
-      <views:FeaturedBannerView
+        <!-- MAIN CONTENT -->
+        <Grid Grid.Column="1" Background="{DynamicResource WindowBgBrush}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <!-- Featured banner -->
+            <views:FeaturedBannerView
         Grid.Row="0"
         DataContext="{Binding}"
         Visibility="{Binding IsFeaturedVisible, Converter={StaticResource BoolToVis}}"
         Margin="20,20,20,0"
       />
-      <!-- Section header -->
-      <Border
+            <!-- Section header -->
+            <Border
         Grid.Row="1"
         Background="{DynamicResource WindowBgBrush}"
         BorderThickness="0,0,0,1"
         BorderBrush="{DynamicResource SeparatorBrush}"
         Padding="20,12"
       >
-        <Grid>
-          <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-          </Grid.ColumnDefinitions>
-          <TextBlock
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock
             Grid.Column="0"
             VerticalAlignment="Center"
             Text="{Binding SelectedCategoryLabel}"
@@ -351,8 +374,8 @@
             FontWeight="Bold"
             Foreground="{DynamicResource TitleTextBrush}"
           />
-          <!-- UNDO -->
-          <Button
+                    <!-- UNDO -->
+                    <Button
             Grid.Column="1"
             Style="{DynamicResource IconButtonStyle}"
             Width="34"
@@ -362,7 +385,7 @@
             Command="{Binding UndoCommand}"
             ToolTip="Undo"
           >
-            <TextBlock
+                        <TextBlock
               Text="←"
               FontSize="16"
               FontWeight="SemiBold"
@@ -370,9 +393,9 @@
               HorizontalAlignment="Center"
               VerticalAlignment="Center"
             />
-          </Button>
-          <!-- REDO -->
-          <Button
+                    </Button>
+                    <!-- REDO -->
+                    <Button
             Grid.Column="2"
             Style="{DynamicResource IconButtonStyle}"
             Width="34"
@@ -382,7 +405,7 @@
             Command="{Binding RedoCommand}"
             ToolTip="Redo"
           >
-            <TextBlock
+                        <TextBlock
               Text="→"
               FontSize="16"
               FontWeight="SemiBold"
@@ -390,95 +413,95 @@
               HorizontalAlignment="Center"
               VerticalAlignment="Center"
             />
-          </Button>
-          <!-- FILTERS -->
-          <Button
+                    </Button>
+                    <!-- FILTERS -->
+                    <Button
             Grid.Column="3"
             Style="{DynamicResource GetButtonStyle}"
             Margin="0,0,10,0"
             Padding="14,6"
             Click="OnFilterClick"
           >
-            <StackPanel Orientation="Horizontal">
-              <TextBlock
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
                 Text="⇅"
                 FontSize="14"
                 Margin="0,0,5,0"
                 Foreground="{DynamicResource GetBtnTextBrush}"
               />
-              <TextBlock
+                            <TextBlock
                 Text="{DynamicResource Filters}"
                 Foreground="{DynamicResource GetBtnTextBrush}"
                 FontSize="14"
                 FontWeight="SemiBold"
               />
-            </StackPanel>
-          </Button>
-          <!-- ADD APP -->
-          <Button
+                        </StackPanel>
+                    </Button>
+                    <!-- ADD APP -->
+                    <Button
             Grid.Column="4"
             Style="{DynamicResource PrimaryButtonStyle}"
             Padding="14,6"
             Click="OnAddAppClick"
             Visibility="{Binding IsAdmin, Converter={StaticResource BoolToVis}}"
           >
-            <TextBlock Text="{DynamicResource AddApp}" FontSize="14" />
-          </Button>
-        </Grid>
-      </Border>
-      <!-- App list -->
-      <ScrollViewer
+                        <TextBlock Text="{DynamicResource AddApp}" FontSize="14" />
+                    </Button>
+                </Grid>
+            </Border>
+            <!-- App list -->
+            <ScrollViewer
         Grid.Row="2"
         VerticalScrollBarVisibility="Auto"
         HorizontalScrollBarVisibility="Disabled"
         Visibility="{Binding IsCategoryGridOpen, Converter={StaticResource InverseBoolToVis}}"
       >
-        <StackPanel>
-          <Grid Margin="20,14,20,4">
-            <Grid.ColumnDefinitions>
-              <ColumnDefinition Width="*" />
-              <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <TextBlock
+                <StackPanel>
+                    <Grid Margin="20,14,20,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
               Grid.Column="0"
               Text="{DynamicResource TopApps}"
               FontSize="17"
               FontWeight="Bold"
               Foreground="{DynamicResource TitleTextBrush}"
             />
-            <Button
+                        <Button
               Grid.Column="1"
               Style="{DynamicResource IconButtonStyle}"
               Padding="0"
               Background="Transparent"
               Command="{Binding ToggleSeeAllCommand}"
             >
-              <TextBlock
+                            <TextBlock
                 Text="{DynamicResource SeeAll}"
                 Padding="8,2"
                 FontSize="13"
                 Foreground="{DynamicResource SeeAllBrush}"
               />
-            </Button>
-          </Grid>
-          <ItemsControl ItemsSource="{Binding Apps}" Margin="0,0,0,20">
-            <ItemsControl.ItemTemplate>
-              <DataTemplate>
-                <views:AppRowView
+                        </Button>
+                    </Grid>
+                    <ItemsControl ItemsSource="{Binding Apps}" Margin="0,0,0,20">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <views:AppRowView
                   DownloadCommand="{Binding DataContext.DownloadCommand,
                                         RelativeSource={RelativeSource AncestorType=Window}}"
                   OpenDetailCommand="{Binding DataContext.OpenDetailCommand,
                                         RelativeSource={RelativeSource AncestorType=Window}}"
                 />
-              </DataTemplate>
-            </ItemsControl.ItemTemplate>
-          </ItemsControl>
-          <StackPanel
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                    <StackPanel
             Visibility="{Binding IsEmpty, Converter={StaticResource BoolToVis}}"
             HorizontalAlignment="Center"
             Margin="0,60"
           >
-            <TextBlock
+                        <TextBlock
               Text="{DynamicResource NoAppsFound}"
               FontSize="16"
               FontWeight="SemiBold"
@@ -486,31 +509,31 @@
               HorizontalAlignment="Center"
               Margin="0,0,0,6"
             />
-            <TextBlock
+                        <TextBlock
               Text="{DynamicResource NoAppsHint}"
               Foreground="{DynamicResource DescriptionTextBrush}"
               HorizontalAlignment="Center"
             />
-          </StackPanel>
-        </StackPanel>
-      </ScrollViewer>
-      <!-- Category grid -->
-      <ScrollViewer
+                    </StackPanel>
+                </StackPanel>
+            </ScrollViewer>
+            <!-- Category grid -->
+            <ScrollViewer
         Grid.Row="2"
         Padding="20,14,20,20"
         VerticalScrollBarVisibility="Auto"
         HorizontalScrollBarVisibility="Disabled"
         Visibility="{Binding IsCategoryGridOpen, Converter={StaticResource BoolToVis}}"
       >
-        <ItemsControl ItemsSource="{Binding Apps}">
-          <ItemsControl.ItemsPanel>
-            <ItemsPanelTemplate>
-              <WrapPanel Orientation="Horizontal" />
-            </ItemsPanelTemplate>
-          </ItemsControl.ItemsPanel>
-          <ItemsControl.ItemTemplate>
-            <DataTemplate>
-              <Border
+                <ItemsControl ItemsSource="{Binding Apps}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border
                 Background="{DynamicResource InfoCardBgBrush}"
                 CornerRadius="12"
                 Margin="0,0,12,12"
@@ -519,20 +542,20 @@
                 Cursor="Hand"
                 MouseLeftButtonUp="OnGridAppClick"
               >
-                <Grid>
-                  <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="44" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                  </Grid.ColumnDefinitions>
-                  <Border
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="44" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border
                     Grid.Column="0"
                     Width="40"
                     Height="40"
                     CornerRadius="9"
                     Background="{Binding Color, Converter={StaticResource ColorBrush}}"
                   >
-                    <TextBlock
+                                        <TextBlock
                       Text="{Binding ShortName}"
                       FontSize="10"
                       FontWeight="Bold"
@@ -541,23 +564,23 @@
                       VerticalAlignment="Center"
                       TextTrimming="CharacterEllipsis"
                     />
-                  </Border>
-                  <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,0,8,0">
-                    <TextBlock
+                                    </Border>
+                                    <StackPanel Grid.Column="1" VerticalAlignment="Center" Margin="10,0,8,0">
+                                        <TextBlock
                       Text="{Binding ShortName}"
                       FontSize="13"
                       FontWeight="SemiBold"
                       Foreground="{DynamicResource TitleTextBrush}"
                       TextTrimming="CharacterEllipsis"
                     />
-                    <TextBlock
+                                        <TextBlock
                       Text="{Binding Category}"
                       FontSize="11"
                       Foreground="{DynamicResource SecondaryTextBrush}"
                       Margin="0,1,0,0"
                     />
-                  </StackPanel>
-                  <Button
+                                    </StackPanel>
+                                    <Button
                     Grid.Column="2"
                     Style="{DynamicResource GetButtonStyle}"
                     Padding="12,4"
@@ -566,39 +589,39 @@
                                       RelativeSource={RelativeSource AncestorType=Window}}"
                     CommandParameter="{Binding}"
                   >
-                    <Button.Content>
-                      <TextBlock>
-                        <TextBlock.Text>
-                          <MultiBinding Converter="{StaticResource ButtonLabelConv}">
-                            <Binding Path="IsDownloaded" />
-                            <Binding Path="Price" />
-                            <Binding
+                                        <Button.Content>
+                                            <TextBlock>
+                                                <TextBlock.Text>
+                                                    <MultiBinding Converter="{StaticResource ButtonLabelConv}">
+                                                        <Binding Path="IsDownloaded" />
+                                                        <Binding Path="Price" />
+                                                        <Binding
                               Path="DataContext.CurrentLanguage"
                               RelativeSource="{RelativeSource AncestorType=Window}"
                             />
-                          </MultiBinding>
-                        </TextBlock.Text>
-                      </TextBlock>
-                    </Button.Content>
-                  </Button>
-                </Grid>
-              </Border>
-            </DataTemplate>
-          </ItemsControl.ItemTemplate>
-        </ItemsControl>
-      </ScrollViewer>
-    </Grid>
-    <!-- DETAIL PANEL -->
-    <Grid
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </Button.Content>
+                                    </Button>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ScrollViewer>
+        </Grid>
+        <!-- DETAIL PANEL -->
+        <Grid
       Grid.Column="1"
       Background="{DynamicResource WindowBgBrush}"
       Visibility="{Binding IsDetailOpen, Converter={StaticResource BoolToVis}}"
     >
-      <views:AppDetailView DataContext="{Binding}" />
-    </Grid>
-    <!-- FILTER POPUP -->
-    <Popup x:Name="FilterPopup" Grid.Column="1" StaysOpen="False" AllowsTransparency="True">
-      <Border
+            <views:AppDetailView DataContext="{Binding}" />
+        </Grid>
+        <!-- FILTER POPUP -->
+        <Popup x:Name="FilterPopup" Grid.Column="1" StaysOpen="False" AllowsTransparency="True">
+            <Border
         Background="{DynamicResource FilterPopupBgBrush}"
         CornerRadius="12"
         Padding="18,14"
@@ -606,25 +629,25 @@
         BorderThickness="1"
         BorderBrush="{DynamicResource FilterPopupBorderBrush}"
       >
-        <Border.Effect>
-          <DropShadowEffect ShadowDepth="0" BlurRadius="20" Opacity="0.15" Color="#000000" />
-        </Border.Effect>
-        <StackPanel>
-          <TextBlock
+                <Border.Effect>
+                    <DropShadowEffect ShadowDepth="0" BlurRadius="20" Opacity="0.15" Color="#000000" />
+                </Border.Effect>
+                <StackPanel>
+                    <TextBlock
             Text="{DynamicResource Filters}"
             FontSize="15"
             FontWeight="SemiBold"
             Foreground="{DynamicResource TitleTextBrush}"
             Margin="0,0,0,14"
           />
-          <TextBlock
+                    <TextBlock
             Text="{DynamicResource SortBy}"
             FontSize="12"
             FontWeight="SemiBold"
             Foreground="{DynamicResource SecondaryTextBrush}"
             Margin="0,0,0,6"
           />
-          <ComboBox
+                    <ComboBox
             Margin="0,0,0,14"
             FontSize="13"
             Padding="8,6"
@@ -635,31 +658,31 @@
             SelectedValue="{Binding SortBy}"
             SelectedValuePath="Tag"
           >
-            <ComboBoxItem Content="{DynamicResource SortFeatured}" Tag="featured" />
-            <ComboBoxItem Content="{DynamicResource SortRating}" Tag="rating" />
-            <ComboBoxItem Content="{DynamicResource SortPriceAsc}" Tag="price_asc" />
-            <ComboBoxItem Content="{DynamicResource SortPriceDesc}" Tag="price_desc" />
-            <ComboBoxItem Content="{DynamicResource SortDownloads}" Tag="downloads" />
-            <ComboBoxItem Content="{DynamicResource SortNewest}" Tag="newest" />
-            <ComboBoxItem Content="{DynamicResource SortName}" Tag="name" />
-          </ComboBox>
-          <TextBlock
+                        <ComboBoxItem Content="{DynamicResource SortFeatured}" Tag="featured" />
+                        <ComboBoxItem Content="{DynamicResource SortRating}" Tag="rating" />
+                        <ComboBoxItem Content="{DynamicResource SortPriceAsc}" Tag="price_asc" />
+                        <ComboBoxItem Content="{DynamicResource SortPriceDesc}" Tag="price_desc" />
+                        <ComboBoxItem Content="{DynamicResource SortDownloads}" Tag="downloads" />
+                        <ComboBoxItem Content="{DynamicResource SortNewest}" Tag="newest" />
+                        <ComboBoxItem Content="{DynamicResource SortName}" Tag="name" />
+                    </ComboBox>
+                    <TextBlock
             Text="{DynamicResource MinRating}"
             FontSize="12"
             FontWeight="SemiBold"
             Foreground="{DynamicResource SecondaryTextBrush}"
             Margin="0,0,0,4"
           />
-          <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
-            <TextBlock Text="★" Foreground="{DynamicResource RatingStarBrush}" FontSize="13" />
-            <TextBlock
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,4">
+                        <TextBlock Text="★" Foreground="{DynamicResource RatingStarBrush}" FontSize="13" />
+                        <TextBlock
               Text="{Binding MinRating, StringFormat={}{0:F1}}"
               Foreground="{DynamicResource TitleTextBrush}"
               FontSize="13"
               Margin="4,0"
             />
-          </StackPanel>
-          <Slider
+                    </StackPanel>
+                    <Slider
             Style="{DynamicResource DarkSliderStyle}"
             Minimum="0"
             Maximum="5"
@@ -667,55 +690,55 @@
             Value="{Binding MinRating}"
             Margin="0,0,0,14"
           />
-          <TextBlock
+                    <TextBlock
             Text="{DynamicResource PriceRange}"
             FontSize="12"
             FontWeight="SemiBold"
             Foreground="{DynamicResource SecondaryTextBrush}"
             Margin="0,0,0,4"
           />
-          <TextBlock
+                    <TextBlock
             Text="{Binding MaxPrice, StringFormat=Max: ${0:F0}}"
             Foreground="{DynamicResource TitleTextBrush}"
             FontSize="13"
             Margin="0,0,0,4"
           />
-          <Slider
+                    <Slider
             Style="{DynamicResource DarkSliderStyle}"
             Minimum="0"
             Maximum="100"
             Value="{Binding MaxPrice}"
             Margin="0,0,0,14"
           />
-          <CheckBox
+                    <CheckBox
             Content="{DynamicResource DownloadedOnly}"
             Style="{DynamicResource DarkCheckBoxStyle}"
             IsChecked="{Binding DownloadedOnly}"
             Margin="0,0,0,14"
           />
-          <Border Height="1" Background="{DynamicResource SeparatorBrush}" Margin="0,0,0,10" />
-          <Button
+                    <Border Height="1" Background="{DynamicResource SeparatorBrush}" Margin="0,0,0,10" />
+                    <Button
             Style="{DynamicResource GetButtonStyle}"
             HorizontalAlignment="Stretch"
             Margin="0,0,0,8"
             Click="OnResetFilters"
           >
-            <TextBlock
+                        <TextBlock
               Text="{DynamicResource ResetFilters}"
               Foreground="{DynamicResource GetBtnTextBrush}"
               FontSize="13"
               FontWeight="SemiBold"
             />
-          </Button>
-          <Button
+                    </Button>
+                    <Button
             Style="{DynamicResource DangerButtonStyle}"
             HorizontalAlignment="Stretch"
             Click="OnRestoreData"
           >
-            <TextBlock Text="{DynamicResource RestoreData}" FontSize="13" />
-          </Button>
-        </StackPanel>
-      </Border>
-    </Popup>
-  </Grid>
+                        <TextBlock Text="{DynamicResource RestoreData}" FontSize="13" />
+                    </Button>
+                </StackPanel>
+            </Border>
+        </Popup>
+    </Grid>
 </Window>

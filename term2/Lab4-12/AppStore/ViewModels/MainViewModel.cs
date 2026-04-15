@@ -1,11 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Windows.Input;
 using Project.Commands;
 using Project.Data;
 using Project.Services;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Diagnostics;
+using System.Linq;
+using System.Windows.Input;
 
 namespace Project.ViewModels
 {
@@ -92,11 +93,20 @@ namespace Project.ViewModels
             {
                 if (!SetField(ref _searchQuery, value))
                     return;
+
+                OnPropertyChanged(nameof(HasSearchText));
+
+                Debug.WriteLine($"[DataTrigger test] SearchQuery = '{_searchQuery}'");
+                Debug.WriteLine($"[DataTrigger test] HasSearchText = {HasSearchText}");
+
                 _visibleCount = 6;
                 _selectedTag = null;
                 RefreshList();
             }
         }
+
+        public bool HasSearchText => !string.IsNullOrWhiteSpace(_searchQuery);
+
 
         public string SelectedCategory
         {

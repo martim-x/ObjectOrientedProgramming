@@ -53,6 +53,6 @@ namespace Project.Data
     {
         public Guid UserId { get; set; }
         public Guid AppId { get; set; }
-        public DateTime InstalledAt { get; set; } = DateTime.Now;
+        public DateTime InstalledAt { get; set; }
     }
 }

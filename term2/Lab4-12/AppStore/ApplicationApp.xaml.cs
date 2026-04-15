@@ -51,8 +51,8 @@ namespace Project
 
         private void ShowLogin()
         {
-            // var repo = new JsonRep();
-            var repo = new PostgreSQLRepEF();
+             var repo = new JsonRep();
+            // var repo = new PostgreSQLRepEF();
             // var repo = new PostgreSQLRepADO();
             var auth = new AuthService(repo);
             var login = new LoginWindow(auth);

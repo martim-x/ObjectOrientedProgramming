@@ -13,7 +13,9 @@
     <!--
         ResourceDictionary — корневой словарь приложения.
         MergedDictionaries подключаются первыми; ключи из них
-        доступны наравне с ключами, объявленными напрямую здесь.
+        доступны наравне с ключами, c:\users\tim\documents\objectorientedprogramming\term2\lab4-12\appstore\applicationapp.xaml.cs
+c:\users\tim\documents\objectorientedprogramming\term2\lab4-12\appstore\applicationapp.xaml
+объявленными напрямую здесь.
     -->
     <ResourceDictionary>
       <ResourceDictionary.MergedDictionaries>
