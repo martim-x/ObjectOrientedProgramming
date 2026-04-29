@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,13 +11,126 @@ namespace Project.Views
 {
     public partial class FeaturedBannerView : UserControl
     {
+        // ---------- DependencyProperty: BannerTitle ----------
+        public static readonly DependencyProperty BannerTitleProperty = DependencyProperty.Register(
+            nameof(BannerTitle),
+            typeof(string),
+            typeof(FeaturedBannerView),
+            new FrameworkPropertyMetadata(
+                "Featured Today",
+                FrameworkPropertyMetadataOptions.AffectsRender
+            ),
+            new ValidateValueCallback(ValidateBannerTitle)
+        );
+
+        public string BannerTitle
+        {
+            get => (string)GetValue(BannerTitleProperty);
+            set => SetValue(BannerTitleProperty, value);
+        }
+
+        private static bool ValidateBannerTitle(object value)
+        {
+            var s = value as string;
+            return !string.IsNullOrWhiteSpace(s);
+        }
+
+        // ---------- DependencyProperty: AnimationDurationSeconds ----------
+        public static readonly DependencyProperty AnimationDurationSecondsProperty =
+            DependencyProperty.Register(
+                nameof(AnimationDurationSeconds),
+                typeof(double),
+                typeof(FeaturedBannerView),
+                new FrameworkPropertyMetadata(
+                    4.0,
+                    FrameworkPropertyMetadataOptions.AffectsRender,
+                    null,
+                    CoerceAnimationDuration
+                ),
+                ValidateAnimationDuration
+            );
+
+        public double AnimationDurationSeconds
+        {
+            get => (double)GetValue(AnimationDurationSecondsProperty);
+            set => SetValue(AnimationDurationSecondsProperty, value);
+        }
+
+        private static bool ValidateAnimationDuration(object value)
+        {
+            if (value is double d)
+                return d > 0 && !double.IsNaN(d) && !double.IsInfinity(d);
+            return false;
+        }
+
+        private static object CoerceAnimationDuration(DependencyObject d, object baseValue)
+        {
+            if (baseValue is not double dVal)
+                return 4.0;
+
+            if (dVal < 1.0)
+                return 1.0;
+            if (dVal > 10.0)
+                return 10.0;
+            return dVal;
+        }
+
+        // ---------- RoutedEvents ----------
+
+        // Tunnel (Preview)
+        public static readonly RoutedEvent PreviewBannerClickEvent =
+            EventManager.RegisterRoutedEvent(
+                nameof(PreviewBannerClick),
+                RoutingStrategy.Tunnel,
+                typeof(RoutedEventHandler),
+                typeof(FeaturedBannerView)
+            );
+
+        public event RoutedEventHandler PreviewBannerClick
+        {
+            add => AddHandler(PreviewBannerClickEvent, value);
+            remove => RemoveHandler(PreviewBannerClickEvent, value);
+        }
+
+        // Direct
+        public static readonly RoutedEvent BannerLoadedEvent = EventManager.RegisterRoutedEvent(
+            nameof(BannerLoaded),
+            RoutingStrategy.Direct,
+            typeof(RoutedEventHandler),
+            typeof(FeaturedBannerView)
+        );
+
+        public event RoutedEventHandler BannerLoaded
+        {
+            add => AddHandler(BannerLoadedEvent, value);
+            remove => RemoveHandler(BannerLoadedEvent, value);
+        }
+
+        // Bubble
+        public static readonly RoutedEvent BannerClickedEvent = EventManager.RegisterRoutedEvent(
+            nameof(BannerClicked),
+            RoutingStrategy.Bubble,
+            typeof(RoutedEventHandler),
+            typeof(FeaturedBannerView)
+        );
+
+        public event RoutedEventHandler BannerClicked
+        {
+            add => AddHandler(BannerClickedEvent, value);
+            remove => RemoveHandler(BannerClickedEvent, value);
+        }
+
         public FeaturedBannerView()
         {
             InitializeComponent();
+            Loaded += OnLoaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
+            // Direct event при загрузке
+            RaiseEvent(new RoutedEventArgs(BannerLoadedEvent, this));
+
             bool isDark = Application.Current.Resources["IsDarkTheme"] is bool b && b;
 
             Color startBase = isDark
@@ -38,11 +152,13 @@ namespace Project.Views
             GradStop0.Color = startBase;
             GradStop1.Color = endBase;
 
+            var duration = TimeSpan.FromSeconds(AnimationDurationSeconds);
+
             var anim0 = new ColorAnimation
             {
                 From = startBase,
                 To = startAlt,
-                Duration = TimeSpan.FromSeconds(4),
+                Duration = duration,
                 AutoReverse = true,
                 RepeatBehavior = RepeatBehavior.Forever,
             };
@@ -51,7 +167,7 @@ namespace Project.Views
             {
                 From = endBase,
                 To = endAlt,
-                Duration = TimeSpan.FromSeconds(4),
+                Duration = duration,
                 AutoReverse = true,
                 RepeatBehavior = RepeatBehavior.Forever,
             };
@@ -62,8 +178,17 @@ namespace Project.Views
 
         private void OnBannerClick(object sender, MouseButtonEventArgs e)
         {
+            // Tunneling событие пойдёт сверху вниз
+            RaiseEvent(new RoutedEventArgs(PreviewBannerClickEvent, this));
+
             if (DataContext is MainViewModel vm && vm.FeaturedApps.Count > 0)
                 vm.OpenDetailCommand.Execute(vm.FeaturedApps[0]);
+
+            // Bubbling событие пойдет снизу вверх
+            RaiseEvent(new RoutedEventArgs(BannerClickedEvent, this));
+
+            // Лог в Output (Debug)
+            Debug.WriteLine("[FeaturedBannerView] Banner clicked");
         }
     }
 }

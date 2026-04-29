@@ -44,7 +44,7 @@
           />
           <TextBlock Text="{Binding Category}" Style="{DynamicResource AppCategoryStyle}" />
         </StackPanel>
-        <!-- Get / price button — use ButtonLabel computed property -->
+        <!-- Get / price button -->
         <Button
           Grid.Column="2"
           VerticalAlignment="Center"

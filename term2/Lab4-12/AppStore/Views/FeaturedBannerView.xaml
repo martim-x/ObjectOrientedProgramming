@@ -22,14 +22,17 @@
         <ColumnDefinition Width="*" />
         <ColumnDefinition Width="Auto" />
       </Grid.ColumnDefinitions>
+      <!-- Левая часть: тексты и кнопка -->
       <StackPanel Grid.Column="0" VerticalAlignment="Center">
+        <!-- DP BannerTitle -->
         <TextBlock
-          Text="{DynamicResource FeaturedToday}"
+          Text="{Binding BannerTitle, RelativeSource={RelativeSource AncestorType=UserControl}}"
           FontSize="11"
           FontWeight="SemiBold"
           Foreground="{DynamicResource TextSecondaryBrush}"
           Margin="0,0,0,6"
         />
+        <!-- Основной заголовок из VM как было -->
         <TextBlock
           Text="{Binding FeaturedApps[0].FullName, FallbackValue='Featured App'}"
           FontSize="22"
@@ -55,6 +58,7 @@
           <TextBlock Text="{DynamicResource Download}" FontSize="13" />
         </Button>
       </StackPanel>
+      <!-- Правая часть: карточка приложения -->
       <Border
         Grid.Column="1"
         Width="100"
