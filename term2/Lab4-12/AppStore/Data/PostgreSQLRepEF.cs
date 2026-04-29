@@ -114,7 +114,7 @@ namespace Project.Data
     public class PostgreSQLRepEF : BaseRepository
     {
         private readonly PostgreDbContext _db;
-        private readonly Guid _userId;
+        private Guid _userId;
 
         public PostgreSQLRepEF(Guid currentUserId = default)
         {
@@ -127,11 +127,17 @@ namespace Project.Data
             _db = new PostgreDbContext(options);
 
             EnsureDatabaseCreated();
+
             if (!_db.Apps.Any())
                 SeedAppsToDb();
 
             if (!_db.Users.Any())
                 SeedUsersToDb();
+        }
+
+        public void SetCurrentUser(Guid? userId)
+        {
+            _userId = userId ?? Guid.Empty;
         }
 
         public static string LoadConnectionString()
@@ -141,7 +147,6 @@ namespace Project.Data
                 envPath = Path.Combine(Directory.GetCurrentDirectory(), ".env");
 
             string host = "localhost",
-                // host = "172.20.10.2",
                 port = "5433",
                 database = "postgres",
                 username = "postgres",
@@ -187,60 +192,60 @@ namespace Project.Data
         {
             _db.Database.ExecuteSqlRaw(
                 """
-                    create table if not exists users
-                    (
-                        id uuid primary key,
-                        login text not null unique,
-                        password_hash text not null,
-                        first_name text null,
-                        last_name text null,
-                        email text null,
-                        role integer not null,
-                        avatar_color text not null
-                    );
+                create table if not exists users
+                (
+                    id uuid primary key,
+                    login text not null unique,
+                    password_hash text not null,
+                    first_name text null,
+                    last_name text null,
+                    email text null,
+                    role integer not null,
+                    avatar_color text not null
+                );
 
-                    create table if not exists apps
-                    (
-                        id uuid primary key,
-                        short_name text not null,
-                        full_name text not null,
-                        description text not null,
-                        developer text not null,
-                        category text not null,
-                        rating double precision not null,
-                        rating_count integer not null,
-                        price double precision not null,
-                        version text not null,
-                        size_mb double precision not null,
-                        country text not null,
-                        age_rating text not null,
-                        color text not null,
-                        is_featured boolean not null,
-                        is_in_stock boolean not null,
-                        download_count integer not null,
-                        discount_percent double precision null,
-                        release_date timestamp without time zone not null,
-                        tags text not null
-                    );
+                create table if not exists apps
+                (
+                    id uuid primary key,
+                    short_name text not null,
+                    full_name text not null,
+                    description text not null,
+                    developer text not null,
+                    category text not null,
+                    rating double precision not null,
+                    rating_count integer not null,
+                    price double precision not null,
+                    version text not null,
+                    size_mb double precision not null,
+                    country text not null,
+                    age_rating text not null,
+                    color text not null,
+                    is_featured boolean not null,
+                    is_in_stock boolean not null,
+                    download_count integer not null,
+                    discount_percent double precision null,
+                    release_date timestamp without time zone not null,
+                    tags text not null
+                );
 
-                    create table if not exists users_apps
-                    (
-                        user_id uuid not null,
-                        app_id uuid not null,
-                        installed_at timestamp without time zone not null,
-                        primary key (user_id, app_id),
-                        constraint fk_users_apps_user
-                            foreign key (user_id) references users(id) on delete cascade,
-                        constraint fk_users_apps_app
-                            foreign key (app_id) references apps(id) on delete cascade
-                    );
+                create table if not exists users_apps
+                (
+                    user_id uuid not null,
+                    app_id uuid not null,
+                    installed_at timestamp without time zone not null,
+                    primary key (user_id, app_id),
+                    constraint fk_users_apps_user
+                        foreign key (user_id) references users(id) on delete cascade,
+                    constraint fk_users_apps_app
+                        foreign key (app_id) references apps(id) on delete cascade
+                );
                 """
             );
         }
 
         public override List<App> GetAllApps()
         {
-            var apps = _db.Apps.ToList();
+            var apps = _db.Apps.OrderBy(a => a.FullName).ThenBy(a => a.Id).ToList();
 
             var installedIds =
                 _userId == Guid.Empty
@@ -258,7 +263,7 @@ namespace Project.Data
 
         public override App? GetAppById(Guid id)
         {
-            var app = _db.Apps.Find(id);
+            var app = _db.Apps.FirstOrDefault(a => a.Id == id);
             if (app == null)
                 return null;
 
@@ -277,13 +282,36 @@ namespace Project.Data
 
         public override void UpdateApp(App app)
         {
-            _db.Apps.Update(app);
+            var existing = _db.Apps.FirstOrDefault(a => a.Id == app.Id);
+            if (existing == null)
+                throw new InvalidOperationException($"App with id {app.Id} not found.");
+
+            existing.ShortName = app.ShortName;
+            existing.FullName = app.FullName;
+            existing.Description = app.Description;
+            existing.Developer = app.Developer;
+            existing.Category = app.Category;
+            existing.Rating = app.Rating;
+            existing.RatingCount = app.RatingCount;
+            existing.Price = app.Price;
+            existing.Version = app.Version;
+            existing.SizeMB = app.SizeMB;
+            existing.Country = app.Country;
+            existing.AgeRating = app.AgeRating;
+            existing.Color = app.Color;
+            existing.IsFeatured = app.IsFeatured;
+            existing.IsInStock = app.IsInStock;
+            existing.DownloadCount = app.DownloadCount;
+            existing.DiscountPercent = app.DiscountPercent;
+            existing.ReleaseDate = app.ReleaseDate;
+            existing.Tags = app.Tags;
+
             _db.SaveChanges();
         }
 
         public override void DeleteApp(Guid id)
         {
-            var item = _db.Apps.Find(id);
+            var item = _db.Apps.FirstOrDefault(a => a.Id == id);
             if (item == null)
                 return;
 
@@ -300,7 +328,7 @@ namespace Project.Data
             if (_userId == Guid.Empty)
                 return;
 
-            var app = _db.Apps.Find(appId);
+            var app = _db.Apps.FirstOrDefault(a => a.Id == appId);
             if (app == null)
                 return;
 
@@ -332,7 +360,7 @@ namespace Project.Data
             if (_userId == Guid.Empty)
                 return;
 
-            var app = _db.Apps.Find(appId);
+            var app = _db.Apps.FirstOrDefault(a => a.Id == appId);
             if (app == null)
                 return;
 
@@ -359,7 +387,8 @@ namespace Project.Data
             SeedAppsToDb();
         }
 
-        public override List<User> GetAllUsers() => _db.Users.ToList();
+        public override List<User> GetAllUsers() =>
+            _db.Users.OrderBy(u => u.Login).ThenBy(u => u.Id).ToList();
 
         public override User? GetUserByLogin(string login) =>
             _db.Users.FirstOrDefault(u => u.Login.ToLower() == login.ToLower());
@@ -372,7 +401,18 @@ namespace Project.Data
 
         public override void UpdateUser(User user)
         {
-            _db.Users.Update(user);
+            var existing = _db.Users.FirstOrDefault(u => u.Id == user.Id);
+            if (existing == null)
+                throw new InvalidOperationException($"User with id {user.Id} not found.");
+
+            existing.Login = user.Login;
+            existing.PasswordHash = user.PasswordHash;
+            existing.FirstName = user.FirstName;
+            existing.LastName = user.LastName;
+            existing.Email = user.Email;
+            existing.Role = user.Role;
+            existing.AvatarColor = user.AvatarColor;
+
             _db.SaveChanges();
         }
 

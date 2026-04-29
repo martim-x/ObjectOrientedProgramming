@@ -34,6 +34,9 @@ namespace Project.Services
             if (_repo is PostgreSQLRepADO adoRep)
                 adoRep.SetCurrentUser(user.Id);
 
+            if (_repo is PostgreSQLRepEF efRep)
+                efRep.SetCurrentUser(user.Id);
+
             return _currentUser;
         }
 
@@ -46,6 +49,9 @@ namespace Project.Services
 
             if (_repo is PostgreSQLRepADO adoRep)
                 adoRep.SetCurrentUser(null);
+
+            if (_repo is PostgreSQLRepEF efRep)
+                efRep.SetCurrentUser(null);
         }
 
         public void UpdateProfile(string? firstName, string? lastName, string? email)
