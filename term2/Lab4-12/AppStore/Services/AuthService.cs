@@ -31,6 +31,9 @@ namespace Project.Services
             if (_repo is JsonRep jsonRep)
                 jsonRep.SetCurrentUser(user.Id);
 
+            if (_repo is PostgreSQLRepADO adoRep)
+                adoRep.SetCurrentUser(user.Id);
+
             return _currentUser;
         }
 
@@ -40,6 +43,9 @@ namespace Project.Services
 
             if (_repo is JsonRep jsonRep)
                 jsonRep.SetCurrentUser(null);
+
+            if (_repo is PostgreSQLRepADO adoRep)
+                adoRep.SetCurrentUser(null);
         }
 
         public void UpdateProfile(string? firstName, string? lastName, string? email)

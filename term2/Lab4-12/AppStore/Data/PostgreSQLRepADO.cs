@@ -9,7 +9,7 @@ namespace Project.Data
     public class PostgreSQLRepADO : BaseRepository
     {
         private readonly string _connectionString;
-        private readonly Guid _userId;
+        private Guid _userId;
 
         public PostgreSQLRepADO(Guid currentUserId = default)
         {
@@ -20,14 +20,19 @@ namespace Project.Data
             EnsureSeeded();
         }
 
+        public void SetCurrentUser(Guid? userId)
+        {
+            _userId = userId ?? Guid.Empty;
+        }
+
         public static string LoadConnectionString()
         {
             var envPath = Path.Combine(AppContext.BaseDirectory, ".env");
             if (!File.Exists(envPath))
                 envPath = Path.Combine(Directory.GetCurrentDirectory(), ".env");
 
-            string host = "localhost",
-                port = "5433",
+            string host = "0.0.0.0",
+                port = "5432",
                 database = "postgres",
                 username = "postgres",
                 password = "111";
@@ -68,6 +73,10 @@ namespace Project.Data
             return $"Host={host};Port={port};Database={database};Username={username};Password={password}";
         }
 
+        // =========================
+        // Apps (синхронные)
+        // =========================
+
         public override List<App> GetAllApps()
         {
             var apps = new List<App>();
@@ -77,12 +86,12 @@ namespace Project.Data
             connection.Open();
 
             const string sql = """
-                    select id, short_name, full_name, description, developer, category,
-                           rating, rating_count, price, version, size_mb, country,
-                           age_rating, color, is_featured, is_in_stock, download_count,
-                           discount_percent, release_date, tags
-                    from apps
-                    order by full_name
+                select id, short_name, full_name, description, developer, category,
+                       rating, rating_count, price, version, size_mb, country,
+                       age_rating, color, is_featured, is_in_stock, download_count,
+                       discount_percent, release_date, tags, logo
+                from apps
+                order by full_name, id
                 """;
 
             using var command = new NpgsqlCommand(sql, connection);
@@ -104,13 +113,13 @@ namespace Project.Data
             connection.Open();
 
             const string sql = """
-                    select id, short_name, full_name, description, developer, category,
-                           rating, rating_count, price, version, size_mb, country,
-                           age_rating, color, is_featured, is_in_stock, download_count,
-                           discount_percent, release_date, tags
-                    from apps
-                    where id = @id
-                    limit 1
+                select id, short_name, full_name, description, developer, category,
+                       rating, rating_count, price, version, size_mb, country,
+                       age_rating, color, is_featured, is_in_stock, download_count,
+                       discount_percent, release_date, tags, logo
+                from apps
+                where id = @id
+                limit 1
                 """;
 
             using var command = new NpgsqlCommand(sql, connection);
@@ -122,7 +131,6 @@ namespace Project.Data
 
             var app = MapApp(reader);
             app.IsDownloaded = IsAppDownloaded(id);
-
             return app;
         }
 
@@ -131,26 +139,40 @@ namespace Project.Data
             using var connection = new NpgsqlConnection(_connectionString);
             connection.Open();
 
-            const string sql = """
+            using var tx = connection.BeginTransaction();
+            try
+            {
+                const string sql = """
                     insert into apps
                     (
                         id, short_name, full_name, description, developer, category,
                         rating, rating_count, price, version, size_mb, country,
                         age_rating, color, is_featured, is_in_stock, download_count,
-                        discount_percent, release_date, tags
+                        discount_percent, release_date, tags, logo
                     )
                     values
                     (
                         @id, @short_name, @full_name, @description, @developer, @category,
                         @rating, @rating_count, @price, @version, @size_mb, @country,
                         @age_rating, @color, @is_featured, @is_in_stock, @download_count,
-                        @discount_percent, @release_date, @tags
+                        @discount_percent, @release_date, @tags, @logo
                     )
-                """;
+                    """;
 
-            using var command = new NpgsqlCommand(sql, connection);
-            FillAppParameters(command, app);
-            command.ExecuteNonQuery();
+                using var command = new NpgsqlCommand(sql, connection, tx);
+                FillAppParameters(command, app);
+
+                var logoBytes = CreateSolidLogoBytes(40, 40, 0x33, 0x99, 0xFF);
+                command.Parameters.AddWithValue("logo", logoBytes ?? (object)DBNull.Value);
+
+                command.ExecuteNonQuery();
+                tx.Commit();
+            }
+            catch
+            {
+                tx.Rollback();
+                throw;
+            }
         }
 
         public override void UpdateApp(App app)
@@ -158,7 +180,11 @@ namespace Project.Data
             using var connection = new NpgsqlConnection(_connectionString);
             connection.Open();
 
-            const string sql = """
+            using var tx = connection.BeginTransaction();
+
+            try
+            {
+                const string sql = """
                     update apps
                     set short_name = @short_name,
                         full_name = @full_name,
@@ -180,11 +206,22 @@ namespace Project.Data
                         release_date = @release_date,
                         tags = @tags
                     where id = @id
-                """;
+                    """;
 
-            using var command = new NpgsqlCommand(sql, connection);
-            FillAppParameters(command, app);
-            command.ExecuteNonQuery();
+                using var command = new NpgsqlCommand(sql, connection, tx);
+                FillAppParameters(command, app);
+
+                var rows = command.ExecuteNonQuery();
+                if (rows == 0)
+                    throw new InvalidOperationException($"App with id {app.Id} not found.");
+
+                tx.Commit();
+            }
+            catch
+            {
+                tx.Rollback();
+                throw;
+            }
         }
 
         public override void DeleteApp(Guid id)
@@ -192,15 +229,14 @@ namespace Project.Data
             using var connection = new NpgsqlConnection(_connectionString);
             connection.Open();
 
-            using var transaction = connection.BeginTransaction();
-
+            using var tx = connection.BeginTransaction();
             try
             {
                 using (
                     var deleteLinks = new NpgsqlCommand(
                         "delete from users_apps where app_id = @app_id",
                         connection,
-                        transaction
+                        tx
                     )
                 )
                 {
@@ -212,7 +248,7 @@ namespace Project.Data
                     var deleteApp = new NpgsqlCommand(
                         "delete from apps where id = @id",
                         connection,
-                        transaction
+                        tx
                     )
                 )
                 {
@@ -220,11 +256,11 @@ namespace Project.Data
                     deleteApp.ExecuteNonQuery();
                 }
 
-                transaction.Commit();
+                tx.Commit();
             }
             catch
             {
-                transaction.Rollback();
+                tx.Rollback();
                 throw;
             }
         }
@@ -237,8 +273,7 @@ namespace Project.Data
             using var connection = new NpgsqlConnection(_connectionString);
             connection.Open();
 
-            using var transaction = connection.BeginTransaction();
-
+            using var tx = connection.BeginTransaction();
             try
             {
                 bool appExists;
@@ -246,7 +281,7 @@ namespace Project.Data
                     var appExistsCmd = new NpgsqlCommand(
                         "select exists(select 1 from apps where id = @id)",
                         connection,
-                        transaction
+                        tx
                     )
                 )
                 {
@@ -256,7 +291,7 @@ namespace Project.Data
 
                 if (!appExists)
                 {
-                    transaction.Rollback();
+                    tx.Rollback();
                     return;
                 }
 
@@ -265,7 +300,7 @@ namespace Project.Data
                     var recordExistsCmd = new NpgsqlCommand(
                         "select exists(select 1 from users_apps where user_id = @user_id and app_id = @app_id)",
                         connection,
-                        transaction
+                        tx
                     )
                 )
                 {
@@ -282,7 +317,7 @@ namespace Project.Data
                         values (@user_id, @app_id, @installed_at)
                         """,
                         connection,
-                        transaction
+                        tx
                     );
 
                     insertLink.Parameters.AddWithValue("user_id", _userId);
@@ -293,7 +328,7 @@ namespace Project.Data
                     using var incDownloads = new NpgsqlCommand(
                         "update apps set download_count = download_count + 1 where id = @id",
                         connection,
-                        transaction
+                        tx
                     );
 
                     incDownloads.Parameters.AddWithValue("id", id);
@@ -308,7 +343,7 @@ namespace Project.Data
                         where user_id = @user_id and app_id = @app_id
                         """,
                         connection,
-                        transaction
+                        tx
                     );
 
                     updateLink.Parameters.AddWithValue("user_id", _userId);
@@ -317,11 +352,11 @@ namespace Project.Data
                     updateLink.ExecuteNonQuery();
                 }
 
-                transaction.Commit();
+                tx.Commit();
             }
             catch
             {
-                transaction.Rollback();
+                tx.Rollback();
                 throw;
             }
         }
@@ -334,8 +369,7 @@ namespace Project.Data
             using var connection = new NpgsqlConnection(_connectionString);
             connection.Open();
 
-            using var transaction = connection.BeginTransaction();
-
+            using var tx = connection.BeginTransaction();
             try
             {
                 int deletedRows;
@@ -346,7 +380,7 @@ namespace Project.Data
                         where user_id = @user_id and app_id = @app_id
                         """,
                         connection,
-                        transaction
+                        tx
                     )
                 )
                 {
@@ -367,18 +401,18 @@ namespace Project.Data
                         where id = @id
                         """,
                         connection,
-                        transaction
+                        tx
                     );
 
                     decDownloads.Parameters.AddWithValue("id", id);
                     decDownloads.ExecuteNonQuery();
                 }
 
-                transaction.Commit();
+                tx.Commit();
             }
             catch
             {
-                transaction.Rollback();
+                tx.Rollback();
                 throw;
             }
         }
@@ -388,40 +422,33 @@ namespace Project.Data
             using var connection = new NpgsqlConnection(_connectionString);
             connection.Open();
 
-            using var transaction = connection.BeginTransaction();
-
+            using var tx = connection.BeginTransaction();
             try
             {
-                using (
-                    var clearLinks = new NpgsqlCommand(
-                        "delete from users_apps",
-                        connection,
-                        transaction
-                    )
-                )
+                using (var clearLinks = new NpgsqlCommand("delete from users_apps", connection, tx))
                     clearLinks.ExecuteNonQuery();
 
-                using (
-                    var clearApps = new NpgsqlCommand("delete from apps", connection, transaction)
-                )
+                using (var clearApps = new NpgsqlCommand("delete from apps", connection, tx))
                     clearApps.ExecuteNonQuery();
 
-                using (
-                    var clearUsers = new NpgsqlCommand("delete from users", connection, transaction)
-                )
+                using (var clearUsers = new NpgsqlCommand("delete from users", connection, tx))
                     clearUsers.ExecuteNonQuery();
 
-                transaction.Commit();
+                tx.Commit();
             }
             catch
             {
-                transaction.Rollback();
+                tx.Rollback();
                 throw;
             }
 
             SeedUsersToDb();
             SeedAppsToDb();
         }
+
+        // =========================
+        // Users (синхронные)
+        // =========================
 
         public override List<User> GetAllUsers()
         {
@@ -431,9 +458,9 @@ namespace Project.Data
             connection.Open();
 
             const string sql = """
-                    select id, login, password_hash, first_name, last_name, email, role, avatar_color
-                    from users
-                    order by login
+                select id, login, password_hash, first_name, last_name, email, role, avatar_color
+                from users
+                order by login, id
                 """;
 
             using var command = new NpgsqlCommand(sql, connection);
@@ -451,10 +478,10 @@ namespace Project.Data
             connection.Open();
 
             const string sql = """
-                    select id, login, password_hash, first_name, last_name, email, role, avatar_color
-                    from users
-                    where lower(login) = lower(@login)
-                    limit 1
+                select id, login, password_hash, first_name, last_name, email, role, avatar_color
+                from users
+                where lower(login) = lower(@login)
+                limit 1
                 """;
 
             using var command = new NpgsqlCommand(sql, connection);
@@ -472,7 +499,10 @@ namespace Project.Data
             using var connection = new NpgsqlConnection(_connectionString);
             connection.Open();
 
-            const string sql = """
+            using var tx = connection.BeginTransaction();
+            try
+            {
+                const string sql = """
                     insert into users
                     (
                         id, login, password_hash, first_name, last_name, email, role, avatar_color
@@ -481,11 +511,19 @@ namespace Project.Data
                     (
                         @id, @login, @password_hash, @first_name, @last_name, @email, @role, @avatar_color
                     )
-                """;
+                    """;
 
-            using var command = new NpgsqlCommand(sql, connection);
-            FillUserParameters(command, user);
-            command.ExecuteNonQuery();
+                using var command = new NpgsqlCommand(sql, connection, tx);
+                FillUserParameters(command, user);
+                command.ExecuteNonQuery();
+
+                tx.Commit();
+            }
+            catch
+            {
+                tx.Rollback();
+                throw;
+            }
         }
 
         public override void UpdateUser(User user)
@@ -493,7 +531,10 @@ namespace Project.Data
             using var connection = new NpgsqlConnection(_connectionString);
             connection.Open();
 
-            const string sql = """
+            using var tx = connection.BeginTransaction();
+            try
+            {
+                const string sql = """
                     update users
                     set login = @login,
                         password_hash = @password_hash,
@@ -503,12 +544,24 @@ namespace Project.Data
                         role = @role,
                         avatar_color = @avatar_color
                     where id = @id
-                """;
+                    """;
 
-            using var command = new NpgsqlCommand(sql, connection);
-            FillUserParameters(command, user);
-            command.ExecuteNonQuery();
+                using var command = new NpgsqlCommand(sql, connection, tx);
+                FillUserParameters(command, user);
+                command.ExecuteNonQuery();
+
+                tx.Commit();
+            }
+            catch
+            {
+                tx.Rollback();
+                throw;
+            }
         }
+
+        // =========================
+        // Инфраструктура
+        // =========================
 
         private void EnsureDatabaseCreated()
         {
@@ -516,53 +569,54 @@ namespace Project.Data
             connection.Open();
 
             const string sql = """
-                    create table if not exists apps
-                    (
-                        id uuid primary key,
-                        short_name text not null,
-                        full_name text not null,
-                        description text not null,
-                        developer text not null,
-                        category text not null,
-                        rating double precision not null,
-                        rating_count integer not null,
-                        price double precision not null,
-                        version text not null,
-                        size_mb double precision not null,
-                        country text not null,
-                        age_rating text not null,
-                        color text not null,
-                        is_featured boolean not null,
-                        is_in_stock boolean not null,
-                        download_count integer not null,
-                        discount_percent double precision null,
-                        release_date timestamp without time zone not null,
-                        tags text not null
-                    );
+                create table if not exists apps
+                (
+                    id uuid primary key,
+                    short_name text not null,
+                    full_name text not null,
+                    description text not null,
+                    developer text not null,
+                    category text not null,
+                    rating double precision not null,
+                    rating_count integer not null,
+                    price double precision not null,
+                    version text not null,
+                    size_mb double precision not null,
+                    country text not null,
+                    age_rating text not null,
+                    color text not null,
+                    is_featured boolean not null,
+                    is_in_stock boolean not null,
+                    download_count integer not null,
+                    discount_percent double precision null,
+                    release_date timestamp without time zone not null,
+                    tags text not null,
+                    logo bytea null
+                );
 
-                    create table if not exists users
-                    (
-                        id uuid primary key,
-                        login text not null unique,
-                        password_hash text not null,
-                        first_name text null,
-                        last_name text null,
-                        email text null,
-                        role integer not null,
-                        avatar_color text not null
-                    );
+                create table if not exists users
+                (
+                    id uuid primary key,
+                    login text not null unique,
+                    password_hash text not null,
+                    first_name text null,
+                    last_name text null,
+                    email text null,
+                    role integer not null,
+                    avatar_color text not null
+                );
 
-                    create table if not exists users_apps
-                    (
-                        user_id uuid not null,
-                        app_id uuid not null,
-                        installed_at timestamp without time zone not null,
-                        primary key (user_id, app_id),
-                        constraint fk_users_apps_user
-                            foreign key (user_id) references users(id) on delete cascade,
-                        constraint fk_users_apps_app
-                            foreign key (app_id) references apps(id) on delete cascade
-                    );
+                create table if not exists users_apps
+                (
+                    user_id uuid not null,
+                    app_id uuid not null,
+                    installed_at timestamp without time zone not null,
+                    primary key (user_id, app_id),
+                    constraint fk_users_apps_user
+                        foreign key (user_id) references users(id) on delete cascade,
+                    constraint fk_users_apps_app
+                        foreign key (app_id) references apps(id) on delete cascade
+                );
                 """;
 
             using var command = new NpgsqlCommand(sql, connection);
@@ -606,20 +660,23 @@ namespace Project.Data
                         id, short_name, full_name, description, developer, category,
                         rating, rating_count, price, version, size_mb, country,
                         age_rating, color, is_featured, is_in_stock, download_count,
-                        discount_percent, release_date, tags
+                        discount_percent, release_date, tags, logo
                     )
                     values
                     (
                         @id, @short_name, @full_name, @description, @developer, @category,
                         @rating, @rating_count, @price, @version, @size_mb, @country,
                         @age_rating, @color, @is_featured, @is_in_stock, @download_count,
-                        @discount_percent, @release_date, @tags
+                        @discount_percent, @release_date, @tags, @logo
                     )
                     """,
                     connection
                 );
 
                 FillAppParameters(command, app);
+                var logoBytes = CreateSolidLogoBytes(40, 40, 0x33, 0x99, 0xFF);
+                command.Parameters.AddWithValue("logo", logoBytes ?? (object)DBNull.Value);
+
                 command.ExecuteNonQuery();
             }
         }
@@ -661,9 +718,9 @@ namespace Project.Data
             connection.Open();
 
             const string sql = """
-                    select app_id
-                    from users_apps
-                    where user_id = @user_id
+                select app_id
+                from users_apps
+                where user_id = @user_id
                 """;
 
             using var command = new NpgsqlCommand(sql, connection);
@@ -685,11 +742,11 @@ namespace Project.Data
             connection.Open();
 
             const string sql = """
-                    select exists(
-                        select 1
-                        from users_apps
-                        where user_id = @user_id and app_id = @app_id
-                    )
+                select exists(
+                    select 1
+                    from users_apps
+                    where user_id = @user_id and app_id = @app_id
+                )
                 """;
 
             using var command = new NpgsqlCommand(sql, connection);
@@ -789,5 +846,17 @@ namespace Project.Data
                 : raw.Split(',', StringSplitOptions.RemoveEmptyEntries)
                     .Select(x => x.Trim())
                     .ToList();
+
+        private static byte[] CreateSolidLogoBytes(int width, int height, byte r, byte g, byte b)
+        {
+            var buffer = new byte[width * height * 3];
+            for (int i = 0; i < buffer.Length; i += 3)
+            {
+                buffer[i] = r;
+                buffer[i + 1] = g;
+                buffer[i + 2] = b;
+            }
+            return buffer;
+        }
     }
 }
